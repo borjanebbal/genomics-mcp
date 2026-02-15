@@ -1,0 +1,59 @@
+import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import type { SnpService } from "../services/snp.service.js";
+import {
+  ListTraitsInputSchema,
+  type ListTraitsInput,
+} from "../schemas/tool-inputs.schemas.js";
+import { CHARACTER_LIMIT } from "../constants.js";
+import {
+  formatTraitListMarkdown,
+  truncateIfNeeded,
+} from "../utils/formatting.js";
+
+export function registerListTraitsTool(server: McpServer, snpService: SnpService): void {
+  server.tool(
+    "list_traits",
+    ListTraitsInputSchema.shape,
+    async (params: ListTraitsInput) => {
+      try {
+        const traits = await snpService.listTraits(params.search);
+
+        if (traits.length === 0) {
+          return {
+            content: [
+              {
+                type: "text",
+                text: params.search
+                  ? `No traits found matching '${params.search}'`
+                  : "No traits available in the database",
+              },
+            ],
+          };
+        }
+
+        let textContent: string;
+        if (params.response_format === "markdown") {
+          textContent = formatTraitListMarkdown(traits);
+        } else {
+          textContent = JSON.stringify({ traits, total: traits.length }, null, 2);
+        }
+
+        textContent = truncateIfNeeded(textContent, CHARACTER_LIMIT);
+
+        return {
+          content: [{ type: "text", text: textContent }],
+        };
+      } catch (error) {
+        return {
+          content: [
+            {
+              type: "text",
+              text: `Error listing traits: ${error instanceof Error ? error.message : String(error)}`,
+            },
+          ],
+          isError: true,
+        };
+      }
+    }
+  );
+}
