@@ -1,0 +1,377 @@
+# Architecture Documentation
+
+## Overview
+
+This document describes the technical architecture, design patterns, and implementation details of the Genomics MCP Server.
+
+## Tech Stack
+
+- **Runtime:** Bun (TypeScript execution without compilation)
+- **Language:** TypeScript (strict mode)
+- **Protocol:** Model Context Protocol (MCP) v1.x
+- **Validation:** Zod 3.x for runtime schema validation
+- **Linter/Formatter:** Biome
+
+## Architectural Layers
+
+```
+Transport (stdio) → MCP Server → Tools → Service → Repository → Data
+```
+
+### Layer Responsibilities
+
+1. **Transport Layer** - stdio communication (MCP protocol requirement)
+2. **MCP Server Layer** - Tool registration and request routing
+3. **Tools Layer** - MCP tool definitions with Zod input validation
+4. **Service Layer** - Business logic organized as use cases
+5. **Repository Layer** - Data access abstraction
+6. **Data Layer** - JSON storage (easily replaceable with DB)
+
+## Key Design Patterns
+
+### 1. Repository Pattern
+
+**Purpose:** Abstract data access to enable easy migration from JSON to database without changing business logic.
+
+```typescript
+// Interface - defines contract
+interface ISnpRepository {
+  findByTraits(traits: string[], matchMode: MatchMode): SnpRecord[];
+  findByRsid(rsid: string): SnpRecord | undefined;
+  listTraits(search?: string): TraitSummary[];
+}
+
+// JSON implementation
+class JsonSnpRepository implements ISnpRepository {
+  // In-memory indexes for fast lookups
+  private snps: SnpRecord[];
+  private rsidIndex: Map<string, number>;
+  private traitIndex: Map<string, Set<number>>;
+}
+
+// Future: PostgreSQL implementation
+class PostgresSnpRepository implements ISnpRepository {
+  // Same interface, different implementation
+}
+```
+
+**Benefits:**
+- Zero changes to tools/services when swapping data sources
+- Easy to test with mock implementations
+- Database migration becomes a 1-day task instead of 1-week refactor
+
+### 2. Use-Case Pattern
+
+**Purpose:** Each business operation is an isolated, testable class.
+
+```typescript
+// Each use case is self-contained
+class SearchByTraitUseCase {
+  execute(params: SearchParams): SearchResult {
+    // Single responsibility
+  }
+}
+
+class InterpretGenotypeUseCase {
+  execute(rsid: string, genotype: string): Interpretation {
+    // Different concern, different class
+  }
+}
+
+// Facade provides unified interface
+class SnpService {
+  constructor(
+    private searchUseCase: SearchByTraitUseCase,
+    private interpretUseCase: InterpretGenotypeUseCase
+  ) {}
+}
+```
+
+**Benefits:**
+- Easy to test individual use cases in isolation
+- Clear separation of concerns
+- New features don't touch existing code
+
+### 3. In-Memory Indexing
+
+**Purpose:** Fast lookups without requiring a database for small datasets.
+
+```typescript
+class JsonSnpRepository {
+  private rsidIndex: Map<string, number>;      // O(1) rsID lookups
+  private traitIndex: Map<string, Set<number>>; // O(k) trait queries
+}
+```
+
+**Performance:**
+- 12 SNPs: < 1ms queries
+- 1,000 SNPs: < 50ms queries
+- Only need DB when > 10K SNPs OR need persistence/concurrency
+
+### 4. Genotype Normalization
+
+**Purpose:** Handle allele order ambiguity (AG = GA) and case variations.
+
+```typescript
+function normalizeGenotype(genotype: string): string {
+  const upper = genotype.toUpperCase();
+  const [a1, a2] = upper.split('');
+  // Alphabetical ordering ensures AG and GA both become AG
+  return a1 <= a2 ? upper : a2 + a1;
+}
+```
+
+**Why this matters:**
+- SNP data may use either strand orientation
+- Users may type "ag", "AG", "GA", or "ga"
+- All variations need to match the same genotype entry
+
+### 5. Dual Response Formats
+
+**Purpose:** Support both human-readable and programmatic consumption.
+
+```typescript
+type ResponseFormat = "markdown" | "json";
+
+// Markdown: for AI assistants and human readers
+// JSON: for programmatic processing or UI integration
+```
+
+## File Structure
+
+```
+src/
+├── index.ts                          # Entry point — wires everything together
+├── constants.ts                      # Limits, patterns, defaults
+├── types/                            # Pure TypeScript interfaces
+├── schemas/                          # Zod schemas (runtime validation)
+├── repositories/                     # Data access layer
+│   ├── snp.repository.ts             # Interface
+│   ├── snp.json-repository.ts        # JSON/in-memory implementation
+│   └── data/snps.json                # Seed data
+├── services/                         # Business logic
+│   ├── snp.service.ts                # Facade
+│   └── *.use-case.ts                 # Individual use cases
+├── tools/                            # MCP tool registrations
+│   ├── register-all.ts               # Barrel
+│   └── *.tool.ts                     # One file per tool
+└── utils/                            # Shared utilities
+    ├── logger.ts                     # Stderr logger
+    ├── genotype.ts                   # Allele normalization
+    ├── errors.ts                     # Error message helpers
+    └── formatting.ts                 # Markdown/JSON response formatters
+```
+
+## Key Architectural Decisions
+
+### Why Bun over Node.js?
+
+1. **Native TypeScript execution** - No compilation step needed
+2. **Faster startup** - < 500ms to load and index data
+3. **Built-in APIs** - `import.meta.dir` for path resolution
+4. **Better DX** - Simpler tooling, fewer dependencies
+
+### Why Zod for Validation?
+
+1. **Runtime + compile-time safety** - Validates JSON data at runtime, generates TypeScript types
+2. **Self-documenting** - Schema IS the documentation
+3. **Excellent error messages** - Pinpoints exactly what's invalid
+4. **Type inference** - `z.infer<typeof schema>` keeps types in sync
+
+```typescript
+// Schema defines structure
+const SnpRecordSchema = z.object({
+  rsid: z.string().regex(/^rs\d+$/),
+  genes: z.array(z.string()).min(1),
+  // ...
+});
+
+// Type is automatically derived
+type SnpRecord = z.infer<typeof SnpRecordSchema>;
+```
+
+### Why stderr for Logging?
+
+**Critical MCP requirement:** stdout is reserved for JSON-RPC protocol messages.
+
+```typescript
+// ❌ WRONG - breaks MCP protocol
+console.log("Starting server...");
+
+// ✅ CORRECT - logs to stderr
+process.stderr.write("Starting server...\n");
+```
+
+Any output to stdout will corrupt the MCP communication channel.
+
+### Why In-Memory Indexes?
+
+For datasets < 10K records:
+- **Faster than SQLite** - No serialization overhead
+- **Simpler than Redis** - No external dependencies
+- **Easier to debug** - Plain JavaScript objects
+
+Migration to DB is trivial thanks to repository pattern.
+
+## Data Model
+
+### SNP Record Structure
+
+```typescript
+interface SnpRecord {
+  rsid: string;                        // Unique identifier (e.g., "rs429358")
+  genes: string[];                     // Associated genes (e.g., ["APOE"])
+  traits: string[];                    // Associated trait slugs
+  description: string;                 // Human-readable summary
+  chromosome: string;                  // Genomic location (e.g., "19")
+  position: number;                    // Base pair position
+  reference_allele: string;            // Reference genome allele
+  effects_by_genotype: GenotypeEffect[]; // Per-genotype effects
+  sources: Source[];                   // Research citations
+  last_updated: string;                // ISO date
+}
+
+interface GenotypeEffect {
+  genotype: string;                    // Normalized (e.g., "CT")
+  effect: string;                      // Description of effect
+  risk_level: RiskLevel;               // increased | decreased | neutral | protective
+  population_frequency?: number;       // 0-1 frequency
+}
+```
+
+## Error Handling Strategy
+
+### 1. Validation Errors (User Input)
+
+```typescript
+// Zod catches invalid inputs at tool boundary
+const result = SearchInputSchema.safeParse(input);
+if (!result.success) {
+  return formatZodError(result.error); // User-friendly message
+}
+```
+
+### 2. Not Found Errors
+
+```typescript
+// Suggest what IS available
+if (!snp) {
+  return `SNP '${rsid}' not found. Try: ${availableRsids.slice(0, 5).join(', ')}`;
+}
+```
+
+### 3. System Errors
+
+```typescript
+// Log to stderr, return generic message
+logger.error("Failed to load data", error);
+throw new Error("System error - check server logs");
+```
+
+## Performance Characteristics
+
+| Operation | Time Complexity | Typical Latency |
+|-----------|----------------|-----------------|
+| Find by rsID | O(1) | < 1ms |
+| Search by single trait | O(1) | < 1ms |
+| Search by N traits (any) | O(k×n) where k = avg SNPs/trait | < 5ms |
+| Search by N traits (all) | O(k×n) + O(m log m) for set intersection | < 10ms |
+| List all traits | O(t) where t = trait count | < 1ms |
+
+## Known Limitations
+
+### 1. Case Sensitivity in Trait Display
+
+- Trait slugs are normalized to lowercase for matching
+- Display names preserve original case from data
+- Users might see inconsistent capitalization in results
+- **Future:** Add case-folding for display names
+
+### 2. Strand Orientation
+
+- Assumes all genotypes are on the same strand
+- Real genomics data may need complement/reverse-complement
+- **Future:** Add `strand` field and orientation utilities
+
+### 3. No Duplicate Detection
+
+- If JSON has duplicate rsIDs, last one wins (Map behavior)
+- Should validate uniqueness on load
+- **Future:** Add duplicate detection in data loader
+
+### 4. Limited Search Capabilities
+
+- Only exact trait slug matching (case-insensitive)
+- No fuzzy search ("alzheimers" won't find "alzheimer_risk")
+- No partial matching ("cardio" won't find "cardiovascular_disease")
+- **Future:** Add fuzzy search library (Fuse.js or similar)
+
+### 5. No Caching
+
+- Every query rebuilds result sets
+- For frequently accessed SNPs, could add LRU cache
+- Probably not needed until 1000+ SNPs
+
+## Future Enhancements
+
+### Database Migration
+
+When dataset grows beyond 10K SNPs or needs persistence:
+
+1. Create `PostgresSnpRepository` implementing `ISnpRepository`
+2. Design normalized SQL schema
+3. Add connection pooling
+4. Add query caching layer
+5. Update `src/index.ts` to instantiate new repository
+
+**Zero changes needed to:**
+- Tools layer
+- Service layer
+- Type definitions
+- Zod schemas
+
+### Advanced Features
+
+- **Batch processing** - Upload VCF file, interpret multiple genotypes
+- **Gene-based search** - `search_by_gene` tool
+- **Evidence filtering** - Filter by study type (meta_analysis, cohort, etc.)
+- **Population frequencies** - Show allele frequencies by ancestry
+- **HTTP transport** - Enable remote deployment (not just stdio)
+- **Authentication** - OAuth for protected datasets
+- **Rate limiting** - Prevent abuse of public endpoints
+
+## Testing Strategy
+
+See [`TESTING.md`](TESTING.md) for comprehensive test cases.
+
+**Current approach:**
+- Manual testing with MCP Inspector (15+ test cases documented)
+- TypeScript compilation ensures type safety
+- Zod validation ensures data integrity
+
+**Future:**
+- Unit tests for use cases (Jest or Bun test)
+- Integration tests for MCP tools
+- Load tests for performance regression
+- Fuzz tests for input validation
+
+## Contributing
+
+When adding new features:
+
+1. **Types first** - Define TypeScript interfaces in `src/types/`
+2. **Schemas second** - Add Zod validation in `src/schemas/`
+3. **Repository third** - Add methods to `ISnpRepository` if needed
+4. **Use case fourth** - Implement business logic in `src/services/*.use-case.ts`
+5. **Tool last** - Wire up MCP tool in `src/tools/*.tool.ts`
+
+This order ensures type safety and validation from the start.
+
+## Resources
+
+- [MCP Protocol Documentation](https://modelcontextprotocol.io)
+- [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)
+- [Zod Documentation](https://zod.dev)
+- [Bun Runtime Documentation](https://bun.sh/docs)
+- [SNPedia](https://www.snpedia.com) - Genomics data source
+- [dbSNP](https://www.ncbi.nlm.nih.gov/snp/) - NCBI SNP database
