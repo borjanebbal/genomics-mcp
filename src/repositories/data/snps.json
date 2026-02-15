@@ -1,0 +1,518 @@
+[
+  {
+    "rsid": "rs53576",
+    "genes": ["OXTR"],
+    "traits": ["social_behavior", "empathy", "emotional_regulation"],
+    "description": "Oxytocin receptor gene variant associated with social behavior and empathy",
+    "chromosome": "3",
+    "position": 8762685,
+    "reference_allele": "G",
+    "risk_allele": "A",
+    "effects_by_genotype": {
+      "GG": {
+        "summary": "Enhanced social skills and empathy",
+        "detail": "Individuals with GG genotype tend to show higher levels of empathy, better social skills, and lower rates of social anxiety. Associated with higher oxytocin sensitivity.",
+        "risk_level": "protective"
+      },
+      "AG": {
+        "summary": "Moderate social behavior",
+        "detail": "Heterozygous carriers show intermediate levels of empathy and social behavior. Most common genotype in general population.",
+        "risk_level": "informational"
+      },
+      "AA": {
+        "summary": "Lower empathy, higher stress response",
+        "detail": "AA genotype associated with reduced empathy, increased stress reactivity, and higher risk of autism spectrum traits. May benefit from social skills training.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs53576",
+        "study_type": "database"
+      },
+      {
+        "name": "Nature Genetics Study",
+        "url": "https://www.nature.com/articles/ng.2008.3",
+        "study_type": "gwas"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.35
+    },
+    "last_updated": "2025-01-15"
+  },
+  {
+    "rsid": "rs7412",
+    "genes": ["APOE"],
+    "traits": ["alzheimer_risk", "cognitive_decline", "longevity"],
+    "description": "APOE ε2 allele defining SNP, associated with reduced Alzheimer's risk",
+    "chromosome": "19",
+    "position": 44908684,
+    "reference_allele": "C",
+    "risk_allele": "T",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "APOE ε2/ε2 - Strong protection against Alzheimer's",
+        "detail": "Homozygous APOE ε2 carriers have significantly reduced risk of Alzheimer's disease (up to 40% reduction). Associated with increased longevity and better lipid profiles.",
+        "risk_level": "protective"
+      },
+      "CT": {
+        "summary": "APOE ε2 carrier - Reduced Alzheimer's risk",
+        "detail": "Carriers of one ε2 allele have moderately reduced risk of Alzheimer's disease. Better cardiovascular health compared to ε3 or ε4 carriers.",
+        "risk_level": "protective"
+      },
+      "TT": {
+        "summary": "No ε2 allele present",
+        "detail": "Absence of protective ε2 allele. Risk depends on presence of ε4 allele at rs429358. Standard population risk for Alzheimer's.",
+        "risk_level": "informational"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs7412",
+        "study_type": "database"
+      },
+      {
+        "name": "JAMA Neurology Meta-Analysis",
+        "url": "https://jamanetwork.com/journals/jamaneurology",
+        "study_type": "meta_analysis"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.08
+    },
+    "last_updated": "2025-01-20"
+  },
+  {
+    "rsid": "rs429358",
+    "genes": ["APOE"],
+    "traits": ["alzheimer_risk", "cognitive_decline", "cardiovascular_disease"],
+    "description": "APOE ε4 allele defining SNP, strongest genetic risk factor for late-onset Alzheimer's",
+    "chromosome": "19",
+    "position": 44908822,
+    "reference_allele": "T",
+    "risk_allele": "C",
+    "effects_by_genotype": {
+      "TT": {
+        "summary": "APOE ε3/ε3 - Standard Alzheimer's risk",
+        "detail": "Most common genotype. Standard population risk for Alzheimer's disease. No increased or decreased risk from APOE gene.",
+        "risk_level": "informational"
+      },
+      "CT": {
+        "summary": "APOE ε3/ε4 - 3x increased Alzheimer's risk",
+        "detail": "One copy of ε4 allele increases Alzheimer's risk approximately 3-fold. Age of onset typically 5-10 years earlier. Consider preventive lifestyle interventions.",
+        "risk_level": "increased_risk"
+      },
+      "CC": {
+        "summary": "APOE ε4/ε4 - 8-12x increased Alzheimer's risk",
+        "detail": "Two copies of ε4 allele dramatically increase Alzheimer's risk (8-12 fold). Up to 50% lifetime risk. Earlier age of onset (60s vs 70s). Strong recommendation for cognitive health monitoring.",
+        "risk_level": "high_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs429358",
+        "study_type": "database"
+      },
+      {
+        "name": "Alzheimer's Association",
+        "url": "https://www.alz.org/alzheimers-dementia/what-is-alzheimers/causes-and-risk-factors/genetics",
+        "study_type": "review"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.14
+    },
+    "last_updated": "2025-01-20"
+  },
+  {
+    "rsid": "rs1815739",
+    "genes": ["ACTN3"],
+    "traits": ["athletic_performance", "muscle_fiber_type", "sprint_performance"],
+    "description": "Alpha-actinin-3 deficiency, the 'sprint gene' affecting fast-twitch muscle fibers",
+    "chromosome": "11",
+    "position": 66560624,
+    "reference_allele": "C",
+    "risk_allele": "T",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "Fast-twitch muscle advantage for sprinting",
+        "detail": "Functional ACTN3 protein in fast-twitch muscle fibers. Associated with elite sprint and power athletes. Better performance in short-duration, high-intensity activities.",
+        "risk_level": "informational"
+      },
+      "CT": {
+        "summary": "Mixed muscle fiber profile",
+        "detail": "Heterozygous carriers have intermediate muscle characteristics. Balanced between power and endurance capabilities. Most versatile athletic profile.",
+        "risk_level": "informational"
+      },
+      "TT": {
+        "summary": "Alpha-actinin-3 deficiency, endurance advantage",
+        "detail": "Complete deficiency of ACTN3 in fast-twitch fibers. Associated with elite endurance athletes. Better performance in long-duration activities and improved muscle recovery from eccentric exercise.",
+        "risk_level": "informational"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1815739",
+        "study_type": "database"
+      },
+      {
+        "name": "American Journal of Human Genetics",
+        "url": "https://www.cell.com/ajhg/fulltext/S0002-9297(07)63274-9",
+        "study_type": "cohort_study"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.45
+    },
+    "last_updated": "2025-01-10"
+  },
+  {
+    "rsid": "rs4680",
+    "genes": ["COMT"],
+    "traits": ["cognitive_function", "stress_response", "pain_sensitivity", "anxiety"],
+    "description": "Val158Met polymorphism affecting dopamine metabolism and cognitive function",
+    "chromosome": "22",
+    "position": 19963748,
+    "reference_allele": "G",
+    "risk_allele": "A",
+    "effects_by_genotype": {
+      "GG": {
+        "summary": "Warrior gene - better stress performance, lower cognitive baseline",
+        "detail": "Fast COMT enzyme activity leads to rapid dopamine breakdown. Better performance under stress, lower anxiety, but slightly reduced working memory at baseline. Higher pain tolerance.",
+        "risk_level": "informational"
+      },
+      "AG": {
+        "summary": "Balanced dopamine metabolism",
+        "detail": "Intermediate COMT activity. Most common genotype with balanced cognitive and stress response characteristics. Moderate anxiety and pain sensitivity.",
+        "risk_level": "informational"
+      },
+      "AA": {
+        "summary": "Worrier gene - superior cognitive function, stress sensitive",
+        "detail": "Slow COMT enzyme activity leads to prolonged dopamine availability. Enhanced memory and executive function, but higher anxiety and worse performance under stress. Lower pain tolerance.",
+        "risk_level": "informational"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs4680",
+        "study_type": "database"
+      },
+      {
+        "name": "PNAS Research",
+        "url": "https://www.pnas.org/doi/full/10.1073/pnas.0800859105",
+        "study_type": "gwas"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.48
+    },
+    "last_updated": "2025-01-18"
+  },
+  {
+    "rsid": "rs1801133",
+    "genes": ["MTHFR"],
+    "traits": ["folate_metabolism", "homocysteine_levels", "cardiovascular_disease", "neural_tube_defects"],
+    "description": "MTHFR C677T variant affecting folate metabolism and homocysteine levels",
+    "chromosome": "1",
+    "position": 11796321,
+    "reference_allele": "G",
+    "risk_allele": "A",
+    "effects_by_genotype": {
+      "GG": {
+        "summary": "Normal MTHFR enzyme function",
+        "detail": "Wild-type MTHFR with full enzymatic activity. Normal folate metabolism and homocysteine levels. Standard recommendations for folate intake.",
+        "risk_level": "informational"
+      },
+      "AG": {
+        "summary": "Mildly reduced MTHFR activity (~65%)",
+        "detail": "Heterozygous carriers have moderately reduced enzyme activity. Slightly elevated homocysteine levels. May benefit from higher folate intake (especially during pregnancy).",
+        "risk_level": "informational"
+      },
+      "AA": {
+        "summary": "Significantly reduced MTHFR activity (~30%)",
+        "detail": "Homozygous variant with substantially reduced enzyme function. Elevated homocysteine levels, increased cardiovascular risk. Requires higher folate supplementation (methylfolate preferred). Important for pregnancy planning.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1801133",
+        "study_type": "database"
+      },
+      {
+        "name": "Genetics in Medicine",
+        "url": "https://www.nature.com/gim/",
+        "study_type": "meta_analysis"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.32
+    },
+    "last_updated": "2025-01-12"
+  },
+  {
+    "rsid": "rs1800497",
+    "genes": ["ANKK1", "DRD2"],
+    "traits": ["addiction_risk", "reward_seeking", "impulse_control", "obesity_risk"],
+    "description": "Taq1A polymorphism affecting dopamine D2 receptor density and reward processing",
+    "chromosome": "11",
+    "position": 113270828,
+    "reference_allele": "G",
+    "risk_allele": "A",
+    "effects_by_genotype": {
+      "GG": {
+        "summary": "Higher D2 receptor density, lower addiction risk",
+        "detail": "Normal dopamine receptor density. More efficient reward processing. Lower risk of substance abuse, obesity, and impulse control disorders.",
+        "risk_level": "protective"
+      },
+      "AG": {
+        "summary": "Moderately reduced D2 receptor density",
+        "detail": "Intermediate receptor levels. Slightly increased reward-seeking behavior. Moderate risk for addiction and impulse control issues.",
+        "risk_level": "informational"
+      },
+      "AA": {
+        "summary": "30-40% reduced D2 receptor density, high addiction risk",
+        "detail": "Significantly reduced dopamine D2 receptors. Blunted reward response requiring more stimulation. Higher risk of substance abuse, gambling, obesity, and ADHD. Benefits from structured reward systems and behavioral interventions.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1800497",
+        "study_type": "database"
+      },
+      {
+        "name": "JAMA Psychiatry",
+        "url": "https://jamanetwork.com/journals/jamapsychiatry",
+        "study_type": "meta_analysis"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.22
+    },
+    "last_updated": "2025-01-16"
+  },
+  {
+    "rsid": "rs1800795",
+    "genes": ["IL6"],
+    "traits": ["inflammation", "immune_response", "cardiovascular_disease", "autoimmune_risk"],
+    "description": "IL-6 promoter polymorphism affecting inflammatory response",
+    "chromosome": "7",
+    "position": 22727026,
+    "reference_allele": "G",
+    "risk_allele": "C",
+    "effects_by_genotype": {
+      "GG": {
+        "summary": "Higher IL-6 production, stronger immune response",
+        "detail": "Elevated baseline IL-6 expression. More robust inflammatory response to infection. Higher risk of chronic inflammation-related conditions (cardiovascular disease, autoimmune disorders). May benefit from anti-inflammatory diet.",
+        "risk_level": "increased_risk"
+      },
+      "CG": {
+        "summary": "Intermediate IL-6 levels",
+        "detail": "Balanced inflammatory response. Most common genotype with standard immune function and moderate inflammation levels.",
+        "risk_level": "informational"
+      },
+      "CC": {
+        "summary": "Lower IL-6 production",
+        "detail": "Reduced baseline IL-6 expression. Lower chronic inflammation but potentially weaker initial immune response. Reduced risk of inflammation-related diseases.",
+        "risk_level": "protective"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1800795",
+        "study_type": "database"
+      },
+      {
+        "name": "Circulation Journal",
+        "url": "https://www.ahajournals.org/journal/circ",
+        "study_type": "cohort_study"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.42
+    },
+    "last_updated": "2025-01-14"
+  },
+  {
+    "rsid": "rs6265",
+    "genes": ["BDNF"],
+    "traits": ["cognitive_function", "memory", "neuroplasticity", "depression_risk", "anxiety"],
+    "description": "Brain-derived neurotrophic factor Val66Met polymorphism affecting memory and learning",
+    "chromosome": "11",
+    "position": 27679916,
+    "reference_allele": "C",
+    "risk_allele": "T",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "Optimal BDNF function, enhanced memory",
+        "detail": "Val/Val genotype with normal BDNF secretion. Superior hippocampal function, better episodic memory, and enhanced response to cognitive training. Lower anxiety and depression risk.",
+        "risk_level": "protective"
+      },
+      "CT": {
+        "summary": "Moderately reduced BDNF secretion",
+        "detail": "Val/Met carriers have slightly impaired BDNF secretion. Mild reduction in memory performance and neuroplasticity. Intermediate anxiety and depression risk.",
+        "risk_level": "informational"
+      },
+      "TT": {
+        "summary": "Reduced BDNF secretion, memory challenges",
+        "detail": "Met/Met genotype with 20-30% reduced activity-dependent BDNF secretion. Smaller hippocampal volume, reduced episodic memory, and impaired neuroplasticity. Higher risk of anxiety and depression. Benefits greatly from exercise and cognitive training.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs6265",
+        "study_type": "database"
+      },
+      {
+        "name": "Cell Neuroscience",
+        "url": "https://www.cell.com/cell/fulltext/S0092-8674(03)00035-7",
+        "study_type": "gwas"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.20
+    },
+    "last_updated": "2025-01-19"
+  },
+  {
+    "rsid": "rs662799",
+    "genes": ["APOA5"],
+    "traits": ["triglyceride_levels", "cardiovascular_disease", "metabolic_syndrome"],
+    "description": "APOA5 variant strongly associated with triglyceride levels",
+    "chromosome": "11",
+    "position": 116663707,
+    "reference_allele": "G",
+    "risk_allele": "A",
+    "effects_by_genotype": {
+      "GG": {
+        "summary": "Normal triglyceride metabolism",
+        "detail": "Wild-type APOA5 with optimal lipoprotein lipase activation. Standard triglyceride levels and cardiovascular risk. Responds well to dietary interventions.",
+        "risk_level": "informational"
+      },
+      "AG": {
+        "summary": "Moderately elevated triglycerides",
+        "detail": "Heterozygous carriers have 20-30% higher triglyceride levels. Increased cardiovascular risk. Should monitor lipid levels and consider low-fat diet.",
+        "risk_level": "increased_risk"
+      },
+      "AA": {
+        "summary": "Significantly elevated triglycerides",
+        "detail": "Homozygous risk variant with 50-70% higher triglyceride levels. Substantially increased cardiovascular disease risk. May develop metabolic syndrome. Requires aggressive dietary management (low-carb, omega-3s) and possibly medication.",
+        "risk_level": "high_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs662799",
+        "study_type": "database"
+      },
+      {
+        "name": "Science Journal",
+        "url": "https://www.science.org/doi/10.1126/science.1098918",
+        "study_type": "gwas"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.25
+    },
+    "last_updated": "2025-01-11"
+  },
+  {
+    "rsid": "rs1333049",
+    "genes": ["CDKN2A", "CDKN2B"],
+    "traits": ["cardiovascular_disease", "coronary_artery_disease", "myocardial_infarction"],
+    "description": "Chromosome 9p21 variant, one of the strongest genetic risk factors for heart disease",
+    "chromosome": "9",
+    "position": 22125504,
+    "reference_allele": "G",
+    "risk_allele": "C",
+    "effects_by_genotype": {
+      "GG": {
+        "summary": "Lower cardiovascular disease risk",
+        "detail": "Protective genotype with reduced risk of coronary artery disease and heart attack. Standard preventive care recommendations.",
+        "risk_level": "protective"
+      },
+      "CG": {
+        "summary": "Moderately increased CVD risk (~25%)",
+        "detail": "One copy of risk variant increases coronary artery disease risk by approximately 25%. Earlier age of onset for cardiovascular events. Recommend proactive screening and lifestyle modification.",
+        "risk_level": "increased_risk"
+      },
+      "CC": {
+        "summary": "Significantly increased CVD risk (~50-60%)",
+        "detail": "Homozygous risk variant with 50-60% increased risk of coronary artery disease. Much earlier age of onset (10-15 years younger). Strong recommendation for aggressive risk factor management (lipids, blood pressure, smoking cessation, exercise).",
+        "risk_level": "high_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1333049",
+        "study_type": "database"
+      },
+      {
+        "name": "Nature Genetics GWAS",
+        "url": "https://www.nature.com/articles/ng2007.5",
+        "study_type": "gwas"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.47
+    },
+    "last_updated": "2025-01-13"
+  },
+  {
+    "rsid": "rs1051730",
+    "genes": ["CHRNA3"],
+    "traits": ["nicotine_dependence", "smoking_behavior", "lung_cancer_risk"],
+    "description": "Nicotinic acetylcholine receptor variant affecting smoking addiction",
+    "chromosome": "15",
+    "position": 78882925,
+    "reference_allele": "G",
+    "risk_allele": "A",
+    "effects_by_genotype": {
+      "GG": {
+        "summary": "Lower nicotine dependence risk",
+        "detail": "Standard nicotinic receptor function. Lower risk of heavy smoking and nicotine dependence. Easier smoking cessation if started. Standard lung cancer risk for non-smokers.",
+        "risk_level": "protective"
+      },
+      "AG": {
+        "summary": "Moderately increased nicotine dependence",
+        "detail": "One risk allele increases susceptibility to nicotine addiction. Higher likelihood of becoming a heavy smoker. Moderate difficulty with smoking cessation. Increased lung cancer risk if smoker.",
+        "risk_level": "increased_risk"
+      },
+      "AA": {
+        "summary": "High nicotine dependence, difficult cessation",
+        "detail": "Homozygous risk variant with altered nicotinic receptor function. Very high risk of heavy smoking and strong nicotine dependence. Significantly more difficult smoking cessation. Substantially increased lung cancer risk in smokers (~70-80% higher). May benefit from aggressive cessation support and pharmacotherapy.",
+        "risk_level": "high_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1051730",
+        "study_type": "database"
+      },
+      {
+        "name": "Nature Genetics",
+        "url": "https://www.nature.com/articles/ng2008.1",
+        "study_type": "gwas"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.35
+    },
+    "last_updated": "2025-01-17"
+  }
+]
