@@ -1,8 +1,4 @@
-import type {
-  DatasetMetadata,
-  SnpRecord,
-  TraitSummary,
-} from "../types/snp.js";
+import type { DatasetMetadata, SnpRecord, TraitSummary } from "../types/snp.js";
 
 export interface ISnpRepository {
   initialize(): Promise<void>;

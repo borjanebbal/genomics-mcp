@@ -217,7 +217,12 @@
   {
     "rsid": "rs1801133",
     "genes": ["MTHFR"],
-    "traits": ["folate_metabolism", "homocysteine_levels", "cardiovascular_disease", "neural_tube_defects"],
+    "traits": [
+      "folate_metabolism",
+      "homocysteine_levels",
+      "cardiovascular_disease",
+      "neural_tube_defects"
+    ],
     "description": "MTHFR C677T variant affecting folate metabolism and homocysteine levels",
     "chromosome": "1",
     "position": 11796321,
@@ -382,7 +387,7 @@
       }
     ],
     "population_frequency": {
-      "global_maf": 0.20
+      "global_maf": 0.2
     },
     "last_updated": "2025-01-19"
   },

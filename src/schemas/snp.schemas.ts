@@ -40,17 +40,28 @@ export const SnpRecordSchema = z.object({
   description: z.string().min(1).max(1000),
   chromosome: z.string().min(1).max(10),
   position: z.number().int().min(1),
-  reference_allele: z.string().regex(/^[ACGT]+$/i).min(1).max(100),
-  risk_allele: z.string().regex(/^[ACGT]+$/i).min(1).max(100).optional(),
-  effects_by_genotype: z.record(
-    z.string().regex(/^[ACGT]{2}$/i),
-    GenotypeEffectSchema
-  ).refine((effects) => Object.keys(effects).length > 0, {
-    message: "At least one genotype effect is required",
-  }),
+  reference_allele: z
+    .string()
+    .regex(/^[ACGT]+$/i)
+    .min(1)
+    .max(100),
+  risk_allele: z
+    .string()
+    .regex(/^[ACGT]+$/i)
+    .min(1)
+    .max(100)
+    .optional(),
+  effects_by_genotype: z
+    .record(z.string().regex(/^[ACGT]{2}$/i), GenotypeEffectSchema)
+    .refine((effects) => Object.keys(effects).length > 0, {
+      message: "At least one genotype effect is required",
+    }),
   sources: z.array(SourceSchema).min(1).max(50),
   population_frequency: PopulationFrequencySchema.optional(),
-  last_updated: z.string().datetime().or(z.string().regex(/^\d{4}-\d{2}-\d{2}$/)),
+  last_updated: z
+    .string()
+    .datetime()
+    .or(z.string().regex(/^\d{4}-\d{2}-\d{2}$/)),
 });
 
 export const SnpArraySchema = z.array(SnpRecordSchema);

@@ -2,11 +2,7 @@ export type ResponseFormat = "markdown" | "json";
 
 export type MatchMode = "any" | "all";
 
-export type RiskLevel =
-  | "informational"
-  | "protective"
-  | "increased_risk"
-  | "high_risk";
+export type RiskLevel = "informational" | "protective" | "increased_risk" | "high_risk";
 
 export type StudyType =
   | "meta_analysis"
