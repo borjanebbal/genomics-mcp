@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { SnpArraySchema } from "../schemas/snp.schemas.js";
+import type { MatchMode } from "../types/common.js";
 import type { DatasetMetadata, SnpRecord, TraitSummary } from "../types/snp.js";
 import { createLogger } from "../utils/logger.js";
 import type { ISnpRepository } from "./snp.repository.js";
@@ -41,7 +42,12 @@ export class JsonSnpRepository implements ISnpRepository {
 
     for (let i = 0; i < this.snps.length; i++) {
       const snp = this.snps[i];
-      this.rsidIndex.set(snp.rsid.toLowerCase(), i);
+      const normalizedRsid = snp.rsid.toLowerCase();
+
+      if (this.rsidIndex.has(normalizedRsid)) {
+        logger.warn(`Duplicate rsID "${snp.rsid}" at index ${i} — overwriting earlier entry`);
+      }
+      this.rsidIndex.set(normalizedRsid, i);
 
       for (const trait of snp.traits) {
         const normalizedTrait = trait.toLowerCase();
@@ -53,7 +59,7 @@ export class JsonSnpRepository implements ISnpRepository {
     }
   }
 
-  async findByTraits(traits: string[], matchMode: "any" | "all"): Promise<SnpRecord[]> {
+  async findByTraits(traits: string[], matchMode: MatchMode): Promise<SnpRecord[]> {
     this.ensureInitialized();
 
     if (traits.length === 0) {
@@ -67,6 +73,10 @@ export class JsonSnpRepository implements ISnpRepository {
       const indices = this.traitIndex.get(trait);
       if (indices) {
         matchingSets.push(indices);
+      } else if (matchMode === "all") {
+        // In "all" mode, every trait must have at least one SNP.
+        // A missing trait means no SNP can satisfy the intersection.
+        return [];
       }
     }
 

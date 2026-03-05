@@ -1,40 +1,17 @@
-import type { RiskLevel, StudyType } from "./common.js";
+import type { z } from "zod";
+import type {
+  GenotypeEffectSchema,
+  PopulationFrequencySchema,
+  SnpRecordSchema,
+  SourceSchema,
+} from "../schemas/snp.schemas.js";
+export type GenotypeEffect = z.infer<typeof GenotypeEffectSchema>;
 
-export interface GenotypeEffect {
-  summary: string;
-  detail: string;
-  risk_level: RiskLevel;
-}
+export type Source = z.infer<typeof SourceSchema>;
 
-export interface Source {
-  name: string;
-  url: string;
-  study_type: StudyType;
-}
+export type PopulationFrequency = z.infer<typeof PopulationFrequencySchema>;
 
-export interface PopulationFrequency {
-  global_maf: number;
-  populations?: {
-    [population: string]: number;
-  };
-}
-
-export interface SnpRecord {
-  rsid: string;
-  genes: string[];
-  traits: string[];
-  description: string;
-  chromosome: string;
-  position: number;
-  reference_allele: string;
-  risk_allele?: string;
-  effects_by_genotype: {
-    [genotype: string]: GenotypeEffect;
-  };
-  sources: Source[];
-  population_frequency?: PopulationFrequency;
-  last_updated: string;
-}
+export type SnpRecord = z.infer<typeof SnpRecordSchema>;
 
 export interface SnpSummary {
   rsid: string;

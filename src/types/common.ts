@@ -1,16 +1,14 @@
-export type ResponseFormat = "markdown" | "json";
+import type { z } from "zod";
+import type { RiskLevelSchema, StudyTypeSchema } from "../schemas/snp.schemas.js";
+import type { MatchModeSchema, ResponseFormatSchema } from "../schemas/tool-inputs.schemas.js";
 
-export type MatchMode = "any" | "all";
+export type ResponseFormat = z.infer<typeof ResponseFormatSchema>;
 
-export type RiskLevel = "informational" | "protective" | "increased_risk" | "high_risk";
+export type MatchMode = z.infer<typeof MatchModeSchema>;
 
-export type StudyType =
-  | "meta_analysis"
-  | "cohort_study"
-  | "case_control"
-  | "gwas"
-  | "database"
-  | "review";
+export type RiskLevel = z.infer<typeof RiskLevelSchema>;
+
+export type StudyType = z.infer<typeof StudyTypeSchema>;
 
 export interface PaginationMetadata {
   total: number;

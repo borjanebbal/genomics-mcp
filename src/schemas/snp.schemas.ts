@@ -65,10 +65,3 @@ export const SnpRecordSchema = z.object({
 });
 
 export const SnpArraySchema = z.array(SnpRecordSchema);
-
-export const DatasetMetadataSchema = z.object({
-  version: z.string(),
-  total_snps: z.number().int().min(0),
-  total_traits: z.number().int().min(0),
-  last_updated: z.string(),
-});

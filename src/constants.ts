@@ -6,8 +6,6 @@ export const DEFAULT_OFFSET = 0;
 
 export const MAX_TRAITS_PER_QUERY = 10;
 
-export const VALID_NUCLEOTIDES = ["A", "C", "G", "T"] as const;
-
 export const RSID_PATTERN = /^rs\d+$/;
 
 export const GENOTYPE_PATTERN = /^[ACGT]{2}$/i;

@@ -16,29 +16,12 @@ function formatMessage(level: LogLevel, tag: string, message: string): string {
 
 function log(level: LogLevel, tag: string, message: string, detail?: unknown): void {
   const formatted = formatMessage(level, tag, message);
+  const method = level === "error" ? "error" : level === "warn" ? "warn" : "info";
 
-  switch (level) {
-    case "info":
-      if (detail !== undefined) {
-        stderrConsole.info(formatted, detail);
-      } else {
-        stderrConsole.info(formatted);
-      }
-      break;
-    case "warn":
-      if (detail !== undefined) {
-        stderrConsole.warn(formatted, detail);
-      } else {
-        stderrConsole.warn(formatted);
-      }
-      break;
-    case "error":
-      if (detail !== undefined) {
-        stderrConsole.error(formatted, detail);
-      } else {
-        stderrConsole.error(formatted);
-      }
-      break;
+  if (detail !== undefined) {
+    stderrConsole[method](formatted, detail);
+  } else {
+    stderrConsole[method](formatted);
   }
 }
 
