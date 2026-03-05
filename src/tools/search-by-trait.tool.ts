@@ -1,17 +1,14 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { CHARACTER_LIMIT } from "../constants.js";
-import {
-  type SearchByTraitInput,
-  SearchByTraitInputSchema,
-} from "../schemas/tool-inputs.schemas.js";
+import { SearchByTraitInputSchema } from "../schemas/tool-inputs.schemas.js";
 import type { SnpService } from "../services/snp.service.js";
 import { formatSearchResultsMarkdown, truncateIfNeeded } from "../utils/formatting.js";
 
 export function registerSearchByTraitTool(server: McpServer, snpService: SnpService): void {
-  server.tool(
+  server.registerTool(
     "search_by_trait",
-    SearchByTraitInputSchema.shape,
-    async (params: SearchByTraitInput) => {
+    { inputSchema: SearchByTraitInputSchema.shape },
+    async (params) => {
       try {
         const { snps, pagination } = await snpService.searchByTraits(
           params.traits,

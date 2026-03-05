@@ -1,17 +1,14 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { CHARACTER_LIMIT } from "../constants.js";
-import {
-  type GetSnpDetailsInput,
-  GetSnpDetailsInputSchema,
-} from "../schemas/tool-inputs.schemas.js";
+import { GetSnpDetailsInputSchema } from "../schemas/tool-inputs.schemas.js";
 import type { SnpService } from "../services/snp.service.js";
 import { formatSnpDetailsMarkdown, truncateIfNeeded } from "../utils/formatting.js";
 
 export function registerGetSnpDetailsTool(server: McpServer, snpService: SnpService): void {
-  server.tool(
+  server.registerTool(
     "get_snp_details",
-    GetSnpDetailsInputSchema.shape,
-    async (params: GetSnpDetailsInput) => {
+    { inputSchema: GetSnpDetailsInputSchema.shape },
+    async (params) => {
       try {
         const result = await snpService.getSnpDetails(params.rsid);
 
