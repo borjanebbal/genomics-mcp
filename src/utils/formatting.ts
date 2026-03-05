@@ -1,10 +1,5 @@
-import type {
-  GenotypeInterpretation,
-  SnpRecord,
-  SnpSummary,
-  TraitSummary,
-} from "../types/snp.js";
 import type { PaginationMetadata } from "../types/common.js";
+import type { GenotypeInterpretation, SnpRecord, SnpSummary, TraitSummary } from "../types/snp.js";
 
 export function formatSearchResultsMarkdown(
   snps: SnpSummary[],
@@ -69,9 +64,7 @@ export function formatSnpDetailsMarkdown(snp: SnpRecord): string {
 
   if (snp.population_frequency) {
     lines.push("## Population Frequency");
-    lines.push(
-      `- **Global MAF:** ${(snp.population_frequency.global_maf * 100).toFixed(1)}%`
-    );
+    lines.push(`- **Global MAF:** ${(snp.population_frequency.global_maf * 100).toFixed(1)}%`);
     lines.push("");
   }
 
@@ -123,7 +116,7 @@ export function formatGenotypeInterpretationMarkdown(
 export function formatTraitListMarkdown(traits: TraitSummary[]): string {
   const lines: string[] = [];
 
-  lines.push(`# Available Traits`);
+  lines.push("# Available Traits");
   lines.push("");
   lines.push(`Total: **${traits.length}** traits`);
   lines.push("");

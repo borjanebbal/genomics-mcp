@@ -1,4 +1,5 @@
 import type { ISnpRepository } from "../repositories/snp.repository.js";
+import type { MatchMode, PaginationMetadata } from "../types/common.js";
 import type {
   DatasetMetadata,
   GenotypeInterpretation,
@@ -6,10 +7,9 @@ import type {
   SnpSummary,
   TraitSummary,
 } from "../types/snp.js";
-import type { MatchMode, PaginationMetadata } from "../types/common.js";
-import { SearchByTraitUseCase } from "./search-by-trait.use-case.js";
 import { GetSnpDetailsUseCase } from "./get-snp-details.use-case.js";
 import { InterpretGenotypeUseCase } from "./interpret-genotype.use-case.js";
+import { SearchByTraitUseCase } from "./search-by-trait.use-case.js";
 
 export class SnpService {
   private readonly searchByTrait: SearchByTraitUseCase;

@@ -1,10 +1,10 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import type { SnpService } from "../services/snp.service.js";
-import { registerSearchByTraitTool } from "./search-by-trait.tool.js";
+import { createLogger } from "../utils/logger.js";
 import { registerGetSnpDetailsTool } from "./get-snp-details.tool.js";
 import { registerInterpretGenotypeTool } from "./interpret-genotype.tool.js";
 import { registerListTraitsTool } from "./list-traits.tool.js";
-import { createLogger } from "../utils/logger.js";
+import { registerSearchByTraitTool } from "./search-by-trait.tool.js";
 
 const logger = createLogger("Tools");
 

@@ -1,10 +1,7 @@
 import type { ISnpRepository } from "../repositories/snp.repository.js";
 import type { GenotypeInterpretation } from "../types/snp.js";
+import { createGenotypeNotFoundMessage, createSnpNotFoundMessage } from "../utils/errors.js";
 import { normalizeGenotype } from "../utils/genotype.js";
-import {
-  createGenotypeNotFoundMessage,
-  createSnpNotFoundMessage,
-} from "../utils/errors.js";
 
 export class InterpretGenotypeUseCase {
   constructor(private readonly repository: ISnpRepository) {}

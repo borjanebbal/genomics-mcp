@@ -1,12 +1,8 @@
-import { readFile } from "fs/promises";
-import type {
-  DatasetMetadata,
-  SnpRecord,
-  TraitSummary,
-} from "../types/snp.js";
+import { readFile } from "node:fs/promises";
 import { SnpArraySchema } from "../schemas/snp.schemas.js";
-import type { ISnpRepository } from "./snp.repository.js";
+import type { DatasetMetadata, SnpRecord, TraitSummary } from "../types/snp.js";
 import { createLogger } from "../utils/logger.js";
+import type { ISnpRepository } from "./snp.repository.js";
 
 const logger = createLogger("JsonSnpRepository");
 
@@ -112,20 +108,16 @@ export class JsonSnpRepository implements ISnpRepository {
   async listTraits(search?: string): Promise<TraitSummary[]> {
     this.ensureInitialized();
 
-    let traits: TraitSummary[] = [...this.traitIndex.entries()].map(
-      ([slug, indices]) => ({
-        slug,
-        display_name: this.slugToDisplayName(slug),
-        snp_count: indices.size,
-      })
-    );
+    let traits: TraitSummary[] = [...this.traitIndex.entries()].map(([slug, indices]) => ({
+      slug,
+      display_name: this.slugToDisplayName(slug),
+      snp_count: indices.size,
+    }));
 
     if (search) {
       const searchLower = search.toLowerCase();
       traits = traits.filter(
-        (t) =>
-          t.slug.includes(searchLower) ||
-          t.display_name.toLowerCase().includes(searchLower)
+        (t) => t.slug.includes(searchLower) || t.display_name.toLowerCase().includes(searchLower)
       );
     }
 

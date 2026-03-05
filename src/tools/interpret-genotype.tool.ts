@@ -1,9 +1,9 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import type { SnpService } from "../services/snp.service.js";
 import {
-  InterpretGenotypeInputSchema,
   type InterpretGenotypeInput,
+  InterpretGenotypeInputSchema,
 } from "../schemas/tool-inputs.schemas.js";
+import type { SnpService } from "../services/snp.service.js";
 import { formatGenotypeInterpretationMarkdown } from "../utils/formatting.js";
 
 export function registerInterpretGenotypeTool(server: McpServer, snpService: SnpService): void {

@@ -1,6 +1,6 @@
 import type { ISnpRepository } from "../repositories/snp.repository.js";
-import type { SnpRecord, SnpSummary } from "../types/snp.js";
 import type { MatchMode, PaginationMetadata } from "../types/common.js";
+import type { SnpRecord, SnpSummary } from "../types/snp.js";
 
 export class SearchByTraitUseCase {
   constructor(private readonly repository: ISnpRepository) {}
@@ -23,8 +23,7 @@ export class SearchByTraitUseCase {
       count: paginated.length,
       offset,
       has_more: offset + paginated.length < total,
-      next_offset:
-        offset + paginated.length < total ? offset + paginated.length : undefined,
+      next_offset: offset + paginated.length < total ? offset + paginated.length : undefined,
     };
 
     return { snps: paginated, pagination };

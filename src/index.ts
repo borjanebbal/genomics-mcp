@@ -1,12 +1,12 @@
 #!/usr/bin/env bun
 
+import { resolve } from "node:path";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { JsonSnpRepository } from "./repositories/snp.json-repository.js";
 import { SnpService } from "./services/snp.service.js";
 import { registerTools } from "./tools/register-all.js";
 import { createLogger } from "./utils/logger.js";
-import { resolve } from "path";
 
 const logger = createLogger("Server");
 
@@ -35,9 +35,7 @@ async function main() {
   registerTools(server, snpService);
 
   const metadata = await repository.getMetadata();
-  logger.info(
-    `Dataset loaded: ${metadata.total_snps} SNPs, ${metadata.total_traits} traits`
-  );
+  logger.info(`Dataset loaded: ${metadata.total_snps} SNPs, ${metadata.total_traits} traits`);
   logger.info(`Last updated: ${metadata.last_updated}`);
 
   const transport = new StdioServerTransport();

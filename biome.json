@@ -1,5 +1,11 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true,
+    "defaultBranch": "main"
+  },
   "organizeImports": {
     "enabled": true
   },
@@ -8,7 +14,9 @@
     "rules": {
       "recommended": true,
       "style": {
-        "noNonNullAssertion": "off"
+        "noNonNullAssertion": "off",
+        "useNodejsImportProtocol": "error",
+        "noUnusedTemplateLiteral": "error"
       },
       "suspicious": {
         "noExplicitAny": "warn"
