@@ -1,6 +1,13 @@
 // All output goes to stderr because stdout is reserved for MCP protocol messages.
 
+import { Console } from "node:console";
+
 type LogLevel = "info" | "warn" | "error";
+
+const stderrConsole = new Console({
+  stdout: process.stderr,
+  stderr: process.stderr,
+});
 
 function formatMessage(level: LogLevel, tag: string, message: string): string {
   const prefix = level === "error" ? "ERROR" : level === "warn" ? "WARN" : "INFO";
@@ -9,10 +16,29 @@ function formatMessage(level: LogLevel, tag: string, message: string): string {
 
 function log(level: LogLevel, tag: string, message: string, detail?: unknown): void {
   const formatted = formatMessage(level, tag, message);
-  if (detail !== undefined) {
-    console.error(formatted, detail);
-  } else {
-    console.error(formatted);
+
+  switch (level) {
+    case "info":
+      if (detail !== undefined) {
+        stderrConsole.info(formatted, detail);
+      } else {
+        stderrConsole.info(formatted);
+      }
+      break;
+    case "warn":
+      if (detail !== undefined) {
+        stderrConsole.warn(formatted, detail);
+      } else {
+        stderrConsole.warn(formatted);
+      }
+      break;
+    case "error":
+      if (detail !== undefined) {
+        stderrConsole.error(formatted, detail);
+      } else {
+        stderrConsole.error(formatted);
+      }
+      break;
   }
 }
 
