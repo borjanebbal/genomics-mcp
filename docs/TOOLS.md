@@ -338,12 +338,3 @@ Find SNPs affecting multiple traits:
 ```
 
 All error messages include helpful suggestions to guide users toward success.
-
----
-
-## See Also
-
-- [Quick Start Guide](QUICKSTART.md) - Quick reference card
-- [Testing Guide](TESTING.md) - 15+ test cases with expected results
-- [Architecture Guide](ARCHITECTURE.md) - Design patterns and technical details
-- [Main README](../README.md) - Project overview

@@ -114,7 +114,6 @@ All SNPs include:
 genomics-mcp/
 ├── docs/
 │   ├── ARCHITECTURE.md               # Design patterns and technical details
-│   ├── QUICKSTART.md                 # Quick reference card
 │   ├── TESTING.md                    # Testing guide (15+ test cases)
 │   └── TOOLS.md                      # Complete tool documentation
 ├── src/
@@ -152,23 +151,9 @@ genomics-mcp/
 └── README.md
 ```
 
-## 🔄 Database Migration (Future)
+## 🔄 Database Migration
 
-The architecture is designed for easy migration from JSON to a database:
-
-1. Implement a new repository (e.g., `SqliteSnpRepository` or `PostgresSnpRepository`)
-2. Implement the `ISnpRepository` interface
-3. Update `src/index.ts` to use the new repository
-4. No changes needed to tools, services, or business logic!
-
-Example:
-```typescript
-// Replace this line in index.ts:
-const repository = new JsonSnpRepository(dataPath);
-
-// With:
-const repository = new PostgresSnpRepository(process.env.DATABASE_URL);
-```
+The repository pattern makes database migration trivial — implement `ISnpRepository` with a new backend and swap one line in `src/index.ts`. See [Architecture](docs/ARCHITECTURE.md) for details.
 
 ## 🧪 Development
 
@@ -208,7 +193,6 @@ The data is validated against Zod schemas on load, so any schema violations will
 ## 📚 Resources
 
 - [Tool Reference](docs/TOOLS.md) — Complete tool documentation with examples
-- [Quick Start Guide](docs/QUICKSTART.md) — Quick reference card
 - [Testing Guide](docs/TESTING.md) — 15+ manual test cases with expected results
 - [Architecture Guide](docs/ARCHITECTURE.md) — Design patterns and technical details
 - [Model Context Protocol Documentation](https://modelcontextprotocol.io)
@@ -218,12 +202,19 @@ The data is validated against Zod schemas on load, so any schema violations will
 
 ## 🤝 Contributing
 
-Contributions are welcome! Areas for improvement:
+When adding new features, follow this order:
+
+1. **Schemas first** — Define Zod schemas in `src/schemas/` (source of truth)
+2. **Types second** — Derive TypeScript types via `z.infer` in `src/types/`
+3. **Repository third** — Add methods to `ISnpRepository` if needed
+4. **Use case fourth** — Implement business logic in `src/services/*.use-case.ts`
+5. **Tool last** — Wire up MCP tool in `src/tools/*.tool.ts`
+
+Ideas for contribution:
 
 - Add more SNPs and traits
 - Implement fuzzy trait search
 - Add gene-based search tool
-- Create database migrations
 - Add batch genotype interpretation
 - Implement HTTP transport for remote deployment
 
