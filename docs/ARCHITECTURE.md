@@ -36,9 +36,12 @@ Transport (stdio) → MCP Server → Tools → Service → Repository → Data
 ```typescript
 // Interface - defines contract
 interface ISnpRepository {
-  findByTraits(traits: string[], matchMode: MatchMode): SnpRecord[];
-  findByRsid(rsid: string): SnpRecord | undefined;
-  listTraits(search?: string): TraitSummary[];
+  initialize(): Promise<void>;
+  findByTraits(traits: string[], matchMode: MatchMode): Promise<SnpRecord[]>;
+  findByRsid(rsid: string): Promise<SnpRecord | null>;
+  listTraits(search?: string): Promise<TraitSummary[]>;
+  getMetadata(): Promise<DatasetMetadata>;
+  getAllSnps(): Promise<SnpRecord[]>;
 }
 
 // JSON implementation
@@ -78,12 +81,16 @@ class InterpretGenotypeUseCase {
   }
 }
 
-// Facade provides unified interface
+// Facade creates use cases from the repository
 class SnpService {
-  constructor(
-    private searchUseCase: SearchByTraitUseCase,
-    private interpretUseCase: InterpretGenotypeUseCase
-  ) {}
+  private readonly searchByTrait: SearchByTraitUseCase;
+  private readonly interpretUseCase: InterpretGenotypeUseCase;
+
+  constructor(repository: ISnpRepository) {
+    // Use cases are created internally — the facade owns their lifecycle
+    this.searchByTrait = new SearchByTraitUseCase(repository);
+    this.interpretUseCase = new InterpretGenotypeUseCase(repository);
+  }
 }
 ```
 
@@ -115,9 +122,9 @@ class JsonSnpRepository {
 ```typescript
 function normalizeGenotype(genotype: string): string {
   const upper = genotype.toUpperCase();
-  const [a1, a2] = upper.split('');
-  // Alphabetical ordering ensures AG and GA both become AG
-  return a1 <= a2 ? upper : a2 + a1;
+  // Alphabetical sort ensures AG and GA both become AG
+  const alleles = upper.split("").sort();
+  return alleles.join("");
 }
 ```
 
@@ -226,16 +233,19 @@ interface SnpRecord {
   chromosome: string;                  // Genomic location (e.g., "19")
   position: number;                    // Base pair position
   reference_allele: string;            // Reference genome allele
-  effects_by_genotype: GenotypeEffect[]; // Per-genotype effects
+  risk_allele?: string;                // Risk allele (optional)
+  effects_by_genotype: {               // Per-genotype effects (keyed by genotype)
+    [genotype: string]: GenotypeEffect;
+  };
   sources: Source[];                   // Research citations
+  population_frequency?: PopulationFrequency; // Population data (optional)
   last_updated: string;                // ISO date
 }
 
 interface GenotypeEffect {
-  genotype: string;                    // Normalized (e.g., "CT")
-  effect: string;                      // Description of effect
-  risk_level: RiskLevel;               // increased | decreased | neutral | protective
-  population_frequency?: number;       // 0-1 frequency
+  summary: string;                     // Short description (e.g., "3x increased Alzheimer's risk")
+  detail: string;                      // Detailed explanation
+  risk_level: RiskLevel;               // informational | protective | increased_risk | high_risk
 }
 ```
 
@@ -293,11 +303,11 @@ throw new Error("System error - check server logs");
 - Real genomics data may need complement/reverse-complement
 - **Future:** Add `strand` field and orientation utilities
 
-### 3. No Duplicate Detection
+### 3. Duplicate rsID Handling
 
-- If JSON has duplicate rsIDs, last one wins (Map behavior)
-- Should validate uniqueness on load
-- **Future:** Add duplicate detection in data loader
+- If JSON has duplicate rsIDs, the later entry overwrites the earlier one (Map behavior)
+- A warning is logged to stderr when duplicates are detected during index building
+- **Future:** Reject duplicates at load time instead of warning
 
 ### 4. Limited Search Capabilities
 
@@ -359,13 +369,13 @@ See [`TESTING.md`](TESTING.md) for comprehensive test cases.
 
 When adding new features:
 
-1. **Types first** - Define TypeScript interfaces in `src/types/`
-2. **Schemas second** - Add Zod validation in `src/schemas/`
+1. **Schemas first** - Define Zod schemas in `src/schemas/` (they are the source of truth)
+2. **Types second** - Derive TypeScript types via `z.infer<typeof Schema>` in `src/types/`
 3. **Repository third** - Add methods to `ISnpRepository` if needed
 4. **Use case fourth** - Implement business logic in `src/services/*.use-case.ts`
 5. **Tool last** - Wire up MCP tool in `src/tools/*.tool.ts`
 
-This order ensures type safety and validation from the start.
+This order ensures Zod schemas drive both runtime validation and compile-time types.
 
 ## Resources
 

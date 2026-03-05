@@ -73,18 +73,19 @@ Get comprehensive information about a specific SNP.
 }
 
 // Response
-"# SNP Details: rs429358
+"# rs429358
 
-## Basic Information
-- **rsID:** rs429358
+**Description:** APOE ε4 allele defining SNP, strongest genetic risk factor for late-onset Alzheimer's
+
+## Genomic Location
+- **Chromosome:** 19
+- **Position:** 44,908,822
+- **Reference allele:** T
+- **Risk allele:** C
+
+## Associated Information
 - **Genes:** APOE
-- **Chromosome:** 19:44908684
-- **Reference Allele:** T
-
-## Associated Traits
-- alzheimer_risk
-- cardiovascular_disease
-- cognitive_decline
+- **Traits:** alzheimer_risk, cognitive_decline, cardiovascular_disease
 ..."
 ```
 
@@ -101,33 +102,45 @@ Get comprehensive information about a specific SNP.
 {
   "rsid": "rs429358",
   "genes": ["APOE"],
-  "traits": ["alzheimer_risk", "cardiovascular_disease", "cognitive_decline"],
-  "description": "APOE ε4 defining SNP",
+  "traits": ["alzheimer_risk", "cognitive_decline", "cardiovascular_disease"],
+  "description": "APOE ε4 allele defining SNP, strongest genetic risk factor for late-onset Alzheimer's",
   "chromosome": "19",
-  "position": 44908684,
+  "position": 44908822,
   "reference_allele": "T",
-  "effects_by_genotype": [
-    {
-      "genotype": "CC",
-      "effect": "Two copies of APOE ε4 allele (ε4/ε4 genotype)",
-      "risk_level": "increased",
-      "population_frequency": 0.02
+  "risk_allele": "C",
+  "effects_by_genotype": {
+    "TT": {
+      "summary": "APOE ε3/ε3 - Standard Alzheimer's risk",
+      "detail": "Most common genotype. Standard population risk for Alzheimer's disease. No increased or decreased risk from APOE gene.",
+      "risk_level": "informational"
     },
-    {
-      "genotype": "CT",
-      "effect": "One copy of APOE ε4 allele (ε3/ε4 genotype)",
-      "risk_level": "increased",
-      "population_frequency": 0.25
+    "CT": {
+      "summary": "APOE ε3/ε4 - 3x increased Alzheimer's risk",
+      "detail": "One copy of ε4 allele increases Alzheimer's risk approximately 3-fold. Age of onset typically 5-10 years earlier. Consider preventive lifestyle interventions.",
+      "risk_level": "increased_risk"
+    },
+    "CC": {
+      "summary": "APOE ε4/ε4 - 8-12x increased Alzheimer's risk",
+      "detail": "Two copies of ε4 allele dramatically increase Alzheimer's risk (8-12 fold). Up to 50% lifetime risk. Earlier age of onset (60s vs 70s). Strong recommendation for cognitive health monitoring.",
+      "risk_level": "high_risk"
     }
-  ],
+  },
   "sources": [
     {
-      "title": "APOE and Alzheimer's disease: a major gene with semi-dominant inheritance",
-      "url": "https://www.ncbi.nlm.nih.gov/pubmed/20831773",
-      "study_type": "meta_analysis"
+      "name": "SNPedia",
+      "url": "https://www.snpedia.com/index.php/Rs429358",
+      "study_type": "database"
+    },
+    {
+      "name": "Alzheimer's Association",
+      "url": "https://www.alz.org/alzheimers-dementia/what-is-alzheimers/causes-and-risk-factors/genetics",
+      "study_type": "review"
     }
   ],
-  "last_updated": "2024-01-15"
+  "population_frequency": {
+    "global_maf": 0.14
+  },
+  "last_updated": "2025-01-20"
 }
 ```
 
@@ -163,14 +176,17 @@ Interpret what a specific genotype means for a given SNP.
 }
 
 // Response (markdown)
-"# Genotype Interpretation: rs429358 (CT)
+"# Genotype Interpretation: rs429358
 
-## Your Genotype: CT
-- **Risk Level:** increased
-- **Effect:** One copy of APOE ε4 allele (ε3/ε4 genotype)
-- **Impact:** Approximately 3-fold increased risk of Alzheimer's disease
-- **Population Frequency:** ~25% of population
-..."
+**Your genotype:** CT
+
+**Genes:** APOE
+**Traits:** alzheimer_risk, cognitive_decline, cardiovascular_disease
+
+## Effect
+**APOE ε3/ε4 - 3x increased Alzheimer's risk** (increased_risk)
+
+One copy of ε4 allele increases Alzheimer's risk approximately 3-fold. Age of onset typically 5-10 years earlier. Consider preventive lifestyle interventions."
 ```
 
 ### Notes

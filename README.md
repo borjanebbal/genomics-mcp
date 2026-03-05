@@ -187,6 +187,9 @@ bun run format
 
 # Lint code
 bun run lint
+
+# Lint + format in one pass (auto-fixes)
+bun run check
 ```
 
 ## 📝 Adding New SNPs
