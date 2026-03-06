@@ -86,80 +86,9 @@ All SNPs include:
 
 ## 🏗️ Architecture
 
-```
-┌──────────────────────────────────────┐
-│           MCP Client (LLM)           │
-└────────────────┬─────────────────────┘
-                 │ stdio transport
-┌────────────────┴─────────────────────┐
-│           MCP Server (Bun)            │
-├──────────────────────────────────────┤
-│  Tools: search, details, interpret   │
-├──────────────────────────────────────┤
-│    Use Cases (business logic)         │
-├──────────────────────────────────────┤
-│   ISnpRepository (interface)         │
-├──────────────────────────────────────┤
-│  JsonSnpRepository (in-memory index) │
-└────────────────┬─────────────────────┘
-                 │
-  ┌──────────────┴──────────────────┐
-  │ src/repositories/data/snps.json │
-  └─────────────────────────────────┘
-```
+The server uses a layered architecture: **Tools → Use Cases → Repository → Data**, with in-memory indexing for sub-millisecond queries and a repository interface that makes database migration trivial.
 
-### Project Structure
-
-```
-genomics-mcp/
-├── docs/
-│   ├── ARCHITECTURE.md               # Design patterns and technical details
-│   ├── TESTING.md                    # Testing guide (automated + manual)
-│   └── TOOLS.md                      # Complete tool documentation
-├── src/
-│   ├── index.ts                      # Server entry point
-│   ├── constants.ts                  # Configuration constants
-│   ├── types/                        # TypeScript interfaces
-│   │   ├── common.ts                 # Shared types (enums, pagination)
-│   │   └── snp.ts                    # SNP-specific types
-│   ├── schemas/                      # Zod validation schemas
-│   │   ├── snp.schemas.ts            # SNP data validation + genotype key canonicalisation
-│   │   └── tool-inputs.schemas.ts    # Tool parameter validation
-│   ├── repositories/                 # Data access layer
-│   │   ├── snp.repository.ts         # Repository interface
-│   │   ├── snp.json-repository.ts    # JSON implementation
-│   │   └── data/
-│   │       └── snps.json             # Curated SNP dataset (12 SNPs, 34 traits)
-│   ├── services/                     # Business logic (use cases)
-│   │   ├── snp.service.ts            # Facade over use cases
-│   │   ├── search-by-trait.use-case.ts
-│   │   ├── get-snp-details.use-case.ts
-│   │   └── interpret-genotype.use-case.ts
-│   ├── tools/                        # MCP tool definitions
-│   │   ├── register-all.ts           # Barrel — imports & registers all tools
-│   │   ├── search-by-trait.tool.ts
-│   │   ├── get-snp-details.tool.ts
-│   │   ├── interpret-genotype.tool.ts
-│   │   └── list-traits.tool.ts
-│   └── utils/                        # Utilities
-│       ├── logger.ts                 # stderr logger (MCP-safe)
-│       ├── genotype.ts               # Genotype normalization
-│       ├── errors.ts                 # Error message helpers
-│       └── formatting.ts             # Response formatters
-├── tests/
-│   ├── utils/                        # Unit tests for utilities
-│   ├── schemas/                      # Tests for Zod schemas
-│   ├── repositories/                 # Integration tests for the JSON repository
-│   └── services/                     # Unit tests for use cases (mock repository)
-├── LICENSE
-├── package.json
-├── tsconfig.json
-└── README.md
-```
-
-## 🔄 Database Migration
-
-The repository pattern makes database migration trivial — implement `ISnpRepository` with a new backend and swap one line in `src/index.ts`. See [Architecture](docs/ARCHITECTURE.md) for details.
+**👉 See [Architecture Guide](docs/ARCHITECTURE.md) for diagrams, design patterns, data model, and technical details.**
 
 ## 🧪 Development
 
@@ -170,7 +99,7 @@ bun install
 # Run in development mode (auto-reload)
 bun run dev
 
-# Run automated tests (128 tests)
+# Run automated tests
 bun test
 
 # Type-check (optional — Bun runs TypeScript directly)
@@ -204,31 +133,12 @@ The data is validated against Zod schemas on load, so any schema violations will
 ## 📚 Resources
 
 - [Tool Reference](docs/TOOLS.md) — Complete tool documentation with examples
-- [Testing Guide](docs/TESTING.md) — 15+ manual test cases with expected results
+- [Testing Guide](docs/TESTING.md) — Automated test suite and manual MCP Inspector test cases
 - [Architecture Guide](docs/ARCHITECTURE.md) — Design patterns and technical details
 - [Model Context Protocol Documentation](https://modelcontextprotocol.io)
 - [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)
 - [SNPedia](https://www.snpedia.com) - Source of SNP information
 - [dbSNP](https://www.ncbi.nlm.nih.gov/snp/) - NCBI SNP database
-
-## 🤝 Contributing
-
-When adding new features, follow this order:
-
-1. **Schemas first** — Define Zod schemas in `src/schemas/` (source of truth)
-2. **Types second** — Derive TypeScript types via `z.infer` in `src/types/`
-3. **Repository third** — Add methods to `ISnpRepository` if needed
-4. **Use case fourth** — Implement business logic in `src/services/*.use-case.ts`
-5. **Tool last** — Wire up MCP tool in `src/tools/*.tool.ts`
-6. **Tests** — Add corresponding tests under `tests/` for each layer touched
-
-Ideas for contribution:
-
-- Add more SNPs and traits
-- Implement fuzzy trait search
-- Add gene-based search tool
-- Add batch genotype interpretation
-- Implement HTTP transport for remote deployment
 
 ## 📄 License
 
