@@ -85,7 +85,10 @@ genomics-mcp/
     ├── repositories/
     │   └── snp.json-repository.test.ts   # Full repository lifecycle, all query methods, error paths
     └── services/
-        └── use-cases.test.ts             # All three use-case classes via mock repository
+        ├── mock-repo.ts                  # Shared in-memory ISnpRepository mock + fixture SNPs
+        ├── get-snp-details.use-case.test.ts
+        ├── interpret-genotype.use-case.test.ts
+        └── search-by-trait.use-case.test.ts
 ```
 
 ## Common Tasks
@@ -125,7 +128,7 @@ Tests live in `tests/` and mirror `src/`. Use Bun's native test runner (`bun:tes
 
 - **Utils / schemas** — import and call the function directly; assert outputs with `expect()`
 - **Repository** — write a temp JSON fixture, call `initialize()`, then test each query method
-- **Use-case / service** — create a lightweight in-memory mock implementing `ISnpRepository`; inject it into the use-case constructor
+- **Use-case / service** — import `makeMockRepo` from `tests/services/mock-repo.ts`; inject it into the use-case constructor
 - **Never** test through the MCP tool layer in unit tests; tools are covered by manual MCP Inspector tests
 - Run `bun test` to verify; the pre-commit hook runs the full suite automatically
 
@@ -158,7 +161,9 @@ Tests live in `tests/` and mirror the `src/` structure:
 | `tests/utils/formatting.test.ts` | All 5 formatters, pagination, empty results, truncation |
 | `tests/schemas/snp.schemas.test.ts` | Valid/invalid domain data, canonicalisation transform |
 | `tests/repositories/snp.json-repository.test.ts` | Full repository lifecycle, all query methods, error paths |
-| `tests/services/use-cases.test.ts` | All three use-case classes end-to-end via mock repository |
+| `tests/services/get-snp-details.use-case.test.ts` | `GetSnpDetailsUseCase` — found, not-found, case-insensitive lookup |
+| `tests/services/interpret-genotype.use-case.test.ts` | `InterpretGenotypeUseCase` — normalisation, error paths, result shape |
+| `tests/services/search-by-trait.use-case.test.ts` | `SearchByTraitUseCase` — any/all modes, pagination, summary fields |
 
 Tests use Bun's native test runner (`bun:test`) — no Jest or Vitest. The pre-commit hook runs `bun test` automatically before every commit.
 
