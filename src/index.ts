@@ -35,23 +35,23 @@ async function main() {
   registerTools(server, snpService);
 
   const metadata = await repository.getMetadata();
-  logger.info(`Dataset loaded: ${metadata.total_snps} SNPs, ${metadata.total_traits} traits`);
-  logger.info(`Last updated: ${metadata.last_updated}`);
+  logger.info(`🧬 Dataset loaded: ${metadata.total_snps} SNPs, ${metadata.total_traits} traits`);
+  logger.info(`🗓️ Last updated: ${metadata.last_updated}`);
 
   const transport = new StdioServerTransport();
   await server.connect(transport);
 
   logger.info("Connected via stdio transport");
-  logger.info("Genomics MCP Server is ready");
+  logger.info("🚀 Genomics MCP Server is ready");
 
   process.on("SIGINT", async () => {
-    logger.info("Received SIGINT, shutting down gracefully...");
+    logger.info("Received SIGINT, shutting down gracefully... 👋");
     await server.close();
     process.exit(0);
   });
 
   process.on("SIGTERM", async () => {
-    logger.info("Received SIGTERM, shutting down gracefully...");
+    logger.info("Received SIGTERM, shutting down gracefully... 👋");
     await server.close();
     process.exit(0);
   });

@@ -14,5 +14,5 @@ export function registerTools(server: McpServer, snpService: SnpService): void {
   registerInterpretGenotypeTool(server, snpService);
   registerListTraitsTool(server, snpService);
 
-  logger.info("Registered 4 genomics tools");
+  logger.info("🛠️ Registered 4 genomics tools");
 }
