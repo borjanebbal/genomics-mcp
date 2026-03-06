@@ -57,13 +57,25 @@ export const SnpRecordSchema = z.object({
     .refine((effects) => Object.keys(effects).length > 0, {
       message: "At least one genotype effect is required",
     })
-    .transform((effects) => {
+    .transform((effects, ctx) => {
       // Canonicalise all keys to sorted uppercase (e.g. "GA" → "AG") so that
       // normalizeGenotype() lookups always match regardless of how the seed data
       // was authored.
+      //
+      // Fail-fast if two raw keys normalise to the same canonical key
+      // (e.g. "AG" + "GA", or "ag" + "AG") — silently overwriting one
+      // entry would discard data and produce incorrect interpretations.
       const canonical: Record<string, z.infer<typeof GenotypeEffectSchema>> = {};
       for (const [key, value] of Object.entries(effects)) {
-        canonical[normalizeGenotype(key)] = value;
+        const canonicalKey = normalizeGenotype(key);
+        if (canonicalKey in canonical) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: `Duplicate canonical genotype key "${canonicalKey}": both "${key}" and an earlier key normalise to the same value. Remove or merge the duplicate.`,
+          });
+          return z.NEVER;
+        }
+        canonical[canonicalKey] = value;
       }
       return canonical;
     }),
