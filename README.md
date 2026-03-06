@@ -146,6 +146,7 @@ genomics-mcp/
 │       ├── genotype.ts               # Genotype normalization
 │       ├── errors.ts                 # Error message helpers
 │       └── formatting.ts             # Response formatters
+├── LICENSE
 ├── package.json
 ├── tsconfig.json
 └── README.md
