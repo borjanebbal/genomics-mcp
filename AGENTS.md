@@ -24,35 +24,68 @@ This is an MCP (Model Context Protocol) server written in TypeScript that expose
 ## File Layout
 
 ```
-src/
-├── index.ts                              # Entry point — wires everything together
-├── constants.ts                          # Limits, patterns, defaults
-├── types/
-│   ├── common.ts                         # PaginationMetadata, MatchMode, ResponseFormat, RiskLevel, StudyType
-│   └── snp.ts                            # SnpRecord, SnpSummary, TraitSummary, DatasetMetadata, GenotypeInterpretation
-├── schemas/
-│   ├── snp.schemas.ts                    # Domain Zod schemas — validates seed data on startup
-│   └── tool-inputs.schemas.ts            # Zod schemas for MCP tool inputs
-├── repositories/                         # Data access layer
-│   ├── snp.repository.ts                 # ISnpRepository interface
-│   ├── snp.json-repository.ts            # JSON/in-memory implementation
-│   └── data/snps.json                    # Seed data
-├── services/                             # Business logic
-│   ├── snp.service.ts                    # Facade — delegates to use cases
-│   ├── get-snp-details.use-case.ts
-│   ├── interpret-genotype.use-case.ts
-│   └── search-by-trait.use-case.ts
-├── tools/                                # MCP tool registrations
-│   ├── register-all.ts                   # Barrel — registers all tools
-│   ├── get-snp-details.tool.ts
-│   ├── interpret-genotype.tool.ts
-│   ├── list-traits.tool.ts
-│   └── search-by-trait.tool.ts
-└── utils/                                # Shared utilities
-    ├── logger.ts                         # Stderr logger
-    ├── genotype.ts                       # Allele normalization
-    ├── errors.ts                         # Error message helpers
-    └── formatting.ts                     # Markdown/JSON response formatters
+genomics-mcp/
+├── package.json                          # Scripts, dependencies (Bun runtime)
+├── tsconfig.json                         # Strict mode, noEmit, excludes tests/
+├── biome.json                            # Linter + formatter config
+├── bun.lock                              # Lockfile
+├── AGENTS.md                             # AI agent instructions (this file)
+├── README.md                             # Project overview and quick-start
+├── LICENSE                               # MIT
+│
+├── docs/
+│   ├── ARCHITECTURE.md                   # Design decisions, data flow, known limitations
+│   ├── TESTING.md                        # Automated + manual testing guide
+│   └── TOOLS.md                          # MCP tool reference (inputs, outputs, examples)
+│
+├── src/
+│   ├── index.ts                          # Entry point — wires server, repository, service, tools
+│   ├── constants.ts                      # Shared limits, patterns, defaults
+│   │
+│   ├── types/                            # TypeScript types (derived from Zod schemas via z.infer)
+│   │   ├── common.ts                     # PaginationMetadata, MatchMode, ResponseFormat, RiskLevel, StudyType
+│   │   └── snp.ts                        # SnpRecord, SnpSummary, TraitSummary, DatasetMetadata, GenotypeInterpretation
+│   │
+│   ├── schemas/                          # Zod schemas — source of truth for validation and types
+│   │   ├── snp.schemas.ts                # Domain schemas — validates seed data on startup
+│   │   └── tool-inputs.schemas.ts        # MCP tool input schemas
+│   │
+│   ├── repositories/                     # Data access layer
+│   │   ├── snp.repository.ts             # ISnpRepository interface
+│   │   ├── snp.json-repository.ts        # JSON/in-memory implementation
+│   │   └── data/
+│   │       └── snps.json                 # Seed data (12 SNPs)
+│   │
+│   ├── services/                         # Business logic
+│   │   ├── snp.service.ts                # Facade — delegates to use-case classes
+│   │   ├── get-snp-details.use-case.ts
+│   │   ├── interpret-genotype.use-case.ts
+│   │   └── search-by-trait.use-case.ts
+│   │
+│   ├── tools/                            # MCP tool registrations (one tool per file)
+│   │   ├── register-all.ts               # Barrel — imports and registers all tools
+│   │   ├── get-snp-details.tool.ts
+│   │   ├── interpret-genotype.tool.ts
+│   │   ├── list-traits.tool.ts
+│   │   └── search-by-trait.tool.ts
+│   │
+│   └── utils/                            # Shared utilities
+│       ├── logger.ts                     # Stderr-only logger (stdout is reserved for MCP)
+│       ├── genotype.ts                   # Allele normalization (canonical sort)
+│       ├── errors.ts                     # Error message helpers
+│       └── formatting.ts                 # Markdown/JSON response formatters
+│
+└── tests/                                # Mirrors src/ — Bun native test runner (bun:test)
+    ├── utils/
+    │   ├── genotype.test.ts              # normalizeGenotype() — all allele combos, case handling
+    │   ├── errors.test.ts                # notFoundError(), genotypeNotFoundError()
+    │   └── formatting.test.ts            # All 5 formatters, pagination, empty results, truncation
+    ├── schemas/
+    │   └── snp.schemas.test.ts           # Valid/invalid domain data, canonicalisation transform
+    ├── repositories/
+    │   └── snp.json-repository.test.ts   # Full repository lifecycle, all query methods, error paths
+    └── services/
+        └── use-cases.test.ts             # All three use-case classes via mock repository
 ```
 
 ## Common Tasks
@@ -86,6 +119,16 @@ src/
 2. Swap the instantiation in `src/index.ts`
 3. No other files change
 
+### Adding a new test
+
+Tests live in `tests/` and mirror `src/`. Use Bun's native test runner (`bun:test`) — no Jest imports.
+
+- **Utils / schemas** — import and call the function directly; assert outputs with `expect()`
+- **Repository** — write a temp JSON fixture, call `initialize()`, then test each query method
+- **Use-case / service** — create a lightweight in-memory mock implementing `ISnpRepository`; inject it into the use-case constructor
+- **Never** test through the MCP tool layer in unit tests; tools are covered by manual MCP Inspector tests
+- Run `bun test` to verify; the pre-commit hook runs the full suite automatically
+
 ## Build & Run
 
 ```bash
@@ -102,7 +145,24 @@ bun run check:staged # Biome check on staged files — used by the git pre-commi
 
 ## Testing
 
-No automated tests yet. See `docs/TESTING.md` for 15+ manual test cases using MCP Inspector.
+```bash
+bun test             # Run all automated tests (132 tests across 6 files)
+```
+
+Tests live in `tests/` and mirror the `src/` structure:
+
+| File | Coverage |
+|---|---|
+| `tests/utils/genotype.test.ts` | `normalizeGenotype()` — all allele combos, case handling |
+| `tests/utils/errors.test.ts` | `notFoundError()`, `genotypeNotFoundError()` |
+| `tests/utils/formatting.test.ts` | All 5 formatters, pagination, empty results, truncation |
+| `tests/schemas/snp.schemas.test.ts` | Valid/invalid domain data, canonicalisation transform |
+| `tests/repositories/snp.json-repository.test.ts` | Full repository lifecycle, all query methods, error paths |
+| `tests/services/use-cases.test.ts` | All three use-case classes end-to-end via mock repository |
+
+Tests use Bun's native test runner (`bun:test`) — no Jest or Vitest. The pre-commit hook runs `bun test` automatically before every commit.
+
+See `docs/TESTING.md` for 15+ manual test cases using MCP Inspector.
 
 ## Gotchas
 

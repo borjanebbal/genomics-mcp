@@ -313,11 +313,19 @@ Find SNPs affecting multiple traits:
 
 ## Error Handling
 
+Errors are returned as standard MCP tool responses with `isError: true` and a plain-text message inside the `content` array.
+
 ### Invalid rsID
 
 ```json
 {
-  "error": "SNP rs999999 not found in our database. Our dataset contains 12 SNPs. Try using 'list_traits' to see what data is available."
+  "content": [
+    {
+      "type": "text",
+      "text": "SNP rs999999 not found in our database. Our dataset contains 12 SNPs. Try using 'list_traits' to see what data is available."
+    }
+  ],
+  "isError": true
 }
 ```
 
@@ -325,15 +333,28 @@ Find SNPs affecting multiple traits:
 
 ```json
 {
-  "error": "Genotype 'XY' is invalid. Must be 2 nucleotides (A, C, G, T)."
+  "content": [
+    {
+      "type": "text",
+      "text": "Genotype 'XY' not found for rs429358. Available genotypes: TT, CT, CC. Make sure you're using the correct alleles."
+    }
+  ],
+  "isError": true
 }
 ```
 
-### No Results
+### No Results (`search_by_trait`)
+
+When `search_by_trait` finds no matching SNPs, it returns a plain informational message — **not** an error response:
 
 ```json
 {
-  "error": "No SNPs found for traits: unknown_trait. Try using 'list_traits' to see available traits."
+  "content": [
+    {
+      "type": "text",
+      "text": "No SNPs found for traits: unknown_trait. Try using 'list_traits' to see available traits."
+    }
+  ]
 }
 ```
 

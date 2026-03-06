@@ -117,7 +117,9 @@ class JsonSnpRepository {
 
 ### 4. Genotype Normalization
 
-**Purpose:** Handle allele order ambiguity (AG = GA) and case variations.
+**Purpose:** Handle allele order ambiguity (AG = GA) and case variations consistently at two layers.
+
+**Runtime layer** — `normalizeGenotype()` in `src/utils/genotype.ts` sorts alleles alphabetically before every lookup:
 
 ```typescript
 function normalizeGenotype(genotype: string): string {
@@ -128,10 +130,24 @@ function normalizeGenotype(genotype: string): string {
 }
 ```
 
+**Parse-time layer** — `SnpRecordSchema` applies a `.transform()` on `effects_by_genotype` keys at Zod parse time (server startup), so keys in the seed data are canonicalised once:
+
+```typescript
+effects_by_genotype: z
+  .record(...)
+  .transform((effects) => {
+    const canonical: Record<string, GenotypeEffect> = {};
+    for (const [key, value] of Object.entries(effects)) {
+      canonical[normalizeGenotype(key)] = value;  // e.g. "GA" → "AG"
+    }
+    return canonical;
+  }),
+```
+
 **Why this matters:**
-- SNP data may use either strand orientation
-- Users may type "ag", "AG", "GA", or "ga"
-- All variations need to match the same genotype entry
+- Seed data may use either allele order (e.g. `"CG"` vs `"GC"`)
+- Users may type `"ag"`, `"AG"`, `"GA"`, or `"ga"`
+- Both layers guarantee all variations match the same canonical key
 
 ### 5. Dual Response Formats
 
@@ -280,9 +296,10 @@ throw new Error("System error - check server logs");
 
 ### 3. Duplicate rsID Handling
 
-- If JSON has duplicate rsIDs, the later entry overwrites the earlier one (Map behavior)
-- A warning is logged to stderr when duplicates are detected during index building
-- **Future:** Reject duplicates at load time instead of warning
+- Duplicate rsIDs in the JSON dataset cause a hard `Error` to be thrown inside `buildIndexes()` during `initialize()`
+- The error propagates out of `initialize()`, is caught and re-thrown with context, and causes `process.exit(1)` at server startup
+- The dataset is rejected entirely — no SNP from a file with duplicate rsIDs will be served
+- **Resolution:** Remove or de-duplicate the offending entries in `snps.json` and restart
 
 ### 4. Limited Search Capabilities
 

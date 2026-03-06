@@ -7,6 +7,29 @@ This guide shows how to test the Genomics MCP Server to ensure all tools work co
 - Bun installed (https://bun.sh)
 - Dependencies installed (`bun install`)
 
+## Automated Tests
+
+Run the full test suite with:
+
+```bash
+bun test
+```
+
+128 tests across 6 files — all must pass before every commit (enforced by the pre-commit hook).
+
+| File | What it covers |
+|---|---|
+| `tests/utils/genotype.test.ts` | `normalizeGenotype()` — all allele combos, case handling |
+| `tests/utils/errors.test.ts` | `notFoundError()`, `genotypeNotFoundError()` |
+| `tests/utils/formatting.test.ts` | All 5 formatters, pagination, empty results, truncation |
+| `tests/schemas/snp.schemas.test.ts` | Valid/invalid domain data, canonicalisation transform |
+| `tests/repositories/snp.json-repository.test.ts` | Full repository lifecycle, all query methods, error paths |
+| `tests/services/use-cases.test.ts` | All three use-case classes end-to-end via mock repository |
+
+Tests use Bun's native test runner (`bun:test`) — no Jest or Vitest. Tool-layer integration is covered by the manual MCP Inspector tests below.
+
+---
+
 ## Method 1: MCP Inspector (Recommended)
 
 The MCP Inspector provides a web-based interface to test MCP servers.
@@ -447,3 +470,4 @@ After verifying all tests pass:
 3. Monitor for edge cases and errors
 4. Expand SNP dataset
 5. Consider database migration for larger datasets
+6. Set up GitHub Actions CI to run `bun test`, `bun run build`, and `bun run lint` on every push

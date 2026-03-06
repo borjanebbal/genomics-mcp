@@ -114,7 +114,7 @@ All SNPs include:
 genomics-mcp/
 ├── docs/
 │   ├── ARCHITECTURE.md               # Design patterns and technical details
-│   ├── TESTING.md                    # Testing guide (15+ test cases)
+│   ├── TESTING.md                    # Testing guide (automated + manual)
 │   └── TOOLS.md                      # Complete tool documentation
 ├── src/
 │   ├── index.ts                      # Server entry point
@@ -123,7 +123,7 @@ genomics-mcp/
 │   │   ├── common.ts                 # Shared types (enums, pagination)
 │   │   └── snp.ts                    # SNP-specific types
 │   ├── schemas/                      # Zod validation schemas
-│   │   ├── snp.schemas.ts            # SNP data validation
+│   │   ├── snp.schemas.ts            # SNP data validation + genotype key canonicalisation
 │   │   └── tool-inputs.schemas.ts    # Tool parameter validation
 │   ├── repositories/                 # Data access layer
 │   │   ├── snp.repository.ts         # Repository interface
@@ -146,6 +146,11 @@ genomics-mcp/
 │       ├── genotype.ts               # Genotype normalization
 │       ├── errors.ts                 # Error message helpers
 │       └── formatting.ts             # Response formatters
+├── tests/
+│   ├── utils/                        # Unit tests for utilities
+│   ├── schemas/                      # Tests for Zod schemas
+│   ├── repositories/                 # Integration tests for the JSON repository
+│   └── services/                     # Unit tests for use cases (mock repository)
 ├── LICENSE
 ├── package.json
 ├── tsconfig.json
@@ -165,6 +170,9 @@ bun install
 # Run in development mode (auto-reload)
 bun run dev
 
+# Run automated tests (128 tests)
+bun test
+
 # Type-check (optional — Bun runs TypeScript directly)
 bun run build
 
@@ -177,6 +185,8 @@ bun run lint
 # Lint + format in one pass (auto-fixes)
 bun run check
 ```
+
+A pre-commit hook runs `bun run check` on staged files and then `bun test` before every commit.
 
 ## 📝 Adding New SNPs
 
@@ -210,6 +220,7 @@ When adding new features, follow this order:
 3. **Repository third** — Add methods to `ISnpRepository` if needed
 4. **Use case fourth** — Implement business logic in `src/services/*.use-case.ts`
 5. **Tool last** — Wire up MCP tool in `src/tools/*.tool.ts`
+6. **Tests** — Add corresponding tests under `tests/` for each layer touched
 
 Ideas for contribution:
 
