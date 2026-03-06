@@ -40,6 +40,22 @@ const SNP_B = {
   last_updated: "2025-06-01",
 };
 
+// SNP_C uses a trait slug that IS in TRAIT_CATEGORIES — used to test category population.
+const SNP_C = {
+  rsid: "rs00003",
+  genes: ["GENE3"],
+  traits: ["memory"],
+  description: "Test SNP C",
+  chromosome: "3",
+  position: 3000,
+  reference_allele: "G",
+  effects_by_genotype: {
+    GG: { summary: "Homozygous G", detail: "Detail G.", risk_level: "informational" },
+  },
+  sources: [{ name: "TestDB", url: "https://example.com/rs00003", study_type: "database" }],
+  last_updated: "2025-03-01",
+};
+
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
@@ -274,6 +290,20 @@ describe("JsonSnpRepository.listTraits", () => {
     const traitA = traits.find((t) => t.slug === "trait_a");
     // "trait_a" → "Trait A"
     expect(traitA?.display_name).toBe("Trait A");
+  });
+
+  it("sets category to undefined for slugs not in TRAIT_CATEGORIES", async () => {
+    const repo = await createRepoFromData([SNP_A]);
+    const traits = await repo.listTraits();
+    const traitA = traits.find((t) => t.slug === "trait_a");
+    expect(traitA?.category).toBeUndefined();
+  });
+
+  it("populates category for slugs present in TRAIT_CATEGORIES", async () => {
+    const repo = await createRepoFromData([SNP_C]);
+    const traits = await repo.listTraits();
+    const memory = traits.find((t) => t.slug === "memory");
+    expect(memory?.category).toBe("Neurological");
   });
 });
 
