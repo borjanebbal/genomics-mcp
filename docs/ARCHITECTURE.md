@@ -105,7 +105,7 @@ class SnpService {
 
 ```typescript
 class JsonSnpRepository {
-  private rsidIndex: Map<string, number>;      // O(1) rsID lookups
+  private rsidIndex: Map<string, number>;       // O(1) rsID lookups
   private traitIndex: Map<string, Set<number>>; // O(k) trait queries
 }
 ```

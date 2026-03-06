@@ -145,7 +145,7 @@ genomics-mcp/
 │       ├── logger.ts                 # stderr logger (MCP-safe)
 │       ├── genotype.ts               # Genotype normalization
 │       ├── errors.ts                 # Error message helpers
-│       └── formatting.ts            # Response formatters
+│       └── formatting.ts             # Response formatters
 ├── package.json
 ├── tsconfig.json
 └── README.md

@@ -22,10 +22,11 @@ You should see output like:
 [Server] Initializing Genomics MCP Server v0.1.0
 [Server] Loading SNP data from: /path/to/src/repositories/data/snps.json
 [JsonSnpRepository] Loaded 12 SNPs from /path/to/data/snps.json
-[Tools] Registered 4 genomics tools
-[Server] Dataset loaded: 12 SNPs, 34 traits
+[Tools] 🛠️ Registered 4 genomics tools
+[Server] 🧬 Dataset loaded: 12 SNPs, 34 traits
+[Server] 🗓️ Last updated: 2025-01-20
 [Server] Connected via stdio transport
-[Server] Genomics MCP Server is ready
+[Server] 🚀 Genomics MCP Server is ready
 
 Inspector running at http://localhost:5173
 ```
