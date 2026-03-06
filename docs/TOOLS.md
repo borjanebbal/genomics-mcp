@@ -220,6 +220,32 @@ List all available traits with SNP counts.
 ```json
 // Input
 {
+  "response_format": "markdown"
+}
+
+// Response (markdown, excerpt)
+"# Available Traits
+
+## Neurological
+- **alzheimer_risk** (Alzheimer Risk) - 2 SNPs
+- **cognitive_decline** (Cognitive Decline) - 2 SNPs
+- **memory** (Memory) - 2 SNPs
+...
+
+## Cardiovascular
+- **cardiovascular_disease** (Cardiovascular Disease) - 2 SNPs
+...
+
+## Other
+- **some_uncategorized_trait** (Some Uncategorized Trait) - 1 SNP
+"
+```
+
+**Filtered example:**
+
+```json
+// Input
+{
   "search": "alzheimer",
   "response_format": "markdown"
 }
@@ -227,9 +253,8 @@ List all available traits with SNP counts.
 // Response (markdown)
 "# Available Traits (filtered: alzheimer)
 
-Found 1 matching trait:
-
-- **alzheimer_risk** - 2 SNPs
+## Neurological
+- **alzheimer_risk** (Alzheimer Risk) - 2 SNPs
 "
 ```
 

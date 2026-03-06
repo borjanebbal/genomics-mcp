@@ -175,4 +175,4 @@ See `docs/TESTING.md` for manual test cases using MCP Inspector.
 - `import.meta.dir` is used for path resolution — this is a Bun API (no `fileURLToPath`/`dirname` needed).
 - The `findByTraits` "all" mode intersection copies the first set with `new Set(...)` to avoid mutating the internal trait index.
 - `ISnpRepository` exposes `getAllSnps()` which is currently unused by any service or tool — treat it as an available extension point.
-- `TraitSummary` has an optional `category` field and `formatting.ts` renders it as a group header, but `snp.json-repository.ts` does not populate it yet — traits will always appear ungrouped until this is wired up.
+- `TraitSummary` has an optional `category` field populated from the `TRAIT_CATEGORIES` map in `snp.json-repository.ts`. `formatting.ts` renders categories as `## headers` and falls back to `## Other` for slugs not in the map. When adding new trait slugs to the dataset, also add them to `TRAIT_CATEGORIES` so they appear in the correct group.

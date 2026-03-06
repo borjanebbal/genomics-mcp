@@ -126,7 +126,8 @@ To add new SNPs to the dataset:
    - `rsid`, `genes`, `traits`, `description`, `chromosome`, `position`
    - `reference_allele`, `effects_by_genotype`, `sources`, `last_updated`
 3. Restart the server — Zod validates on startup and will report any schema violations
-4. Optionally run `bun run build` to type-check
+4. If the SNP introduces a new trait slug, add it to the `TRAIT_CATEGORIES` map in `src/repositories/snp.json-repository.ts` so it appears under the correct category heading in `list_traits` output (unlisted slugs fall back to **Other**)
+5. Optionally run `bun run build` to type-check
 
 The data is validated against Zod schemas on load, so any schema violations will be caught immediately.
 
