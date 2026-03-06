@@ -331,17 +331,21 @@ Errors are returned as standard MCP tool responses with `isError: true` and a pl
 
 ### Invalid Genotype
 
+When the genotype passes Zod validation (valid nucleotides) but has no entry for the given SNP:
+
 ```json
 {
   "content": [
     {
       "type": "text",
-      "text": "Genotype 'XY' not found for rs429358. Available genotypes: TT, CT, CC. Make sure you're using the correct alleles."
+      "text": "Genotype 'GG' not found for rs429358. Available genotypes: TT, CT, CC. Make sure you're using the correct alleles."
     }
   ],
   "isError": true
 }
 ```
+
+> **Note:** Invalid nucleotide letters (e.g. `"XY"`) are rejected earlier by Zod schema validation and never reach the use case.
 
 ### No Results (`search_by_trait`)
 

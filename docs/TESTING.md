@@ -15,16 +15,18 @@ Run the full test suite with:
 bun test
 ```
 
-128 tests across 6 files — all must pass before every commit (enforced by the pre-commit hook).
+All tests must pass before every commit (enforced by the pre-commit hook).
 
 | File | What it covers |
 |---|---|
 | `tests/utils/genotype.test.ts` | `normalizeGenotype()` — all allele combos, case handling |
-| `tests/utils/errors.test.ts` | `notFoundError()`, `genotypeNotFoundError()` |
+| `tests/utils/errors.test.ts` | `createSnpNotFoundMessage()`, `createGenotypeNotFoundMessage()` |
 | `tests/utils/formatting.test.ts` | All 5 formatters, pagination, empty results, truncation |
 | `tests/schemas/snp.schemas.test.ts` | Valid/invalid domain data, canonicalisation transform |
 | `tests/repositories/snp.json-repository.test.ts` | Full repository lifecycle, all query methods, error paths |
-| `tests/services/use-cases.test.ts` | All three use-case classes end-to-end via mock repository |
+| `tests/services/get-snp-details.use-case.test.ts` | `GetSnpDetailsUseCase` — found, not-found, case-insensitive lookup |
+| `tests/services/interpret-genotype.use-case.test.ts` | `InterpretGenotypeUseCase` — normalisation, error paths, result shape |
+| `tests/services/search-by-trait.use-case.test.ts` | `SearchByTraitUseCase` — any/all modes, pagination, summary fields |
 
 Tests use Bun's native test runner (`bun:test`) — no Jest or Vitest. Tool-layer integration is covered by the manual MCP Inspector tests below.
 

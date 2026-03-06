@@ -78,7 +78,7 @@ genomics-mcp/
 └── tests/                                # Mirrors src/ — Bun native test runner (bun:test)
     ├── utils/
     │   ├── genotype.test.ts              # normalizeGenotype() — all allele combos, case handling
-    │   ├── errors.test.ts                # notFoundError(), genotypeNotFoundError()
+    │   ├── errors.test.ts                # createSnpNotFoundMessage(), createGenotypeNotFoundMessage()
     │   └── formatting.test.ts            # All 5 formatters, pagination, empty results, truncation
     ├── schemas/
     │   └── snp.schemas.test.ts           # Valid/invalid domain data, canonicalisation transform
@@ -149,7 +149,7 @@ bun run check:staged # Biome check on staged files — used by the git pre-commi
 ## Testing
 
 ```bash
-bun test             # Run all automated tests (132 tests across 6 files)
+bun test             # Run all automated tests
 ```
 
 Tests live in `tests/` and mirror the `src/` structure:
@@ -157,7 +157,7 @@ Tests live in `tests/` and mirror the `src/` structure:
 | File | Coverage |
 |---|---|
 | `tests/utils/genotype.test.ts` | `normalizeGenotype()` — all allele combos, case handling |
-| `tests/utils/errors.test.ts` | `notFoundError()`, `genotypeNotFoundError()` |
+| `tests/utils/errors.test.ts` | `createSnpNotFoundMessage()`, `createGenotypeNotFoundMessage()` |
 | `tests/utils/formatting.test.ts` | All 5 formatters, pagination, empty results, truncation |
 | `tests/schemas/snp.schemas.test.ts` | Valid/invalid domain data, canonicalisation transform |
 | `tests/repositories/snp.json-repository.test.ts` | Full repository lifecycle, all query methods, error paths |
@@ -167,7 +167,7 @@ Tests live in `tests/` and mirror the `src/` structure:
 
 Tests use Bun's native test runner (`bun:test`) — no Jest or Vitest. The pre-commit hook runs `bun test` automatically before every commit.
 
-See `docs/TESTING.md` for 15+ manual test cases using MCP Inspector.
+See `docs/TESTING.md` for manual test cases using MCP Inspector.
 
 ## Gotchas
 

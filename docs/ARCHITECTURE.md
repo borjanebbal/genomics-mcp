@@ -15,7 +15,25 @@ This document describes the technical architecture, design patterns, and impleme
 ## Architectural Layers
 
 ```
-Transport (stdio) → MCP Server → Tools → Service → Repository → Data
+┌──────────────────────────────────────┐
+│           MCP Client (LLM)           │
+└────────────────┬─────────────────────┘
+                 │ stdio transport
+┌────────────────┴─────────────────────┐
+│           MCP Server (Bun)            │
+├──────────────────────────────────────┤
+│  Tools: search, details, interpret   │
+├──────────────────────────────────────┤
+│    Use Cases (business logic)         │
+├──────────────────────────────────────┤
+│   ISnpRepository (interface)         │
+├──────────────────────────────────────┤
+│  JsonSnpRepository (in-memory index) │
+└────────────────┬─────────────────────┘
+                 │
+  ┌──────────────┴──────────────────┐
+  │ src/repositories/data/snps.json │
+  └─────────────────────────────────┘
 ```
 
 ### Layer Responsibilities
@@ -130,15 +148,26 @@ function normalizeGenotype(genotype: string): string {
 }
 ```
 
-**Parse-time layer** — `SnpRecordSchema` applies a `.transform()` on `effects_by_genotype` keys at Zod parse time (server startup), so keys in the seed data are canonicalised once:
+**Parse-time layer** — `SnpRecordSchema` applies a `.transform()` on `effects_by_genotype` keys at Zod parse time (server startup), so keys in the seed data are canonicalised once. If two raw keys normalise to the same canonical key (e.g. `"AG"` + `"GA"`), the transform rejects the entire record:
 
 ```typescript
 effects_by_genotype: z
   .record(...)
-  .transform((effects) => {
+  .refine((effects) => Object.keys(effects).length > 0, {
+    message: "At least one genotype effect is required",
+  })
+  .transform((effects, ctx) => {
     const canonical: Record<string, GenotypeEffect> = {};
     for (const [key, value] of Object.entries(effects)) {
-      canonical[normalizeGenotype(key)] = value;  // e.g. "GA" → "AG"
+      const canonicalKey = normalizeGenotype(key);
+      if (canonicalKey in canonical) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: `Duplicate canonical genotype key "${canonicalKey}"...`,
+        });
+        return z.NEVER;  // abort — data would be silently lost
+      }
+      canonical[canonicalKey] = value;
     }
     return canonical;
   }),
@@ -244,29 +273,48 @@ interface GenotypeEffect {
 
 ### 1. Validation Errors (User Input)
 
+The MCP SDK validates tool inputs against the Zod schemas automatically — tools never see invalid data:
+
 ```typescript
-// Zod catches invalid inputs at tool boundary
-const result = SearchInputSchema.safeParse(input);
-if (!result.success) {
-  return formatZodError(result.error); // User-friendly message
-}
+// Defined in tool-inputs.schemas.ts
+const GetSnpDetailsInputSchema = z.object({
+  rsid: z.string().regex(RSID_PATTERN, "Must be a valid rsID format (e.g., 'rs111', 'rs12345')"),
+  response_format: z.enum(["markdown", "json"]).default("markdown"),
+});
+
+// The MCP SDK calls .parse() on the input before the handler runs.
+// If validation fails, the SDK returns a Zod error to the client — the
+// handler is never invoked.
 ```
 
 ### 2. Not Found Errors
 
+Use-case classes return `{ error: string }` and the tool layer converts this to an `isError: true` MCP response:
+
 ```typescript
-// Suggest what IS available
+// In get-snp-details.use-case.ts
 if (!snp) {
-  return `SNP '${rsid}' not found. Try: ${availableRsids.slice(0, 5).join(', ')}`;
+  const metadata = await this.repository.getMetadata();
+  return { error: createSnpNotFoundMessage(rsid, metadata.total_snps) };
 }
+
+// createSnpNotFoundMessage() produces:
+// "SNP rs999999 not found in our database. Our dataset contains 12 SNPs.
+//  Try using 'list_traits' to see what data is available."
 ```
 
 ### 3. System Errors
 
+Each tool wraps its handler in a `try/catch` that returns a generic MCP error:
+
 ```typescript
-// Log to stderr, return generic message
-logger.error("Failed to load data", error);
-throw new Error("System error - check server logs");
+// In every *.tool.ts
+catch (error) {
+  return {
+    content: [{ type: "text", text: `Error retrieving SNP details: ${error instanceof Error ? error.message : String(error)}` }],
+    isError: true,
+  };
+}
 ```
 
 ## Performance Characteristics
