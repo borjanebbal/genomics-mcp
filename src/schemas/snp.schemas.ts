@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { normalizeGenotype } from "../utils/genotype.js";
 
 export const RiskLevelSchema = z.enum([
   "informational",
@@ -55,6 +56,16 @@ export const SnpRecordSchema = z.object({
     .record(z.string().regex(/^[ACGT]{2}$/i), GenotypeEffectSchema)
     .refine((effects) => Object.keys(effects).length > 0, {
       message: "At least one genotype effect is required",
+    })
+    .transform((effects) => {
+      // Canonicalise all keys to sorted uppercase (e.g. "GA" → "AG") so that
+      // normalizeGenotype() lookups always match regardless of how the seed data
+      // was authored.
+      const canonical: Record<string, z.infer<typeof GenotypeEffectSchema>> = {};
+      for (const [key, value] of Object.entries(effects)) {
+        canonical[normalizeGenotype(key)] = value;
+      }
+      return canonical;
     }),
   sources: z.array(SourceSchema).min(1).max(50),
   population_frequency: PopulationFrequencySchema.optional(),

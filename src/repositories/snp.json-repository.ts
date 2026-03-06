@@ -45,7 +45,9 @@ export class JsonSnpRepository implements ISnpRepository {
       const normalizedRsid = snp.rsid.toLowerCase();
 
       if (this.rsidIndex.has(normalizedRsid)) {
-        logger.warn(`Duplicate rsID "${snp.rsid}" at index ${i} — overwriting earlier entry`);
+        throw new Error(
+          `Duplicate rsID "${snp.rsid}" found at index ${i} — each rsID must be unique in the dataset`
+        );
       }
       this.rsidIndex.set(normalizedRsid, i);
 
