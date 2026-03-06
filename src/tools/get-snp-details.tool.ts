@@ -15,6 +15,7 @@ export function registerGetSnpDetailsTool(server: McpServer, snpService: SnpServ
         if ("error" in result) {
           return {
             content: [{ type: "text", text: result.error }],
+            isError: true,
           };
         }
 

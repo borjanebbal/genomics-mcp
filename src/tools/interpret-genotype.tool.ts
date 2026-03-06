@@ -15,6 +15,7 @@ export function registerInterpretGenotypeTool(server: McpServer, snpService: Snp
         if ("error" in result) {
           return {
             content: [{ type: "text", text: result.error }],
+            isError: true,
           };
         }
 
