@@ -10,14 +10,40 @@ export function registerListTraitsTool(server: McpServer, snpService: SnpService
     "list_traits",
     {
       description:
-        "List all available traits in the dataset with SNP counts, grouped by category. Supports optional search filter.",
+        "List all available traits in the dataset with SNP counts, grouped by category. Supports optional search filter and pagination.",
       inputSchema: ListTraitsInputSchema.shape,
     },
     async (params: ListTraitsInput) => {
       try {
-        const traits = await snpService.listTraits(params.search);
+        const { traits, pagination } = await snpService.listTraits(
+          params.search,
+          params.limit,
+          params.offset
+        );
 
         if (traits.length === 0) {
+          if (params.response_format === "json") {
+            return {
+              content: [
+                {
+                  type: "text",
+                  text: JSON.stringify(
+                    {
+                      traits: [],
+                      pagination: {
+                        total: 0,
+                        count: 0,
+                        offset: params.offset ?? 0,
+                        has_more: false,
+                      },
+                    },
+                    null,
+                    2
+                  ),
+                },
+              ],
+            };
+          }
           return {
             content: [
               {
@@ -32,9 +58,9 @@ export function registerListTraitsTool(server: McpServer, snpService: SnpService
 
         let textContent: string;
         if (params.response_format === "markdown") {
-          textContent = formatTraitListMarkdown(traits);
+          textContent = formatTraitListMarkdown(traits, pagination);
         } else {
-          textContent = JSON.stringify({ traits, total: traits.length }, null, 2);
+          textContent = JSON.stringify({ traits, pagination }, null, 2);
         }
 
         textContent = truncateIfNeeded(textContent, CHARACTER_LIMIT);

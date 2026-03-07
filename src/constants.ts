@@ -15,5 +15,3 @@ export const RSID_PATTERN = /^rs\d+$/;
 
 export const GENOTYPE_PATTERN = /^[ACGT]{2}$/i;
 
-/** Characters reserved for the truncation notice appended by `truncateIfNeeded`. */
-export const TRUNCATION_RESERVE = 200;

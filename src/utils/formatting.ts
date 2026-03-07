@@ -1,6 +1,11 @@
-import { TRUNCATION_RESERVE } from "../constants.js";
 import type { PaginationMetadata } from "../types/common.js";
-import type { GenotypeInterpretation, SnpRecord, SnpSummary, TraitSummary } from "../types/snp.js";
+import type {
+  DatasetMetadata,
+  GenotypeInterpretation,
+  SnpRecord,
+  SnpSummary,
+  TraitSummary,
+} from "../types/snp.js";
 
 export function formatSearchResultsMarkdown(
   snps: SnpSummary[],
@@ -66,6 +71,11 @@ export function formatSnpDetailsMarkdown(snp: SnpRecord): string {
   if (snp.population_frequency) {
     lines.push("## Population Frequency");
     lines.push(`- **Global MAF:** ${(snp.population_frequency.global_maf * 100).toFixed(1)}%`);
+    if (snp.population_frequency.populations) {
+      for (const [population, freq] of Object.entries(snp.population_frequency.populations)) {
+        lines.push(`- **${population}:** ${(freq * 100).toFixed(1)}%`);
+      }
+    }
     lines.push("");
   }
 
@@ -114,12 +124,22 @@ export function formatGenotypeInterpretationMarkdown(
   return lines.join("\n");
 }
 
-export function formatTraitListMarkdown(traits: TraitSummary[]): string {
+export function formatTraitListMarkdown(
+  traits: TraitSummary[],
+  pagination?: PaginationMetadata
+): string {
   const lines: string[] = [];
 
   lines.push("# Available Traits");
   lines.push("");
-  lines.push(`Total: **${traits.length}** traits`);
+
+  if (pagination) {
+    lines.push(
+      `Total: **${pagination.total}** traits (showing ${pagination.count}, offset: ${pagination.offset})`
+    );
+  } else {
+    lines.push(`Total: **${traits.length}** traits`);
+  }
   lines.push("");
 
   const categorized = new Map<string, TraitSummary[]>();
@@ -153,6 +173,26 @@ export function formatTraitListMarkdown(traits: TraitSummary[]): string {
     }
   }
 
+  if (pagination?.has_more) {
+    lines.push("");
+    lines.push(
+      `---\n*More traits available. Use offset=${pagination.next_offset} to see the next page.*`
+    );
+  }
+
+  return lines.join("\n");
+}
+
+export function formatMetadataMarkdown(metadata: DatasetMetadata): string {
+  const lines: string[] = [];
+
+  lines.push("# Genomics MCP — Dataset Metadata");
+  lines.push("");
+  lines.push(`**Server version:** ${metadata.version}`);
+  lines.push(`**Total SNPs:** ${metadata.total_snps.toLocaleString("en-US")}`);
+  lines.push(`**Total traits:** ${metadata.total_traits.toLocaleString("en-US")}`);
+  lines.push(`**Last updated:** ${metadata.last_updated ?? "unknown"}`);
+
   return lines.join("\n");
 }
 
@@ -161,7 +201,11 @@ export function truncateIfNeeded(content: string, limit: number): string {
     return content;
   }
 
-  const sliceEnd = Math.max(0, limit - TRUNCATION_RESERVE);
+  // Build the notice first so we know its exact length, then slice to fit within limit.
+  const omitted = content.length - (limit - 1); // lower bound; refined below
+  const notice = `\n\n---\n\n**[Content truncated due to size limit. ${omitted} characters omitted. Try filtering or using pagination to see more results.]**`;
+  const sliceEnd = Math.max(0, limit - notice.length);
   const truncated = content.slice(0, sliceEnd);
-  return `${truncated}\n\n---\n\n**[Content truncated due to size limit. ${content.length - truncated.length} characters omitted. Try filtering or using pagination to see more results.]**`;
+  const finalNotice = `\n\n---\n\n**[Content truncated due to size limit. ${content.length - truncated.length} characters omitted. Try filtering or using pagination to see more results.]**`;
+  return truncated + finalNotice;
 }
