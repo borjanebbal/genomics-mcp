@@ -308,34 +308,41 @@ describe("JsonSnpRepository.listTraits", () => {
 });
 
 // ---------------------------------------------------------------------------
-// getMetadata()
+// getStats()
 // ---------------------------------------------------------------------------
 
-describe("JsonSnpRepository.getMetadata", () => {
+describe("JsonSnpRepository.getStats", () => {
   it("returns the correct total_snps count", async () => {
     const repo = await createRepoFromData([SNP_A, SNP_B]);
-    const meta = await repo.getMetadata();
-    expect(meta.total_snps).toBe(2);
+    const stats = await repo.getStats();
+    expect(stats.total_snps).toBe(2);
   });
 
   it("returns the correct total_traits count", async () => {
     const repo = await createRepoFromData([SNP_A, SNP_B]);
-    const meta = await repo.getMetadata();
+    const stats = await repo.getStats();
     // trait_a, trait_shared, trait_b = 3 unique traits
-    expect(meta.total_traits).toBe(3);
+    expect(stats.total_traits).toBe(3);
   });
 
   it("returns the most recent last_updated date across all SNPs", async () => {
     const repo = await createRepoFromData([SNP_A, SNP_B]);
-    const meta = await repo.getMetadata();
-    expect(meta.last_updated).toBe("2025-06-01"); // SNP_B is more recent
+    const stats = await repo.getStats();
+    expect(stats.last_updated).toBe("2025-06-01"); // SNP_B is more recent
   });
 
-  it("returns version string", async () => {
+  it("does not include a version field", async () => {
     const repo = await createRepoFromData([SNP_A]);
-    const meta = await repo.getMetadata();
-    expect(typeof meta.version).toBe("string");
-    expect(meta.version.length).toBeGreaterThan(0);
+    const stats = await repo.getStats();
+    expect("version" in stats).toBe(false);
+  });
+
+  it("returns '1970-01-01' as last_updated when the dataset is empty", async () => {
+    const repo = await createRepoFromData([]);
+    const stats = await repo.getStats();
+    expect(stats.last_updated).toBe("1970-01-01");
+    expect(stats.total_snps).toBe(0);
+    expect(stats.total_traits).toBe(0);
   });
 });
 
@@ -379,8 +386,8 @@ describe("JsonSnpRepository — uninitialized guard", () => {
     await expect(repo.listTraits()).rejects.toThrow(/[Ii]nitializ/);
   });
 
-  it("throws when getMetadata is called before initialize()", async () => {
+  it("throws when getStats is called before initialize()", async () => {
     const repo = new JsonSnpRepository("/any/path.json");
-    await expect(repo.getMetadata()).rejects.toThrow(/[Ii]nitializ/);
+    await expect(repo.getStats()).rejects.toThrow(/[Ii]nitializ/);
   });
 });
