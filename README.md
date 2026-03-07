@@ -71,14 +71,22 @@ All tools support both **markdown** and **json** response formats.
 
 The dataset covers a broad range of well-studied SNPs across multiple trait categories, including:
 
-- **Neurological**: Alzheimer's risk (APOE), memory (BDNF), cognitive function (COMT)
+- **Neurological**: Alzheimer's risk (APOE), memory (BDNF), cognitive function (COMT), dopamine signaling (DRD2)
 - **Behavioral**: Social behavior (OXTR), addiction risk (DRD2), nicotine dependence (CHRNA3)
+- **Cardiovascular**: Heart disease risk (9p21), hypertension (AGT), HDL cholesterol (CETP), beta-blocker response (ADRB1)
+- **Metabolic**: Folate metabolism (MTHFR), obesity risk (FTO), triglyceride levels (APOA5)
+- **Pharmacogenomics**: Drug metabolism (CYP2C9, CYP2C19), warfarin sensitivity (VKORC1), fluorouracil toxicity (DPYD), hepatitis C treatment (IFNL3), abacavir hypersensitivity (HCP5)
+- **Autoimmune & Immune**: Celiac disease (HLA-DQA1), rheumatoid arthritis (STAT4), autoimmune risk (PTPN22)
+- **Inflammation**: IL-1β (IL1B), IL-10 (IL10), CRP levels (CRP)
+- **Cancer & Developmental**: Detoxification (NQO1), melanoma risk (TYR), lung cancer risk (CHRNA3)
+- **Eye & Vision**: Age-related macular degeneration (CFH, ARMS2)
+- **Bone & Musculoskeletal**: Bone density (COL1A1, ESR1), osteoporosis risk
+- **Iron & Liver**: Hemochromatosis (HFE), Gilbert syndrome (UGT1A1)
+- **Physical Traits**: Eye color (OCA2), skin pigmentation (TYR, MC1R)
 - **Athletic**: Sprint/endurance performance (ACTN3)
-- **Metabolic**: Folate metabolism (MTHFR), triglyceride levels (APOA5)
-- **Cardiovascular**: Heart disease risk (9p21), inflammation (IL6)
-- **Pharmacogenomics**: Drug metabolism (CYP2C9, CYP2C19), warfarin sensitivity (VKORC1), statin myopathy (SLCO1B1)
-- **Autoimmune**: Celiac disease (HLA-DQA1), rheumatoid arthritis (STAT4)
-- **Iron & Liver**: Hemochromatosis (HFE)
+- **Nutrition & Metabolism**: Lactose intolerance (MCM6), vitamin D levels (GC, VDR)
+- **Circadian & Sleep**: Circadian rhythm (CLOCK), sleep duration (DEC2)
+- **Musculoskeletal & Uric Acid**: Gout risk (ABCG2), uric acid levels (SLC2A9)
 
 All SNPs include:
 - Genomic coordinates (chromosome, position)
@@ -141,8 +149,17 @@ The data is validated against Zod schemas on load, so any schema violations will
 - [Architecture Guide](docs/ARCHITECTURE.md) — Design patterns and technical details
 - [Model Context Protocol Documentation](https://modelcontextprotocol.io)
 - [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)
-- [SNPedia](https://www.snpedia.com) - Source of SNP information
-- [dbSNP](https://www.ncbi.nlm.nih.gov/snp/) - NCBI SNP database
+
+### Data Sources
+
+The curated SNP dataset draws on the following authoritative genomics databases:
+
+- [dbSNP](https://www.ncbi.nlm.nih.gov/snp/) — NCBI reference database for SNP identifiers, genomic coordinates, and allele frequencies
+- [ClinVar](https://www.ncbi.nlm.nih.gov/clinvar/) — NCBI archive of clinically relevant genomic variants and their interpretations
+- [SNPedia](https://www.snpedia.com) — Community-curated wiki of SNP associations and genotype effects
+- [PharmGKB](https://www.pharmgkb.org) — Pharmacogenomics knowledge base for drug–gene interactions
+- [CPIC](https://cpicpgx.org) — Clinical Pharmacogenetics Implementation Consortium guidelines
+- [GnomAD](https://gnomad.broadinstitute.org) — Genome Aggregation Database for population allele frequencies
 
 ## 📄 License
 
