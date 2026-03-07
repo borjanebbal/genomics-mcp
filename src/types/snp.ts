@@ -34,7 +34,11 @@ export interface TraitSummary {
 export interface DatasetStats {
   total_snps: number;
   total_traits: number;
-  last_updated: string;
+  /**
+   * ISO date string of the most recently updated SNP in the dataset.
+   * `null` when no SNPs have been loaded (empty dataset).
+   */
+  last_updated: string | null;
 }
 
 /** Service-level metadata — enriches DatasetStats with the application version. */

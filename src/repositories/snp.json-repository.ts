@@ -2,11 +2,26 @@ import { readFile } from "node:fs/promises";
 import { SnpArraySchema } from "../schemas/snp.schemas.js";
 import type { MatchMode } from "../types/common.js";
 import type { DatasetStats, SnpRecord, TraitSummary } from "../types/snp.js";
-import { TRAIT_CATEGORIES } from "../types/trait-categories.js";
+import { TRAIT_CATEGORIES, TRAIT_DISPLAY_NAMES } from "../types/trait-categories.js";
 import { createLogger } from "../utils/logger.js";
 import type { ISnpRepository } from "./snp.repository.js";
 
 const logger = createLogger("JsonSnpRepository");
+
+/**
+ * Returns the authoritative display name for a trait slug.
+ * Checks `TRAIT_DISPLAY_NAMES` first; falls back to auto-generated Title Case.
+ * Exported so that test helpers can reuse the same logic without duplication.
+ */
+export function slugToDisplayName(slug: string): string {
+  if (slug in TRAIT_DISPLAY_NAMES) {
+    return TRAIT_DISPLAY_NAMES[slug] as string;
+  }
+  return slug
+    .split("_")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
 
 export class JsonSnpRepository implements ISnpRepository {
   private snps: SnpRecord[] = [];
@@ -123,7 +138,7 @@ export class JsonSnpRepository implements ISnpRepository {
 
     let traits: TraitSummary[] = [...this.traitIndex.entries()].map(([slug, indices]) => ({
       slug,
-      display_name: this.slugToDisplayName(slug),
+      display_name: slugToDisplayName(slug),
       snp_count: indices.size,
       category: TRAIT_CATEGORIES[slug],
     }));
@@ -143,12 +158,17 @@ export class JsonSnpRepository implements ISnpRepository {
   async getStats(): Promise<DatasetStats> {
     this.ensureInitialized();
 
-    // Sentinel "1970-01-01" is the reducer seed — it is returned as-is when the
-    // dataset is empty (no SNPs loaded). Callers should treat this value as
-    // "unknown" rather than a meaningful date.
+    if (this.snps.length === 0) {
+      return {
+        total_snps: 0,
+        total_traits: this.traitIndex.size,
+        last_updated: null,
+      };
+    }
+
     const lastUpdated = this.snps.reduce((latest, snp) => {
       return snp.last_updated > latest ? snp.last_updated : latest;
-    }, "1970-01-01");
+    }, this.snps[0]!.last_updated);
 
     return {
       total_snps: this.snps.length,
@@ -166,12 +186,5 @@ export class JsonSnpRepository implements ISnpRepository {
     if (!this.initialized) {
       throw new Error("Repository not initialized. Call initialize() first.");
     }
-  }
-
-  private slugToDisplayName(slug: string): string {
-    return slug
-      .split("_")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
   }
 }

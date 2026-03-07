@@ -1,3 +1,4 @@
+import { slugToDisplayName } from "../../src/repositories/snp.json-repository.js";
 import type { ISnpRepository } from "../../src/repositories/snp.repository.js";
 import type { MatchMode } from "../../src/types/common.js";
 import type { DatasetStats, SnpRecord, TraitSummary } from "../../src/types/snp.js";
@@ -37,13 +38,6 @@ export const SNP_B: SnpRecord = {
 };
 
 export const ALL_SNPS = [SNP_A, SNP_B];
-
-function slugToDisplayName(slug: string): string {
-  return slug
-    .split("_")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-}
 
 export function makeMockRepo(snps: SnpRecord[] = ALL_SNPS): ISnpRepository {
   const byRsid = new Map(snps.map((s) => [s.rsid.toLowerCase(), s]));
@@ -86,7 +80,7 @@ export function makeMockRepo(snps: SnpRecord[] = ALL_SNPS): ISnpRepository {
     getStats: async (): Promise<DatasetStats> => ({
       total_snps: snps.length,
       total_traits: new Set(snps.flatMap((s) => s.traits)).size,
-      last_updated: "2025-06-01",
+      last_updated: snps.length > 0 ? "2025-06-01" : null,
     }),
   };
 }

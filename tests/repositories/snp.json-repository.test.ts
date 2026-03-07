@@ -337,10 +337,10 @@ describe("JsonSnpRepository.getStats", () => {
     expect("version" in stats).toBe(false);
   });
 
-  it("returns '1970-01-01' as last_updated when the dataset is empty", async () => {
+  it("returns null for last_updated when the dataset is empty", async () => {
     const repo = await createRepoFromData([]);
     const stats = await repo.getStats();
-    expect(stats.last_updated).toBe("1970-01-01");
+    expect(stats.last_updated).toBeNull();
     expect(stats.total_snps).toBe(0);
     expect(stats.total_traits).toBe(0);
   });
