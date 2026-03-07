@@ -7,5 +7,6 @@ export function createGenotypeNotFoundMessage(
   genotype: string,
   availableGenotypes: string[]
 ): string {
-  return `Genotype '${genotype}' not found for ${rsid}. Available genotypes: ${availableGenotypes.join(", ")}. Make sure you're using the correct alleles.`;
+  const available = availableGenotypes.length > 0 ? availableGenotypes.join(", ") : "(none)";
+  return `Genotype '${genotype}' not found for ${rsid}. Available genotypes: ${available}. Make sure you're using the correct alleles.`;
 }
