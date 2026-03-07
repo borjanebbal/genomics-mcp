@@ -7,7 +7,11 @@ import { formatTraitListMarkdown, truncateIfNeeded } from "../utils/formatting.j
 export function registerListTraitsTool(server: McpServer, snpService: SnpService): void {
   server.registerTool(
     "list_traits",
-    { inputSchema: ListTraitsInputSchema.shape },
+    {
+      description:
+        "List all available traits in the dataset with SNP counts, grouped by category. Supports optional search filter.",
+      inputSchema: ListTraitsInputSchema.shape,
+    },
     async (params) => {
       try {
         const traits = await snpService.listTraits(params.search);

@@ -7,7 +7,10 @@ import { formatSnpDetailsMarkdown, truncateIfNeeded } from "../utils/formatting.
 export function registerGetSnpDetailsTool(server: McpServer, snpService: SnpService): void {
   server.registerTool(
     "get_snp_details",
-    { inputSchema: GetSnpDetailsInputSchema.shape },
+    {
+      description: "Get comprehensive information about a specific SNP by its rsID.",
+      inputSchema: GetSnpDetailsInputSchema.shape,
+    },
     async (params) => {
       try {
         const result = await snpService.getSnpDetails(params.rsid);

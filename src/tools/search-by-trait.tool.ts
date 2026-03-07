@@ -7,7 +7,11 @@ import { formatSearchResultsMarkdown, truncateIfNeeded } from "../utils/formatti
 export function registerSearchByTraitTool(server: McpServer, snpService: SnpService): void {
   server.registerTool(
     "search_by_trait",
-    { inputSchema: SearchByTraitInputSchema.shape },
+    {
+      description:
+        "Search for SNPs associated with one or more traits. Returns paginated summaries.",
+      inputSchema: SearchByTraitInputSchema.shape,
+    },
     async (params) => {
       try {
         const { snps, pagination } = await snpService.searchByTraits(

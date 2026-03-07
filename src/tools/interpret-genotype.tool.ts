@@ -7,7 +7,11 @@ import { formatGenotypeInterpretationMarkdown, truncateIfNeeded } from "../utils
 export function registerInterpretGenotypeTool(server: McpServer, snpService: SnpService): void {
   server.registerTool(
     "interpret_genotype",
-    { inputSchema: InterpretGenotypeInputSchema.shape },
+    {
+      description:
+        "Interpret what a specific genotype means for a given SNP. Normalizes allele order automatically.",
+      inputSchema: InterpretGenotypeInputSchema.shape,
+    },
     async (params) => {
       try {
         const result = await snpService.interpretGenotype(params.rsid, params.genotype);
