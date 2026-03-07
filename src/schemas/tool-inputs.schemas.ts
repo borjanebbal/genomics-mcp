@@ -14,11 +14,11 @@ export const MatchModeSchema = z.enum(["any", "all"]);
 
 export const SearchByTraitInputSchema = z.object({
   traits: z
-    .array(z.string().min(1).max(100).describe("Trait slug (e.g., 'sleep_pattern')"))
+    .array(z.string().min(1).max(100).describe("Trait slug (e.g., 'alzheimer_risk')"))
     .min(1, "At least one trait is required")
     .max(MAX_TRAITS_PER_QUERY, `Maximum ${MAX_TRAITS_PER_QUERY} traits per query`)
     .describe(
-      "List of trait slugs to search for (e.g., ['sleep_pattern', 'memory']). Use underscores, not spaces."
+      "List of trait slugs to search for (e.g., ['alzheimer_risk', 'memory']). Use underscores, not spaces."
     ),
   match_mode: MatchModeSchema.default("any").describe(
     "'any' returns SNPs matching ANY trait (union); 'all' returns SNPs matching ALL traits (intersection)"
@@ -44,8 +44,8 @@ export const SearchByTraitInputSchema = z.object({
 export const GetSnpDetailsInputSchema = z.object({
   rsid: z
     .string()
-    .regex(RSID_PATTERN, "Must be a valid rsID format (e.g., 'rs111', 'rs12345')")
-    .describe("The rsID of the SNP to look up (e.g., 'rs111')"),
+    .regex(RSID_PATTERN, "Must be a valid rsID format (e.g., 'rs429358', 'rs7412')")
+    .describe("The rsID of the SNP to look up (e.g., 'rs429358')"),
   response_format: ResponseFormatSchema.default("markdown").describe(
     "Output format: 'markdown' for human-readable or 'json' for machine-readable"
   ),
@@ -54,7 +54,7 @@ export const GetSnpDetailsInputSchema = z.object({
 export const InterpretGenotypeInputSchema = z.object({
   rsid: z
     .string()
-    .regex(RSID_PATTERN, "Must be a valid rsID format (e.g., 'rs111', 'rs12345')")
+    .regex(RSID_PATTERN, "Must be a valid rsID format (e.g., 'rs429358', 'rs7412')")
     .describe("The rsID of the SNP to interpret"),
   genotype: z
     .string()
@@ -73,6 +73,7 @@ export const InterpretGenotypeInputSchema = z.object({
 export const ListTraitsInputSchema = z.object({
   search: z
     .string()
+    .min(1)
     .max(100)
     .optional()
     .describe("Optional search filter for trait names (case-insensitive partial match)"),
