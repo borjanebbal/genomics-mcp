@@ -17,7 +17,7 @@ This is an MCP (Model Context Protocol) server written in TypeScript that expose
 
 1. **stdout is sacred.** All log output MUST go to stderr. Use `createLogger()` from `src/utils/logger.ts` — never use `console.log()` or `console.error()` directly.
 2. **Repository Pattern.** All data access goes through `ISnpRepository`. Never read JSON files directly in services or tools.
-3. **Use-case classes.** Business logic lives in `src/services/*.use-case.ts`. The `SnpService` facade delegates to them. **Exception:** `listTraits()` and `getMetadata()` on `SnpService` call the repository directly (no use-case class) because they contain no business logic.
+3. **Use-case classes.** Business logic lives in `src/services/*.use-case.ts`. The `SnpService` facade delegates to them. **Exception:** `listTraits()` and `getMetadata()` on `SnpService` call the repository directly (no use-case class) because they contain no business logic — `getMetadata()` enriches the repository's `getStats()` result with the application `VERSION`.
 4. **One tool per file.** Each MCP tool is defined in `src/tools/*.tool.ts`. The barrel `register-all.ts` wires them together.
 5. **Zod schemas are the source of truth** for both runtime validation and TypeScript types (via `z.infer`).
 
@@ -44,7 +44,7 @@ genomics-mcp/
 │   │
 │   ├── types/                            # TypeScript types (derived from Zod schemas via z.infer)
 │   │   ├── common.ts                     # PaginationMetadata, MatchMode, ResponseFormat, RiskLevel, StudyType
-│   │   ├── snp.ts                        # SnpRecord, SnpSummary, TraitSummary, DatasetMetadata, GenotypeInterpretation
+│   │   ├── snp.ts                        # SnpRecord, SnpSummary, TraitSummary, DatasetStats, DatasetMetadata, GenotypeInterpretation
 │   │   └── trait-categories.ts           # TraitCategory const/type, TRAIT_CATEGORIES slug→category map
 │   │
 │   ├── schemas/                          # Zod schemas — source of truth for validation and types
@@ -87,6 +87,7 @@ genomics-mcp/
     │   └── snp.json-repository.test.ts   # Full repository lifecycle, all query methods, error paths
     └── services/
         ├── mock-repo.ts                  # Shared in-memory ISnpRepository mock + fixture SNPs
+        ├── snp.service.test.ts
         ├── get-snp-details.use-case.test.ts
         ├── interpret-genotype.use-case.test.ts
         └── search-by-trait.use-case.test.ts
@@ -162,6 +163,7 @@ Tests live in `tests/` and mirror the `src/` structure:
 | `tests/utils/formatting.test.ts` | All 5 formatters, pagination, empty results, truncation |
 | `tests/schemas/snp.schemas.test.ts` | Valid/invalid domain data, canonicalisation transform |
 | `tests/repositories/snp.json-repository.test.ts` | Full repository lifecycle, all query methods, error paths |
+| `tests/services/snp.service.test.ts` | `SnpService.getMetadata()` — version enrichment, shape; `listTraits()` delegation |
 | `tests/services/get-snp-details.use-case.test.ts` | `GetSnpDetailsUseCase` — found, not-found, case-insensitive lookup |
 | `tests/services/interpret-genotype.use-case.test.ts` | `InterpretGenotypeUseCase` — normalisation, error paths, result shape |
 | `tests/services/search-by-trait.use-case.test.ts` | `SearchByTraitUseCase` — any/all modes, pagination, summary fields |

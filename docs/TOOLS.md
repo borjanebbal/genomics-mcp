@@ -33,15 +33,29 @@ Search for SNPs associated with one or more traits.
   "traits": ["alzheimer_risk"],
   "response_format": "markdown"
 }
+```
 
+```markdown
 // Response (markdown)
-"Found 2 SNPs matching traits: alzheimer_risk
+# SNP Search Results: alzheimer_risk
 
-## rs7412 (APOE)
-- **Chromosome:** 19:44908822
-- **Traits:** alzheimer_risk, cardiovascular_disease, longevity
-- **Description:** APOE ε2 defining SNP - protective against Alzheimer's
-..."
+Found **2** SNPs (showing 2, offset: 0)
+
+## rs7412
+
+**Description:** APOE ε2 allele — protective against Alzheimer's disease
+**Genes:** APOE
+**Traits:** alzheimer_risk, cardiovascular_disease, longevity
+**Genotypes available:** 3
+**Sources:** 3
+
+## rs429358
+
+**Description:** APOE ε4 allele defining SNP, strongest genetic risk factor for late-onset Alzheimer's
+**Genes:** APOE
+**Traits:** alzheimer_risk, cognitive_decline, cardiovascular_disease
+**Genotypes available:** 3
+**Sources:** 2
 ```
 
 ### Use Cases
@@ -249,13 +263,16 @@ List all available traits with SNP counts.
   "search": "alzheimer",
   "response_format": "markdown"
 }
+```
 
+```markdown
 // Response (markdown)
-"# Available Traits (filtered: alzheimer)
+# Available Traits
+
+Total: **1** traits
 
 ## Neurological
 - **alzheimer_risk** (Alzheimer Risk) - 2 SNPs
-"
 ```
 
 ### Use Cases

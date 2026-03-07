@@ -24,6 +24,7 @@ All tests must pass before every commit (enforced by the pre-commit hook).
 | `tests/utils/formatting.test.ts` | All 5 formatters, pagination, empty results, truncation |
 | `tests/schemas/snp.schemas.test.ts` | Valid/invalid domain data, canonicalisation transform |
 | `tests/repositories/snp.json-repository.test.ts` | Full repository lifecycle, all query methods, error paths |
+| `tests/services/snp.service.test.ts` | `SnpService.getMetadata()` — version enrichment, shape; `listTraits()` delegation |
 | `tests/services/get-snp-details.use-case.test.ts` | `GetSnpDetailsUseCase` — found, not-found, case-insensitive lookup |
 | `tests/services/interpret-genotype.use-case.test.ts` | `InterpretGenotypeUseCase` — normalisation, error paths, result shape |
 | `tests/services/search-by-trait.use-case.test.ts` | `SearchByTraitUseCase` — any/all modes, pagination, summary fields |
@@ -44,14 +45,14 @@ bun run inspector
 
 You should see output like:
 ```
-[Server] Initializing Genomics MCP Server v0.1.0
-[Server] Loading SNP data from: /path/to/src/repositories/data/snps.json
-[JsonSnpRepository] Loaded N SNPs from /path/to/data/snps.json
-[Tools] 🛠️ Registered 4 genomics tools
-[Server] 🧬 Dataset loaded: N SNPs, N traits
-[Server] 🗓️ Last updated: 2025-01-20
-[Server] Connected via stdio transport
-[Server] 🚀 Genomics MCP Server is ready
+[INFO] [Server] Initializing Genomics MCP Server v0.1.0
+[INFO] [Server] Loading SNP data from: /path/to/src/repositories/data/snps.json
+[INFO] [JsonSnpRepository] Loaded N SNPs from /path/to/data/snps.json
+[INFO] [Tools] 🛠️ Registered 4 genomics tools
+[INFO] [Server] 🧬 Dataset loaded: N SNPs, N traits
+[INFO] [Server] 🗓️ Last updated: 2025-01-20
+[INFO] [Server] Connected via stdio transport
+[INFO] [Server] 🚀 Genomics MCP Server is ready
 
 Inspector running at http://localhost:5173
 ```
@@ -75,7 +76,7 @@ Inspector running at http://localhost:5173
 }
 ```
 
-**Expected Result:** List of all 34+ traits with SNP counts
+**Expected Result:** List of all traits with SNP counts
 
 **Search Test:**
 ```json
@@ -140,7 +141,7 @@ Inspector running at http://localhost:5173
 }
 ```
 
-**Expected Result:** Only SNPs that have BOTH traits (rs6265 BDNF, rs4680 COMT)
+**Expected Result:** Only SNPs that have BOTH traits (rs6265 BDNF)
 
 ---
 
@@ -251,7 +252,7 @@ Try using 'list_traits' to see available data.
 
 **Expected Result:** Helpful error with available genotypes:
 ```
-Genotype 'GG' not found for rs429358. Available genotypes: CT, CC, TT. 
+Genotype 'GG' not found for rs429358. Available genotypes: CC, CT, TT. 
 Make sure you're using the correct alleles.
 ```
 

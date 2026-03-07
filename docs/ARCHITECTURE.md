@@ -22,7 +22,8 @@ This document describes the technical architecture, design patterns, and impleme
 ┌────────────────┴─────────────────────┐
 │           MCP Server (Bun)            │
 ├──────────────────────────────────────┤
-│  Tools: search, details, interpret   │
+│  Tools: search, details, interpret,  │
+│         list_traits                   │
 ├──────────────────────────────────────┤
 │    Use Cases (business logic)         │
 ├──────────────────────────────────────┤
@@ -58,7 +59,7 @@ interface ISnpRepository {
   findByTraits(traits: string[], matchMode: MatchMode): Promise<SnpRecord[]>;
   findByRsid(rsid: string): Promise<SnpRecord | null>;
   listTraits(search?: string): Promise<TraitSummary[]>;
-  getMetadata(): Promise<DatasetMetadata>;
+  getStats(): Promise<DatasetStats>;
   getAllSnps(): Promise<SnpRecord[]>;
 }
 
@@ -294,8 +295,8 @@ Use-case classes return `{ error: string }` and the tool layer converts this to 
 ```typescript
 // In get-snp-details.use-case.ts
 if (!snp) {
-  const metadata = await this.repository.getMetadata();
-  return { error: createSnpNotFoundMessage(rsid, metadata.total_snps) };
+  const stats = await this.repository.getStats();
+  return { error: createSnpNotFoundMessage(rsid, stats.total_snps) };
 }
 
 // createSnpNotFoundMessage() produces:
@@ -349,7 +350,11 @@ catch (error) {
 - The dataset is rejected entirely — no SNP from a file with duplicate rsIDs will be served
 - **Resolution:** Remove or de-duplicate the offending entries in `snps.json` and restart
 
-### 4. Limited Search Capabilities
+### 4. `getStats()` Empty-Dataset Sentinel
+
+When `getStats()` is called on a repository with zero SNPs loaded (e.g. during testing), the `last_updated` field is returned as `"1970-01-01"`. This is a deterministic reducer seed — it should be treated as *"unknown / no data"* rather than a real date. `total_snps` and `total_traits` will both be `0` in that case.
+
+### 5. Limited Search Capabilities
 
 - Only exact trait slug matching (case-insensitive)
 - No fuzzy search ("alzheimers" won't find "alzheimer_risk")
