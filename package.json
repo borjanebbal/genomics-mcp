@@ -12,7 +12,7 @@
     "dev": "bun --watch src/index.ts",
     "build": "tsc --noEmit",
     "test": "bun test",
-    "lint": "bunx @biomejs/biome check src/",
+    "lint": "bunx @biomejs/biome lint src/",
     "format": "bunx @biomejs/biome format src/ --write",
     "check": "bunx @biomejs/biome check --write src/",
     "check:staged": "bunx @biomejs/biome check --staged --write",
