@@ -27,9 +27,16 @@ const SUMMARY: SnpSummary = {
   genotype_count: 3,
 };
 
-const PAGINATION_NO_MORE: PaginationMetadata = {
+const PAGINATION_SINGLE: PaginationMetadata = {
   total: 1,
   count: 1,
+  offset: 0,
+  has_more: false,
+};
+
+const PAGINATION_EMPTY: PaginationMetadata = {
+  total: 0,
+  count: 0,
   offset: 0,
   has_more: false,
 };
@@ -78,22 +85,22 @@ const INTERPRETATION: GenotypeInterpretation = {
 
 describe("formatSearchResultsMarkdown", () => {
   it("includes the searched trait names in the heading", () => {
-    const result = formatSearchResultsMarkdown([SUMMARY], PAGINATION_NO_MORE, ["social_behavior"]);
+    const result = formatSearchResultsMarkdown([SUMMARY], PAGINATION_SINGLE, ["social_behavior"]);
     expect(result).toContain("social_behavior");
   });
 
   it("shows the rsID for each SNP in results", () => {
-    const result = formatSearchResultsMarkdown([SUMMARY], PAGINATION_NO_MORE, ["empathy"]);
+    const result = formatSearchResultsMarkdown([SUMMARY], PAGINATION_SINGLE, ["empathy"]);
     expect(result).toContain("rs53576");
   });
 
   it("shows total and count from pagination", () => {
-    const result = formatSearchResultsMarkdown([SUMMARY], PAGINATION_NO_MORE, ["empathy"]);
+    const result = formatSearchResultsMarkdown([SUMMARY], PAGINATION_SINGLE, ["empathy"]);
     expect(result).toContain("1");
   });
 
   it("shows 'no SNPs found' message when result list is empty", () => {
-    const result = formatSearchResultsMarkdown([], PAGINATION_NO_MORE, ["unknown_trait"]);
+    const result = formatSearchResultsMarkdown([], PAGINATION_EMPTY, ["unknown_trait"]);
     expect(result).toContain("No SNPs found");
   });
 
@@ -104,7 +111,7 @@ describe("formatSearchResultsMarkdown", () => {
   });
 
   it("does not show pagination hint when has_more is false", () => {
-    const result = formatSearchResultsMarkdown([SUMMARY], PAGINATION_NO_MORE, ["empathy"]);
+    const result = formatSearchResultsMarkdown([SUMMARY], PAGINATION_SINGLE, ["empathy"]);
     expect(result).not.toContain("offset=");
   });
 });
@@ -227,11 +234,16 @@ describe("formatTraitListMarkdown", () => {
 
   it("groups categorised traits under their category heading", () => {
     const traits: TraitSummary[] = [
-      { slug: "alzheimer_risk", display_name: "Alzheimer Risk", snp_count: 2, category: "Brain" },
-      { slug: "empathy", display_name: "Empathy", snp_count: 1, category: "Brain" },
+      {
+        slug: "alzheimer_risk",
+        display_name: "Alzheimer Risk",
+        snp_count: 2,
+        category: "Neurological",
+      },
+      { slug: "empathy", display_name: "Empathy", snp_count: 1, category: "Neurological" },
     ];
     const result = formatTraitListMarkdown(traits);
-    expect(result).toContain("## Brain");
+    expect(result).toContain("## Neurological");
   });
 
   it("renders uncategorised traits without a category heading when all are uncategorised", () => {
@@ -242,7 +254,12 @@ describe("formatTraitListMarkdown", () => {
 
   it("renders an 'Other' section for uncategorised traits when some are categorised", () => {
     const traits: TraitSummary[] = [
-      { slug: "alzheimer_risk", display_name: "Alzheimer Risk", snp_count: 2, category: "Brain" },
+      {
+        slug: "alzheimer_risk",
+        display_name: "Alzheimer Risk",
+        snp_count: 2,
+        category: "Neurological",
+      },
       { slug: "empathy", display_name: "Empathy", snp_count: 1 },
     ];
     const result = formatTraitListMarkdown(traits);
