@@ -1,18 +1,22 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { CHARACTER_LIMIT } from "../constants.js";
-import { SearchByTraitInputSchema } from "../schemas/tool-inputs.schemas.js";
+import {
+  type SearchByTraitInput,
+  SearchByTraitInputSchema,
+} from "../schemas/tool-inputs.schemas.js";
 import type { SnpService } from "../services/snp.service.js";
 import { formatSearchResultsMarkdown, truncateIfNeeded } from "../utils/formatting.js";
 
 export function registerSearchByTraitTool(server: McpServer, snpService: SnpService): void {
-  server.registerTool(
+  // biome-ignore lint/suspicious/noExplicitAny: duplicate-package Zod type mismatch (see register-all.ts)
+  (server.registerTool as any)(
     "search_by_trait",
     {
       description:
         "Search for SNPs associated with one or more traits. Returns paginated summaries.",
       inputSchema: SearchByTraitInputSchema.shape,
     },
-    async (params) => {
+    async (params: SearchByTraitInput) => {
       try {
         const { snps, pagination } = await snpService.searchByTraits(
           params.traits,

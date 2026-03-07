@@ -1,17 +1,21 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { CHARACTER_LIMIT } from "../constants.js";
-import { GetSnpDetailsInputSchema } from "../schemas/tool-inputs.schemas.js";
+import {
+  type GetSnpDetailsInput,
+  GetSnpDetailsInputSchema,
+} from "../schemas/tool-inputs.schemas.js";
 import type { SnpService } from "../services/snp.service.js";
 import { formatSnpDetailsMarkdown, truncateIfNeeded } from "../utils/formatting.js";
 
 export function registerGetSnpDetailsTool(server: McpServer, snpService: SnpService): void {
-  server.registerTool(
+  // biome-ignore lint/suspicious/noExplicitAny: duplicate-package Zod type mismatch (see register-all.ts)
+  (server.registerTool as any)(
     "get_snp_details",
     {
       description: "Get comprehensive information about a specific SNP by its rsID.",
       inputSchema: GetSnpDetailsInputSchema.shape,
     },
-    async (params) => {
+    async (params: GetSnpDetailsInput) => {
       try {
         const result = await snpService.getSnpDetails(params.rsid);
 
