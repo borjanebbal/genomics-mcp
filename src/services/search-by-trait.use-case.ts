@@ -13,20 +13,19 @@ export class SearchByTraitUseCase {
   ): Promise<{ snps: SnpSummary[]; pagination: PaginationMetadata }> {
     const allMatches = await this.repository.findByTraits(traits, matchMode);
 
-    const summaries = allMatches.map((snp) => this.toSnpSummary(snp));
-
-    const total = summaries.length;
-    const paginated = summaries.slice(offset, offset + limit);
+    const total = allMatches.length;
+    const paginated = allMatches.slice(offset, offset + limit);
+    const summaries = paginated.map((snp) => this.toSnpSummary(snp));
 
     const pagination: PaginationMetadata = {
       total,
-      count: paginated.length,
+      count: summaries.length,
       offset,
-      has_more: offset + paginated.length < total,
-      next_offset: offset + paginated.length < total ? offset + paginated.length : undefined,
+      has_more: offset + summaries.length < total,
+      next_offset: offset + summaries.length < total ? offset + summaries.length : undefined,
     };
 
-    return { snps: paginated, pagination };
+    return { snps: summaries, pagination };
   }
 
   private toSnpSummary(snp: SnpRecord): SnpSummary {
