@@ -347,7 +347,7 @@ Errors are returned as standard MCP tool responses with `isError: true` and a pl
   "content": [
     {
       "type": "text",
-      "text": "SNP rs999999 not found in our database. Our dataset contains 12 SNPs. Try using 'list_traits' to see what data is available."
+      "text": "SNP rs999999 not found in our database. Our dataset contains N SNPs. Try using 'list_traits' to see what data is available."
     }
   ],
   "isError": true

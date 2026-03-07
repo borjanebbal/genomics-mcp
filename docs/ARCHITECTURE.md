@@ -129,7 +129,7 @@ class JsonSnpRepository {
 ```
 
 **Performance:**
-- 12 SNPs: < 1ms queries
+- Small dataset (< 100 SNPs): < 1ms queries
 - 1,000 SNPs: < 50ms queries
 - Only need DB when > 10K SNPs OR need persistence/concurrency
 
@@ -299,7 +299,7 @@ if (!snp) {
 }
 
 // createSnpNotFoundMessage() produces:
-// "SNP rs999999 not found in our database. Our dataset contains 12 SNPs.
+// "SNP rs999999 not found in our database. Our dataset contains N SNPs.
 //  Try using 'list_traits' to see what data is available."
 ```
 

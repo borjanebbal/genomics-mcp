@@ -44,7 +44,8 @@ genomics-mcp/
 │   │
 │   ├── types/                            # TypeScript types (derived from Zod schemas via z.infer)
 │   │   ├── common.ts                     # PaginationMetadata, MatchMode, ResponseFormat, RiskLevel, StudyType
-│   │   └── snp.ts                        # SnpRecord, SnpSummary, TraitSummary, DatasetMetadata, GenotypeInterpretation
+│   │   ├── snp.ts                        # SnpRecord, SnpSummary, TraitSummary, DatasetMetadata, GenotypeInterpretation
+│   │   └── trait-categories.ts           # TraitCategory const/type, TRAIT_CATEGORIES slug→category map
 │   │
 │   ├── schemas/                          # Zod schemas — source of truth for validation and types
 │   │   ├── snp.schemas.ts                # Domain schemas — validates seed data on startup
@@ -54,7 +55,7 @@ genomics-mcp/
 │   │   ├── snp.repository.ts             # ISnpRepository interface
 │   │   ├── snp.json-repository.ts        # JSON/in-memory implementation
 │   │   └── data/
-│   │       └── snps.json                 # Seed data (12 SNPs)
+│   │       └── snps.json                 # Seed data (validated by Zod on startup)
 │   │
 │   ├── services/                         # Business logic
 │   │   ├── snp.service.ts                # Facade — delegates to use-case classes
@@ -175,4 +176,4 @@ See `docs/TESTING.md` for manual test cases using MCP Inspector.
 - `import.meta.dir` is used for path resolution — this is a Bun API (no `fileURLToPath`/`dirname` needed).
 - The `findByTraits` "all" mode intersection copies the first set with `new Set(...)` to avoid mutating the internal trait index.
 - `ISnpRepository` exposes `getAllSnps()` which is currently unused by any service or tool — treat it as an available extension point.
-- `TraitSummary` has an optional `category` field populated from the `TRAIT_CATEGORIES` map in `snp.json-repository.ts`. `formatting.ts` renders categories as `## headers` and falls back to `## Other` for slugs not in the map. When adding new trait slugs to the dataset, also add them to `TRAIT_CATEGORIES` so they appear in the correct group.
+- `TraitSummary` has an optional `category` field populated from the `TRAIT_CATEGORIES` map in `src/types/trait-categories.ts`. `formatting.ts` renders categories as `## headers` and falls back to `## Other` for slugs not in the map. When adding new trait slugs to the dataset, also add them to `TRAIT_CATEGORIES` so they appear in the correct group.

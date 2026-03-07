@@ -46,9 +46,9 @@ You should see output like:
 ```
 [Server] Initializing Genomics MCP Server v0.1.0
 [Server] Loading SNP data from: /path/to/src/repositories/data/snps.json
-[JsonSnpRepository] Loaded 12 SNPs from /path/to/data/snps.json
+[JsonSnpRepository] Loaded N SNPs from /path/to/data/snps.json
 [Tools] 🛠️ Registered 4 genomics tools
-[Server] 🧬 Dataset loaded: 12 SNPs, 34 traits
+[Server] 🧬 Dataset loaded: N SNPs, N traits
 [Server] 🗓️ Last updated: 2025-01-20
 [Server] Connected via stdio transport
 [Server] 🚀 Genomics MCP Server is ready
@@ -181,7 +181,7 @@ Inspector running at http://localhost:5173
 
 **Expected Result:** Helpful error message:
 ```
-SNP rs999999999 not found in our database. Our dataset contains 12 SNPs. 
+SNP rs999999999 not found in our database. Our dataset contains N SNPs. 
 Try using 'list_traits' to see available data.
 ```
 
@@ -408,8 +408,8 @@ echo '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"list_trait
 
 - [ ] Server starts without errors
 - [ ] All 4 tools are registered
-- [ ] 12 SNPs loaded successfully
-- [ ] 34 traits indexed
+- [ ] SNPs loaded successfully
+- [ ] Traits indexed
 - [ ] `list_traits` returns all traits
 - [ ] `search_by_trait` with "any" mode works
 - [ ] `search_by_trait` with "all" mode works
@@ -454,7 +454,7 @@ echo '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"list_trait
 Expected performance on modern hardware:
 
 - **Server startup:** < 500ms
-- **Data loading (12 SNPs):** < 100ms
+- **Data loading:** < 100ms
 - **Trait search:** < 5ms
 - **SNP details:** < 1ms
 - **Genotype interpretation:** < 1ms

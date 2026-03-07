@@ -69,13 +69,16 @@ All tools support both **markdown** and **json** response formats.
 
 ## 📊 Dataset
 
-The current dataset includes **12 well-studied SNPs** across **34 traits**, covering:
+The dataset covers a broad range of well-studied SNPs across multiple trait categories, including:
 
 - **Neurological**: Alzheimer's risk (APOE), memory (BDNF), cognitive function (COMT)
 - **Behavioral**: Social behavior (OXTR), addiction risk (DRD2), nicotine dependence (CHRNA3)
 - **Athletic**: Sprint/endurance performance (ACTN3)
 - **Metabolic**: Folate metabolism (MTHFR), triglyceride levels (APOA5)
 - **Cardiovascular**: Heart disease risk (9p21), inflammation (IL6)
+- **Pharmacogenomics**: Drug metabolism (CYP2C9, CYP2C19), warfarin sensitivity (VKORC1), statin myopathy (SLCO1B1)
+- **Autoimmune**: Celiac disease (HLA-DQA1), rheumatoid arthritis (STAT4)
+- **Iron & Liver**: Hemochromatosis (HFE)
 
 All SNPs include:
 - Genomic coordinates (chromosome, position)
@@ -126,7 +129,7 @@ To add new SNPs to the dataset:
    - `rsid`, `genes`, `traits`, `description`, `chromosome`, `position`
    - `reference_allele`, `effects_by_genotype`, `sources`, `last_updated`
 3. Restart the server — Zod validates on startup and will report any schema violations
-4. If the SNP introduces a new trait slug, add it to the `TRAIT_CATEGORIES` map in `src/repositories/snp.json-repository.ts` so it appears under the correct category heading in `list_traits` output (unlisted slugs fall back to **Other**)
+4. If the SNP introduces a new trait slug, add it to the `TRAIT_CATEGORIES` map in `src/types/trait-categories.ts` so it appears under the correct category heading in `list_traits` output (unlisted slugs fall back to **Other**)
 5. Optionally run `bun run build` to type-check
 
 The data is validated against Zod schemas on load, so any schema violations will be caught immediately.
