@@ -22,10 +22,146 @@ export const TRAIT_CATEGORY = {
   "Alcohol & Metabolism": "Alcohol & Metabolism",
   "Eye & Vision": "Eye & Vision",
   "Musculoskeletal & Uric Acid": "Musculoskeletal & Uric Acid",
+  "Longevity & Aging": "Longevity & Aging",
 } as const;
 
 /** Union of all valid trait category names. */
 export type TraitCategory = (typeof TRAIT_CATEGORY)[keyof typeof TRAIT_CATEGORY];
+
+/**
+ * Authoritative display names for trait slugs.
+ *
+ * When a slug is present here its value is used verbatim as the human-readable
+ * label (e.g. in `list_traits` output), overriding the auto-generated
+ * title-case fallback.  Only add entries where the auto-generated name would
+ * be incorrect or misleading (e.g. acronyms, medical terms, brand names).
+ *
+ * Slugs absent from this map fall back to `slugToDisplayName()` in
+ * `snp.json-repository.ts` (splits on `_`, title-cases each word).
+ */
+export const TRAIT_DISPLAY_NAMES: Record<string, string> = {
+  // Neurological
+  alzheimer_risk: "Alzheimer's Risk",
+  cognitive_decline: "Cognitive Decline",
+  cognitive_function: "Cognitive Function",
+  dopamine_signaling: "Dopamine Signaling",
+  bipolar_disorder_risk: "Bipolar Disorder Risk",
+  schizophrenia_risk: "Schizophrenia Risk",
+  depression_risk: "Depression Risk",
+  // Behavioral
+  nicotine_dependence: "Nicotine Dependence",
+  addiction_risk: "Addiction Risk",
+  impulse_control: "Impulse Control",
+  reward_seeking: "Reward Seeking",
+  stress_response: "Stress Response",
+  emotional_regulation: "Emotional Regulation",
+  social_behavior: "Social Behavior",
+  smoking_behavior: "Smoking Behavior",
+  // Cardiovascular
+  cardiovascular_disease: "Cardiovascular Disease",
+  coronary_artery_disease: "Coronary Artery Disease",
+  myocardial_infarction: "Myocardial Infarction",
+  triglyceride_levels: "Triglyceride Levels",
+  endothelial_function: "Endothelial Function",
+  ldl_cholesterol: "LDL Cholesterol",
+  familial_hypercholesterolemia: "Familial Hypercholesterolemia",
+  thrombosis_risk: "Thrombosis Risk",
+  blood_clotting: "Blood Clotting",
+  hdl_cholesterol: "HDL Cholesterol",
+  hypertension_risk: "Hypertension Risk",
+  hdl_cholesterol_levels: "HDL Cholesterol Levels",
+  // Metabolic
+  folate_metabolism: "Folate Metabolism",
+  homocysteine_levels: "Homocysteine Levels",
+  metabolic_syndrome: "Metabolic Syndrome",
+  obesity_risk: "Obesity Risk",
+  type_2_diabetes: "Type 2 Diabetes",
+  caffeine_metabolism: "Caffeine Metabolism",
+  insulin_secretion: "Insulin Secretion",
+  bmi: "BMI",
+  // Nutrition & Metabolism
+  lactase_persistence: "Lactase Persistence",
+  lactose_intolerance: "Lactose Intolerance",
+  vitamin_d_response: "Vitamin D Response",
+  insulin_sensitivity: "Insulin Sensitivity",
+  appetite_regulation: "Appetite Regulation",
+  vitamin_d_levels: "Vitamin D Levels",
+  // Immune
+  immune_response: "Immune Response",
+  autoimmune_risk: "Autoimmune Risk",
+  immune_function: "Immune Function",
+  oxidative_stress: "Oxidative Stress",
+  antioxidant_defense: "Antioxidant Defense",
+  // Autoimmune
+  rheumatoid_arthritis_risk: "Rheumatoid Arthritis Risk",
+  systemic_lupus_risk: "Systemic Lupus Risk",
+  celiac_disease_risk: "Celiac Disease Risk",
+  type_1_diabetes_risk: "Type 1 Diabetes Risk",
+  autoimmune_thyroid_risk: "Autoimmune Thyroid Risk",
+  // Inflammation
+  c_reactive_protein_levels: "C-Reactive Protein Levels",
+  interleukin_1_levels: "Interleukin-1 Levels",
+  interleukin_10_levels: "Interleukin-10 Levels",
+  // Cancer & Developmental
+  lung_cancer_risk: "Lung Cancer Risk",
+  neural_tube_defects: "Neural Tube Defects",
+  cancer_risk: "Cancer Risk",
+  melanoma_risk: "Melanoma Risk",
+  chemotherapy_response: "Chemotherapy Response",
+  esophageal_cancer_risk: "Esophageal Cancer Risk",
+  bladder_cancer_risk: "Bladder Cancer Risk",
+  benzene_toxicity: "Benzene Toxicity",
+  // Pharmacogenomics
+  opioid_response: "Opioid Response",
+  warfarin_sensitivity: "Warfarin Sensitivity",
+  drug_metabolism: "Drug Metabolism",
+  nsaid_response: "NSAID Response",
+  clopidogrel_response: "Clopidogrel Response",
+  proton_pump_inhibitor_response: "Proton Pump Inhibitor Response",
+  statin_myopathy_risk: "Statin Myopathy Risk",
+  drug_transport: "Drug Transport",
+  antidepressant_response: "Antidepressant Response",
+  isoniazid_response: "Isoniazid Response",
+  fluorouracil_toxicity: "Fluorouracil Toxicity",
+  irinotecan_toxicity: "Irinotecan Toxicity",
+  abacavir_hypersensitivity: "Abacavir Hypersensitivity",
+  pcsk9_inhibitor_response: "PCSK9 Inhibitor Response",
+  hepatitis_c_treatment: "Hepatitis C Treatment",
+  beta_blocker_response: "Beta-Blocker Response",
+  // Physical Traits
+  red_hair: "Red Hair",
+  skin_pigmentation: "Skin Pigmentation",
+  eye_color: "Eye Color",
+  // Bone & Musculoskeletal
+  bone_density: "Bone Density",
+  osteoporosis_risk: "Osteoporosis Risk",
+  fracture_risk: "Fracture Risk",
+  collagen_production: "Collagen Production",
+  // Iron & Liver
+  hemochromatosis_risk: "Hemochromatosis Risk",
+  iron_overload: "Iron Overload",
+  liver_disease: "Liver Disease",
+  fibrosis_risk: "Fibrosis Risk",
+  gilbert_syndrome: "Gilbert Syndrome",
+  bilirubin_levels: "Bilirubin Levels",
+  // Circadian & Sleep
+  circadian_rhythm: "Circadian Rhythm",
+  sleep_duration: "Sleep Duration",
+  sleep_timing: "Sleep Timing",
+  // Alcohol & Metabolism
+  alcohol_metabolism: "Alcohol Metabolism",
+  alcohol_dependence_risk: "Alcohol Dependence Risk",
+  alcohol_flush_reaction: "Alcohol Flush Reaction",
+  // Eye & Vision
+  macular_degeneration_risk: "Macular Degeneration Risk",
+  // Musculoskeletal & Uric Acid
+  gout_risk: "Gout Risk",
+  uric_acid_levels: "Uric Acid Levels",
+  // Athletic
+  athletic_performance: "Athletic Performance",
+  muscle_fiber_type: "Muscle Fiber Type",
+  sprint_performance: "Sprint Performance",
+};
 
 /**
  * Maps each trait slug to its display category.
@@ -40,10 +176,12 @@ export const TRAIT_CATEGORIES: Record<string, TraitCategory> = {
   neuroplasticity: TRAIT_CATEGORY.Neurological,
   depression_risk: TRAIT_CATEGORY.Neurological,
   anxiety: TRAIT_CATEGORY.Neurological,
-  longevity: TRAIT_CATEGORY.Neurological,
   bipolar_disorder_risk: TRAIT_CATEGORY.Neurological,
   schizophrenia_risk: TRAIT_CATEGORY.Neurological,
   dopamine_signaling: TRAIT_CATEGORY.Neurological,
+
+  // Longevity & Aging
+  longevity: TRAIT_CATEGORY["Longevity & Aging"],
 
   // Behavioral
   social_behavior: TRAIT_CATEGORY.Behavioral,
