@@ -3,6 +3,7 @@
 import { resolve } from "node:path";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { VERSION } from "./constants.js";
 import { JsonSnpRepository } from "./repositories/snp.json-repository.js";
 import { SnpService } from "./services/snp.service.js";
 import { registerTools } from "./tools/register-all.js";
@@ -13,10 +14,10 @@ const logger = createLogger("Server");
 async function main() {
   const server = new McpServer({
     name: "genomics-mcp",
-    version: "0.1.0",
+    version: VERSION,
   });
 
-  logger.info("Initializing Genomics MCP Server v0.1.0");
+  logger.info(`Initializing Genomics MCP Server v${VERSION}`);
 
   const dataPath = resolve(import.meta.dir, "repositories/data/snps.json");
   logger.info(`Loading SNP data from: ${dataPath}`);
@@ -34,7 +35,7 @@ async function main() {
 
   registerTools(server, snpService);
 
-  const metadata = await repository.getMetadata();
+  const metadata = await snpService.getMetadata();
   logger.info(`🧬 Dataset loaded: ${metadata.total_snps} SNPs, ${metadata.total_traits} traits`);
   logger.info(`🗓️ Last updated: ${metadata.last_updated}`);
 
@@ -44,17 +45,17 @@ async function main() {
   logger.info("Connected via stdio transport");
   logger.info("🚀 Genomics MCP Server is ready");
 
-  process.on("SIGINT", async () => {
-    logger.info("Received SIGINT, shutting down gracefully... 👋");
-    await server.close();
-    process.exit(0);
-  });
-
-  process.on("SIGTERM", async () => {
-    logger.info("Received SIGTERM, shutting down gracefully... 👋");
-    await server.close();
-    process.exit(0);
-  });
+  for (const signal of ["SIGINT", "SIGTERM"] as const) {
+    process.on(signal, async () => {
+      logger.info(`Received ${signal}, shutting down gracefully... 👋`);
+      try {
+        await server.close();
+      } catch (err) {
+        logger.error("Error during shutdown:", err);
+      }
+      process.exit(0);
+    });
+  }
 }
 
 main().catch((error) => {

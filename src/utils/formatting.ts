@@ -1,3 +1,4 @@
+import { TRUNCATION_RESERVE } from "../constants.js";
 import type { PaginationMetadata } from "../types/common.js";
 import type { GenotypeInterpretation, SnpRecord, SnpSummary, TraitSummary } from "../types/snp.js";
 
@@ -50,7 +51,7 @@ export function formatSnpDetailsMarkdown(snp: SnpRecord): string {
 
   lines.push("## Genomic Location");
   lines.push(`- **Chromosome:** ${snp.chromosome}`);
-  lines.push(`- **Position:** ${snp.position.toLocaleString()}`);
+  lines.push(`- **Position:** ${snp.position.toLocaleString("en-US")}`);
   lines.push(`- **Reference allele:** ${snp.reference_allele}`);
   if (snp.risk_allele) {
     lines.push(`- **Risk allele:** ${snp.risk_allele}`);
@@ -160,6 +161,7 @@ export function truncateIfNeeded(content: string, limit: number): string {
     return content;
   }
 
-  const truncated = content.slice(0, limit - 200);
+  const sliceEnd = Math.max(0, limit - TRUNCATION_RESERVE);
+  const truncated = content.slice(0, sliceEnd);
   return `${truncated}\n\n---\n\n**[Content truncated due to size limit. ${content.length - truncated.length} characters omitted. Try filtering or using pagination to see more results.]**`;
 }
