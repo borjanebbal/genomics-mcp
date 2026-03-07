@@ -2,57 +2,11 @@ import { readFile } from "node:fs/promises";
 import { SnpArraySchema } from "../schemas/snp.schemas.js";
 import type { MatchMode } from "../types/common.js";
 import type { DatasetMetadata, SnpRecord, TraitSummary } from "../types/snp.js";
+import { TRAIT_CATEGORIES } from "../types/trait-categories.js";
 import { createLogger } from "../utils/logger.js";
 import type { ISnpRepository } from "./snp.repository.js";
 
 const logger = createLogger("JsonSnpRepository");
-
-// Maps each trait slug to a human-readable category used by list_traits output.
-// Slugs not present here are left uncategorized (rendered under "Other").
-const TRAIT_CATEGORIES: Record<string, string> = {
-  // Neurological
-  alzheimer_risk: "Neurological",
-  cognitive_decline: "Neurological",
-  cognitive_function: "Neurological",
-  memory: "Neurological",
-  neuroplasticity: "Neurological",
-  depression_risk: "Neurological",
-  anxiety: "Neurological",
-  longevity: "Neurological",
-  // Behavioral
-  social_behavior: "Behavioral",
-  empathy: "Behavioral",
-  emotional_regulation: "Behavioral",
-  stress_response: "Behavioral",
-  addiction_risk: "Behavioral",
-  reward_seeking: "Behavioral",
-  impulse_control: "Behavioral",
-  nicotine_dependence: "Behavioral",
-  smoking_behavior: "Behavioral",
-  // Cardiovascular
-  cardiovascular_disease: "Cardiovascular",
-  coronary_artery_disease: "Cardiovascular",
-  myocardial_infarction: "Cardiovascular",
-  triglyceride_levels: "Cardiovascular",
-  // Metabolic
-  folate_metabolism: "Metabolic",
-  homocysteine_levels: "Metabolic",
-  metabolic_syndrome: "Metabolic",
-  obesity_risk: "Metabolic",
-  // Athletic
-  athletic_performance: "Athletic",
-  muscle_fiber_type: "Athletic",
-  sprint_performance: "Athletic",
-  // Immune
-  inflammation: "Immune",
-  immune_response: "Immune",
-  autoimmune_risk: "Immune",
-  // Cancer & Developmental
-  lung_cancer_risk: "Cancer & Developmental",
-  neural_tube_defects: "Cancer & Developmental",
-  // Pain
-  pain_sensitivity: "Pain",
-};
 
 export class JsonSnpRepository implements ISnpRepository {
   private snps: SnpRecord[] = [];

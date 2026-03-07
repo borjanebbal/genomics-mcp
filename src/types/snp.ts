@@ -5,6 +5,7 @@ import type {
   SnpRecordSchema,
   SourceSchema,
 } from "../schemas/snp.schemas.js";
+import type { TraitCategory } from "./trait-categories.js";
 export type GenotypeEffect = z.infer<typeof GenotypeEffectSchema>;
 
 export type Source = z.infer<typeof SourceSchema>;
@@ -26,7 +27,7 @@ export interface TraitSummary {
   slug: string;
   display_name: string;
   snp_count: number;
-  category?: string;
+  category?: TraitCategory;
 }
 
 export interface DatasetMetadata {
