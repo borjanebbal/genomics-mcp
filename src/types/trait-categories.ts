@@ -20,6 +20,8 @@ export const TRAIT_CATEGORY = {
   "Iron & Liver": "Iron & Liver",
   "Circadian & Sleep": "Circadian & Sleep",
   "Alcohol & Metabolism": "Alcohol & Metabolism",
+  "Eye & Vision": "Eye & Vision",
+  "Musculoskeletal & Uric Acid": "Musculoskeletal & Uric Acid",
 } as const;
 
 /** Union of all valid trait category names. */
@@ -135,4 +137,48 @@ export const TRAIT_CATEGORIES: Record<string, TraitCategory> = {
   bladder_cancer_risk: TRAIT_CATEGORY["Cancer & Developmental"],
   // Immune (extended)
   oxidative_stress: TRAIT_CATEGORY.Immune,
+  // Eye & Vision
+  macular_degeneration_risk: TRAIT_CATEGORY["Eye & Vision"],
+  // Musculoskeletal & Uric Acid
+  gout_risk: TRAIT_CATEGORY["Musculoskeletal & Uric Acid"],
+  uric_acid_levels: TRAIT_CATEGORY["Musculoskeletal & Uric Acid"],
+  // Pharmacogenomics (extended)
+  fluorouracil_toxicity: TRAIT_CATEGORY.Pharmacogenomics,
+  irinotecan_toxicity: TRAIT_CATEGORY.Pharmacogenomics,
+  abacavir_hypersensitivity: TRAIT_CATEGORY.Pharmacogenomics,
+  pcsk9_inhibitor_response: TRAIT_CATEGORY.Pharmacogenomics,
+  // Cardiovascular (extended)
+  hypertension_risk: TRAIT_CATEGORY.Cardiovascular,
+  hdl_cholesterol_levels: TRAIT_CATEGORY.Cardiovascular,
+  // Neurological (extended)
+  bipolar_disorder_risk: TRAIT_CATEGORY.Neurological,
+  schizophrenia_risk: TRAIT_CATEGORY.Neurological,
+  // Iron & Liver (extended)
+  gilbert_syndrome: TRAIT_CATEGORY["Iron & Liver"],
+  bilirubin_levels: TRAIT_CATEGORY["Iron & Liver"],
+  // Circadian & Sleep (extended)
+  sleep_timing: TRAIT_CATEGORY["Circadian & Sleep"],
+  // Nutrition & Metabolism (extended)
+  vitamin_d_levels: TRAIT_CATEGORY["Nutrition & Metabolism"],
+  // Pharmacogenomics (extended 2)
+  hepatitis_c_treatment: TRAIT_CATEGORY.Pharmacogenomics,
+  beta_blocker_response: TRAIT_CATEGORY.Pharmacogenomics,
+  // Inflammation (extended)
+  interleukin_1_levels: TRAIT_CATEGORY.Inflammation,
+  interleukin_10_levels: TRAIT_CATEGORY.Inflammation,
+  // Neurological (extended 2)
+  dopamine_signaling: TRAIT_CATEGORY.Neurological,
+  // Bone & Musculoskeletal (extended)
+  fracture_risk: TRAIT_CATEGORY["Bone & Musculoskeletal"],
+  collagen_production: TRAIT_CATEGORY["Bone & Musculoskeletal"],
+  // Cancer & Developmental (extended 2)
+  detoxification: TRAIT_CATEGORY["Cancer & Developmental"],
+  benzene_toxicity: TRAIT_CATEGORY["Cancer & Developmental"],
+  // Immune (extended 2)
+  antioxidant_defense: TRAIT_CATEGORY.Immune,
+  // Metabolic (extended)
+  bmi: TRAIT_CATEGORY.Metabolic,
+  // Autoimmune (extended)
+  autoimmune_thyroid_risk: TRAIT_CATEGORY.Autoimmune,
+  graves_disease_risk: TRAIT_CATEGORY.Autoimmune,
 };
