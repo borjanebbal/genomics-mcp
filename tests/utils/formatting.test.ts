@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import type { PaginationMetadata } from "../../src/types/common.js";
 import type {
+  DatasetMetadata,
   GenotypeInterpretation,
   SnpRecord,
   SnpSummary,
@@ -8,6 +9,7 @@ import type {
 } from "../../src/types/snp.js";
 import {
   formatGenotypeInterpretationMarkdown,
+  formatMetadataMarkdown,
   formatSearchResultsMarkdown,
   formatSnpDetailsMarkdown,
   formatTraitListMarkdown,
@@ -270,6 +272,88 @@ describe("formatTraitListMarkdown", () => {
   it("handles an empty trait list gracefully", () => {
     const result = formatTraitListMarkdown([]);
     expect(result).toContain("0");
+  });
+
+  it("shows pagination hint when has_more is true", () => {
+    const traits: TraitSummary[] = [
+      {
+        slug: "alzheimer_risk",
+        display_name: "Alzheimer's Risk",
+        snp_count: 2,
+        category: "Neurological",
+      },
+    ];
+    const pagination: PaginationMetadata = {
+      total: 10,
+      count: 1,
+      offset: 0,
+      has_more: true,
+      next_offset: 1,
+    };
+    const result = formatTraitListMarkdown(traits, pagination);
+    expect(result).toContain("offset=1");
+  });
+
+  it("shows total and count from pagination when provided", () => {
+    const traits: TraitSummary[] = [
+      { slug: "alzheimer_risk", display_name: "Alzheimer's Risk", snp_count: 2 },
+    ];
+    const pagination: PaginationMetadata = {
+      total: 5,
+      count: 1,
+      offset: 0,
+      has_more: true,
+      next_offset: 1,
+    };
+    const result = formatTraitListMarkdown(traits, pagination);
+    expect(result).toContain("5");
+  });
+
+  it("does not show pagination hint when has_more is false", () => {
+    const traits: TraitSummary[] = [
+      { slug: "alzheimer_risk", display_name: "Alzheimer's Risk", snp_count: 2 },
+    ];
+    const pagination: PaginationMetadata = { total: 1, count: 1, offset: 0, has_more: false };
+    const result = formatTraitListMarkdown(traits, pagination);
+    expect(result).not.toContain("offset=");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// formatMetadataMarkdown
+// ---------------------------------------------------------------------------
+
+describe("formatMetadataMarkdown", () => {
+  const METADATA: DatasetMetadata = {
+    total_snps: 50,
+    total_traits: 30,
+    last_updated: "2025-06-01",
+    version: "0.1.0",
+  };
+
+  it("includes the server version", () => {
+    const result = formatMetadataMarkdown(METADATA);
+    expect(result).toContain("0.1.0");
+  });
+
+  it("includes total SNP count", () => {
+    const result = formatMetadataMarkdown(METADATA);
+    expect(result).toContain("50");
+  });
+
+  it("includes total trait count", () => {
+    const result = formatMetadataMarkdown(METADATA);
+    expect(result).toContain("30");
+  });
+
+  it("includes last_updated date", () => {
+    const result = formatMetadataMarkdown(METADATA);
+    expect(result).toContain("2025-06-01");
+  });
+
+  it("shows 'unknown' for last_updated when null", () => {
+    const result = formatMetadataMarkdown({ ...METADATA, last_updated: null });
+    expect(result).toContain("unknown");
   });
 });
 
