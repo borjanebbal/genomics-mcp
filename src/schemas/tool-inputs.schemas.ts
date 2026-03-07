@@ -77,6 +77,25 @@ export const ListTraitsInputSchema = z.object({
     .max(100)
     .optional()
     .describe("Optional search filter for trait names (case-insensitive partial match)"),
+  limit: z
+    .number()
+    .int()
+    .min(1)
+    .max(MAX_LIMIT)
+    .optional()
+    .describe(`Maximum traits to return (1-${MAX_LIMIT}). Omit to return all matching traits`),
+  offset: z
+    .number()
+    .int()
+    .min(0)
+    .default(DEFAULT_OFFSET)
+    .describe("Number of traits to skip for pagination"),
+  response_format: ResponseFormatSchema.default("markdown").describe(
+    "Output format: 'markdown' for human-readable or 'json' for machine-readable"
+  ),
+});
+
+export const GetMetadataInputSchema = z.object({
   response_format: ResponseFormatSchema.default("markdown").describe(
     "Output format: 'markdown' for human-readable or 'json' for machine-readable"
   ),
@@ -86,3 +105,4 @@ export type SearchByTraitInput = z.infer<typeof SearchByTraitInputSchema>;
 export type GetSnpDetailsInput = z.infer<typeof GetSnpDetailsInputSchema>;
 export type InterpretGenotypeInput = z.infer<typeof InterpretGenotypeInputSchema>;
 export type ListTraitsInput = z.infer<typeof ListTraitsInputSchema>;
+export type GetMetadataInput = z.infer<typeof GetMetadataInputSchema>;

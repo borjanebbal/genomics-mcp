@@ -43,8 +43,28 @@ export class SnpService {
     return this.interpretGenotypeUseCase.execute(rsid, genotype);
   }
 
-  async listTraits(search?: string): Promise<TraitSummary[]> {
-    return this.repository.listTraits(search);
+  async listTraits(
+    search?: string,
+    limit?: number,
+    offset?: number
+  ): Promise<{ traits: TraitSummary[]; pagination: PaginationMetadata }> {
+    // Fetch the total count without pagination, then apply limit/offset.
+    const allMatching = await this.repository.listTraits(search);
+    const total = allMatching.length;
+    const resolvedOffset = offset ?? 0;
+    const page =
+      limit !== undefined
+        ? allMatching.slice(resolvedOffset, resolvedOffset + limit)
+        : allMatching.slice(resolvedOffset);
+    const hasMore = resolvedOffset + page.length < total;
+    const pagination: PaginationMetadata = {
+      total,
+      count: page.length,
+      offset: resolvedOffset,
+      has_more: hasMore,
+      next_offset: hasMore ? resolvedOffset + page.length : undefined,
+    };
+    return { traits: page, pagination };
   }
 
   async getMetadata(): Promise<DatasetMetadata> {
