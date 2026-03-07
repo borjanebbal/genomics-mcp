@@ -519,5 +519,2412 @@
       "global_maf": 0.35
     },
     "last_updated": "2025-01-17"
+  },
+  {
+    "rsid": "rs9939609",
+    "genes": ["FTO"],
+    "traits": ["obesity_risk", "metabolic_syndrome", "type_2_diabetes"],
+    "description": "FTO fat-mass and obesity-associated gene variant, the most replicated common obesity SNP",
+    "chromosome": "16",
+    "position": 53786615,
+    "reference_allele": "T",
+    "risk_allele": "A",
+    "effects_by_genotype": {
+      "AA": {
+        "summary": "Highest obesity risk, ~1.6x increased type 2 diabetes risk",
+        "detail": "Homozygous risk variant associated with ~3 kg higher body weight and 1.6x greater risk of type 2 diabetes compared to TT. Reduced satiety signalling and altered energy homeostasis. Benefits from structured physical activity and caloric awareness.",
+        "risk_level": "increased_risk"
+      },
+      "AT": {
+        "summary": "Moderately increased obesity and T2D risk",
+        "detail": "Heterozygous carriers have intermediate increased risk (~1.3x T2D risk). One copy of the risk allele leads to modest increases in BMI. Lifestyle interventions are especially effective.",
+        "risk_level": "informational"
+      },
+      "TT": {
+        "summary": "Lower obesity and type 2 diabetes risk",
+        "detail": "Wild-type genotype. Standard population risk for obesity and type 2 diabetes. Normal FTO-mediated energy regulation.",
+        "risk_level": "protective"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs9939609",
+        "study_type": "database"
+      },
+      {
+        "name": "Science – Frayling et al. 2007",
+        "url": "https://www.science.org/doi/10.1126/science.1141634",
+        "study_type": "gwas"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.3554
+    },
+    "last_updated": "2025-01-22"
+  },
+  {
+    "rsid": "rs1801131",
+    "genes": ["MTHFR"],
+    "traits": ["folate_metabolism", "homocysteine_levels", "neural_tube_defects"],
+    "description": "MTHFR A1298C variant (second major MTHFR polymorphism) affecting folate cycle and homocysteine",
+    "chromosome": "1",
+    "position": 11794419,
+    "reference_allele": "A",
+    "effects_by_genotype": {
+      "AA": {
+        "summary": "Normal MTHFR A1298C function",
+        "detail": "Wild-type allele. Normal MTHFR enzyme activity at the 1298 position. Standard folate metabolism and homocysteine levels. No increased risk from this variant alone.",
+        "risk_level": "informational"
+      },
+      "AC": {
+        "summary": "Possibly mildly impaired folate metabolism",
+        "detail": "Heterozygous carrier of the C variant. Mildly reduced MTHFR activity. Clinically significant primarily when combined with rs1801133 (C677T) variant (compound heterozygote). Standard folate intake recommended.",
+        "risk_level": "informational"
+      },
+      "CC": {
+        "summary": "Elevated homocysteine, increased cardiovascular risk",
+        "detail": "Homozygous C variant. Reduced MTHFR enzymatic activity leading to elevated homocysteine levels. Increased cardiovascular and neural tube defect risk, especially in the context of low folate intake. Active folate (methylfolate) supplementation recommended.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1801131",
+        "study_type": "database"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.2277
+    },
+    "last_updated": "2025-01-22"
+  },
+  {
+    "rsid": "rs1800955",
+    "genes": ["DRD4"],
+    "traits": ["reward_seeking", "social_behavior", "impulse_control"],
+    "description": "DRD4 promoter variant affecting dopamine D4 receptor expression and novelty-seeking behaviour",
+    "chromosome": "11",
+    "position": 636784,
+    "reference_allele": "T",
+    "risk_allele": "C",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "Increased novelty seeking and reward-driven behaviour",
+        "detail": "Homozygous C variant in the DRD4 promoter. Associated with higher novelty seeking, risk-taking, and impulsivity. Stronger dopamine-driven reward responses. Higher susceptibility to thrill-seeking activities.",
+        "risk_level": "increased_risk"
+      },
+      "CT": {
+        "summary": "Mildly increased novelty seeking",
+        "detail": "Heterozygous carrier. Intermediate novelty-seeking scores. Slightly higher reward-seeking behaviour compared to TT. Most common genotype in many populations.",
+        "risk_level": "informational"
+      },
+      "TT": {
+        "summary": "Lower novelty seeking, standard impulse control",
+        "detail": "Wild-type DRD4 promoter. Standard dopamine D4 receptor expression. Normal novelty-seeking behaviour and impulse control.",
+        "risk_level": "informational"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1800955",
+        "study_type": "database"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.3742
+    },
+    "last_updated": "2025-01-22"
+  },
+  {
+    "rsid": "rs762551",
+    "genes": ["CYP1A2"],
+    "traits": ["caffeine_metabolism"],
+    "description": "CYP1A2*1F variant determining caffeine metabolism speed (fast vs slow metaboliser)",
+    "chromosome": "15",
+    "position": 74749576,
+    "reference_allele": "C",
+    "risk_allele": "A",
+    "effects_by_genotype": {
+      "AA": {
+        "summary": "Fast caffeine metaboliser (CYP1A2*1F/*1F)",
+        "detail": "Homozygous inducible variant. Higher CYP1A2 enzyme inducibility, especially in smokers and those with high coffee intake. Faster caffeine clearance. In heavy coffee consumers, associated with a 1.6x higher CYP1A2 activity. Lower caffeine side-effect risk.",
+        "risk_level": "informational"
+      },
+      "AC": {
+        "summary": "Carrier of CYP1A2*1F; intermediate metaboliser",
+        "detail": "Heterozygous carrier. One copy of the inducible allele. Intermediate caffeine metabolism speed. Standard caffeine sensitivity for most people.",
+        "risk_level": "informational"
+      },
+      "CC": {
+        "summary": "Slow caffeine metaboliser",
+        "detail": "Wild-type CYP1A2. Slower caffeine clearance. Higher caffeine sensitivity — more likely to experience jitteriness, insomnia, or cardiovascular effects from coffee. May benefit from limiting intake to 1-2 cups/day.",
+        "risk_level": "informational"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs762551",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 10233211 – Sachse et al.",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/10233211/",
+        "study_type": "cohort_study"
+      },
+      {
+        "name": "PMID 20390257 – Palatini et al.",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/20390257/",
+        "study_type": "cohort_study"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.3522
+    },
+    "last_updated": "2025-01-22"
+  },
+  {
+    "rsid": "rs1799971",
+    "genes": ["OPRM1"],
+    "traits": ["pain_sensitivity", "addiction_risk", "opioid_response"],
+    "description": "Mu opioid receptor A118G variant (N40D) affecting opioid analgesia and addiction susceptibility",
+    "chromosome": "6",
+    "position": 154039662,
+    "reference_allele": "A",
+    "risk_allele": "G",
+    "effects_by_genotype": {
+      "AA": {
+        "summary": "Standard opioid response and addiction risk",
+        "detail": "Wild-type mu opioid receptor. Normal opioid analgesic response and standard risk for alcohol/opioid dependence. Naltrexone treatment has standard efficacy.",
+        "risk_level": "informational"
+      },
+      "AG": {
+        "summary": "Stronger alcohol cravings; enhanced naltrexone response",
+        "detail": "Heterozygous G carrier. Associated with stronger alcohol cravings and slightly higher risk of alcohol dependence. Naltrexone treatment is approximately 2x more successful in alcoholic individuals with this genotype.",
+        "risk_level": "increased_risk"
+      },
+      "GG": {
+        "summary": "Higher post-operative pain; requires more opioid analgesia",
+        "detail": "Homozygous G variant. Higher pain scores following surgery and greater opioid analgesic requirements. Naltrexone is highly effective for alcohol use disorder in this genotype. Significant pharmacogenomic implications for pain management.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1799971",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 25794200 – meta-analysis",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/25794200/",
+        "study_type": "meta_analysis"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.1901
+    },
+    "last_updated": "2025-01-22"
+  },
+  {
+    "rsid": "rs7903146",
+    "genes": ["TCF7L2"],
+    "traits": ["type_2_diabetes", "insulin_secretion"],
+    "description": "TCF7L2 intronic variant — the strongest common GWAS signal for type 2 diabetes risk",
+    "chromosome": "10",
+    "position": 112998590,
+    "reference_allele": "C",
+    "risk_allele": "T",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "Lower type 2 diabetes risk",
+        "detail": "Wild-type TCF7L2. Normal Wnt signalling and beta-cell function. Standard type 2 diabetes risk. No elevated concern from this locus.",
+        "risk_level": "protective"
+      },
+      "CT": {
+        "summary": "~1.4x increased type 2 diabetes risk",
+        "detail": "Heterozygous T allele carrier. Moderately impaired beta-cell insulin secretion. ~40% increased risk of type 2 diabetes compared to CC. Lifestyle interventions (diet, exercise) are highly effective at risk reduction.",
+        "risk_level": "increased_risk"
+      },
+      "TT": {
+        "summary": "~2x increased type 2 diabetes risk",
+        "detail": "Homozygous T variant. Most strongly associated with impaired insulin secretion and T2D risk — approximately doubled risk vs CC. One of the most replicated common genetic risk factors for T2D (GWAS p-value ~1×10⁻⁴⁹). Strong recommendation for regular HbA1c monitoring and preventive lifestyle changes.",
+        "risk_level": "high_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs7903146",
+        "study_type": "database"
+      },
+      {
+        "name": "PLoS Medicine – Grant et al. 2006",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/17020404/",
+        "study_type": "gwas"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.2181
+    },
+    "last_updated": "2025-01-22"
+  },
+  {
+    "rsid": "rs1042522",
+    "genes": ["TP53"],
+    "traits": ["cancer_risk", "longevity", "chemotherapy_response"],
+    "description": "TP53 Pro72Arg variant affecting apoptotic efficiency, longevity, and chemotherapy response",
+    "chromosome": "17",
+    "position": 7676154,
+    "reference_allele": "C",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "Pro/Pro — better chemotherapy response, slightly longer lifespan",
+        "detail": "Homozygous Pro72 (minus-strand C). More efficient apoptosis induction. Associated with ~3 years longer lifespan in Danish cohort studies. Chemotherapy tends to be more effective. Slightly higher risk of HPV-associated cancers.",
+        "risk_level": "protective"
+      },
+      "CG": {
+        "summary": "Pro/Arg — intermediate lifespan and chemo response",
+        "detail": "Heterozygous. Intermediate apoptotic activity. Moderate chemotherapy efficacy and longevity effect. Most common genotype in many populations.",
+        "risk_level": "informational"
+      },
+      "GG": {
+        "summary": "Arg/Arg — slightly shorter lifespan, more chemo-resistant",
+        "detail": "Homozygous Arg72 (minus-strand G). Slightly reduced apoptotic efficiency. Associated with marginally shorter lifespan. Tumours with this genotype can be more resistant to certain chemotherapies. Common in populations with African ancestry.",
+        "risk_level": "informational"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1042522",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 18256523 – Danish longevity study",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/18256523/",
+        "study_type": "cohort_study"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.3981
+    },
+    "last_updated": "2025-01-22"
+  },
+  {
+    "rsid": "rs1805009",
+    "genes": ["MC1R"],
+    "traits": ["red_hair", "melanoma_risk", "skin_pigmentation"],
+    "description": "MC1R D294H variant strongly associated with red hair, fair skin, and elevated melanoma risk",
+    "chromosome": "16",
+    "position": 89920138,
+    "reference_allele": "G",
+    "risk_allele": "C",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "Red hair likely; substantially higher melanoma risk",
+        "detail": "Homozygous risk variant at MC1R D294H. Strong association with red hair, freckles, very fair skin, and poor UV tanning response. Significantly elevated melanoma risk. Strict sun protection (SPF 50+, protective clothing, regular dermatological surveillance) strongly recommended.",
+        "risk_level": "high_risk"
+      },
+      "CG": {
+        "summary": "MC1R D294H carrier; intermediate pigmentation risk",
+        "detail": "Heterozygous carrier. May have red hair or lighter pigmentation. Increased melanoma risk compared to GG, though lower than CC. Regular skin checks and sun protection advised.",
+        "risk_level": "increased_risk"
+      },
+      "GG": {
+        "summary": "Wild-type MC1R; normal pigmentation",
+        "detail": "Common non-risk genotype. Standard pigmentation and UV response. Standard population melanoma risk.",
+        "risk_level": "informational"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1805009",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 7581459 – Valverde et al. 1995",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/7581459/",
+        "study_type": "case_control"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.005051
+    },
+    "last_updated": "2025-01-22"
+  },
+  {
+    "rsid": "rs1799853",
+    "genes": ["CYP2C9"],
+    "traits": ["warfarin_sensitivity", "drug_metabolism", "nsaid_response"],
+    "description": "CYP2C9*2 variant (Arg144Cys) reducing warfarin and NSAID metabolism — the second-most common CYP2C9 loss-of-function allele",
+    "chromosome": "10",
+    "position": 94942290,
+    "reference_allele": "C",
+    "risk_allele": "T",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "Normal CYP2C9 metabolism",
+        "detail": "Wild-type CYP2C9. Full enzymatic activity for warfarin and NSAIDs. Standard warfarin dosing applies. No increased risk of bleeding from this locus alone.",
+        "risk_level": "informational"
+      },
+      "CT": {
+        "summary": "CYP2C9*1/*2 — ~20% reduced warfarin clearance",
+        "detail": "Heterozygous CYP2C9*2 carrier. Approximately 20% reduction in warfarin hydroxylation. Requires moderately lower warfarin doses. Also associated with slightly increased risk of GI bleeding with CYP2C9-substrate NSAIDs (ibuprofen, diclofenac, naproxen).",
+        "risk_level": "increased_risk"
+      },
+      "TT": {
+        "summary": "CYP2C9*2/*2 — ~40% reduced warfarin clearance, higher NSAID bleeding risk",
+        "detail": "Homozygous CYP2C9*2. Substantially reduced warfarin clearance (~40%). Requires significantly lower doses to avoid bleeding complications. Clinically significant risk of GI bleeding with many NSAID substrates. PharmGKB Level 1A pharmacogenomic evidence.",
+        "risk_level": "high_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1799853",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 19300499 — GWAS warfarin dose",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/19300499/",
+        "study_type": "gwas"
+      },
+      {
+        "name": "PharmGKB CYP2C9",
+        "url": "https://www.pharmgkb.org/gene/PA126",
+        "study_type": "database"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.0684,
+      "populations": {
+        "european": 0.12,
+        "african": 0.02,
+        "east_asian": 0.003
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs1057910",
+    "genes": ["CYP2C9"],
+    "traits": ["warfarin_sensitivity", "drug_metabolism", "nsaid_response"],
+    "description": "CYP2C9*3 variant (Ile359Leu) — the most severe common CYP2C9 loss-of-function allele, causing near-complete warfarin metabolism impairment",
+    "chromosome": "10",
+    "position": 94981296,
+    "reference_allele": "A",
+    "risk_allele": "C",
+    "effects_by_genotype": {
+      "AA": {
+        "summary": "Normal CYP2C9 activity",
+        "detail": "Wild-type CYP2C9*1. Full enzyme activity. Standard warfarin metabolism and NSAID clearance.",
+        "risk_level": "informational"
+      },
+      "AC": {
+        "summary": "CYP2C9*1/*3 — substantially impaired warfarin metabolism",
+        "detail": "Heterozygous CYP2C9*3 carrier. Approximately 40-50% reduction in S-warfarin clearance. Requires significantly lower warfarin doses. PharmGKB Level 1A evidence — CPIC recommends dose reduction to 25-30% of standard.",
+        "risk_level": "increased_risk"
+      },
+      "CC": {
+        "summary": "CYP2C9*3/*3 — near-complete loss of warfarin metabolism",
+        "detail": "Homozygous CYP2C9*3. Approximately 90% reduction in S-warfarin clearance. Extremely sensitive to warfarin — only 10-15% of normal dose required. Very high bleeding risk at standard doses. Rare but clinically critical — major dose reduction and close INR monitoring mandatory.",
+        "risk_level": "high_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1057910",
+        "study_type": "database"
+      },
+      {
+        "name": "CPIC Warfarin Guideline",
+        "url": "https://cpicpgx.org/guidelines/guideline-for-warfarin-and-cyp2c9-and-vkorc1/",
+        "study_type": "review"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.0636,
+      "populations": {
+        "european": 0.06,
+        "african": 0.005,
+        "east_asian": 0.035
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs9923231",
+    "genes": ["VKORC1"],
+    "traits": ["warfarin_sensitivity", "drug_metabolism"],
+    "description": "VKORC1 -1639G>A promoter variant — the strongest single genetic determinant of warfarin dose requirement",
+    "chromosome": "16",
+    "position": 31096368,
+    "reference_allele": "C",
+    "risk_allele": "T",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "High VKORC1 expression — standard or higher warfarin dose needed",
+        "detail": "Wild-type (G/G on forward strand). Higher VKORC1 enzyme expression. Requires higher warfarin doses to achieve anticoagulation. Less sensitive to warfarin — may need doses of 5-7 mg/day or more.",
+        "risk_level": "informational"
+      },
+      "CT": {
+        "summary": "Intermediate VKORC1 — intermediate warfarin dose",
+        "detail": "Heterozygous A carrier (G/A on forward strand). Intermediate VKORC1 expression. Moderate warfarin sensitivity. Typical therapeutic dose around 3-5 mg/day. Most common genotype in mixed populations.",
+        "risk_level": "informational"
+      },
+      "TT": {
+        "summary": "Low VKORC1 — very high warfarin sensitivity, low dose required",
+        "detail": "Homozygous A variant (A/A on forward strand). Markedly reduced VKORC1 expression. Highly sensitive to warfarin — typically requires only 1.5-3 mg/day. Major bleeding risk at standard doses. PharmGKB Level 1A. Common in East Asian populations (~90% A allele frequency).",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs9923231",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 19300499 — GWAS warfarin dose",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/19300499/",
+        "study_type": "gwas"
+      },
+      {
+        "name": "CPIC Warfarin Guideline",
+        "url": "https://cpicpgx.org/guidelines/guideline-for-warfarin-and-cyp2c9-and-vkorc1/",
+        "study_type": "review"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.3879,
+      "populations": {
+        "european": 0.39,
+        "east_asian": 0.92,
+        "african": 0.1
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs4244285",
+    "genes": ["CYP2C19"],
+    "traits": ["drug_metabolism", "clopidogrel_response", "proton_pump_inhibitor_response"],
+    "description": "CYP2C19*2 loss-of-function variant — defines poor metaboliser status for clopidogrel (antiplatelet), PPIs, and many antidepressants",
+    "chromosome": "10",
+    "position": 94781859,
+    "reference_allele": "G",
+    "risk_allele": "A",
+    "effects_by_genotype": {
+      "GG": {
+        "summary": "Normal CYP2C19 function",
+        "detail": "Wild-type CYP2C19. Normal activation of clopidogrel to its active metabolite. Standard response to PPIs and CYP2C19-metabolised antidepressants (citalopram, sertraline, amitriptyline). Standard dosing applies.",
+        "risk_level": "informational"
+      },
+      "AG": {
+        "summary": "CYP2C19 intermediate metaboliser — reduced clopidogrel activation",
+        "detail": "Heterozygous *2 carrier. Reduced CYP2C19 activity (~50%). Moderately impaired clopidogrel activation. Higher platelet reactivity and modestly increased risk of cardiovascular events in patients on clopidogrel. PPIs may be slightly more effective. CPIC recommends considering alternative antiplatelet therapy.",
+        "risk_level": "increased_risk"
+      },
+      "AA": {
+        "summary": "CYP2C19 poor metaboliser — clopidogrel largely ineffective",
+        "detail": "Homozygous *2. Near-complete loss of CYP2C19 activity. Clopidogrel cannot be activated — substantially higher risk of stent thrombosis and cardiovascular events. CPIC Level A: alternative therapy (prasugrel, ticagrelor) strongly recommended. PPIs are more effective at lower doses. Very common in East Asians (~15% *2/*2).",
+        "risk_level": "high_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs4244285",
+        "study_type": "database"
+      },
+      {
+        "name": "CPIC Clopidogrel Guideline",
+        "url": "https://cpicpgx.org/guidelines/guideline-for-clopidogrel-and-cyp2c19/",
+        "study_type": "review"
+      },
+      {
+        "name": "PMID 19106083 — GWAS stent thrombosis",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/19106083/",
+        "study_type": "gwas"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.1548,
+      "populations": {
+        "european": 0.15,
+        "east_asian": 0.3,
+        "african": 0.17
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs12248560",
+    "genes": ["CYP2C19"],
+    "traits": ["drug_metabolism", "clopidogrel_response", "proton_pump_inhibitor_response"],
+    "description": "CYP2C19*17 gain-of-function variant — defines ultra-rapid metaboliser status, reducing PPI efficacy and increasing antiplatelet effect of clopidogrel",
+    "chromosome": "10",
+    "position": 94762681,
+    "reference_allele": "C",
+    "risk_allele": "T",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "Normal CYP2C19 — standard drug metabolism",
+        "detail": "Wild-type at the *17 locus. Normal CYP2C19 expression. Standard response to clopidogrel and PPIs at standard doses.",
+        "risk_level": "informational"
+      },
+      "CT": {
+        "summary": "CYP2C19 rapid metaboliser — increased drug clearance",
+        "detail": "Heterozygous *17 carrier. Increased CYP2C19 transcription. Faster metabolism of clopidogrel yields modestly higher active metabolite. PPIs are metabolised faster — may need higher doses for acid suppression. Intermediate between normal and ultra-rapid.",
+        "risk_level": "informational"
+      },
+      "TT": {
+        "summary": "CYP2C19 ultra-rapid metaboliser — strongest effect",
+        "detail": "Homozygous *17. Up to 2-fold increase in CYP2C19 expression. Fastest clopidogrel activation — potentially higher bleeding risk with antiplatelet therapy. PPIs require higher doses for adequate acid control. Common in African populations (~8% *17/*17) and Swedes (~10%).",
+        "risk_level": "informational"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs12248560",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 16958828 — CYP2C19*17 discovery",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/16958828/",
+        "study_type": "cohort_study"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.2108,
+      "populations": {
+        "european": 0.22,
+        "african": 0.28,
+        "east_asian": 0.03
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs4149056",
+    "genes": ["SLCO1B1"],
+    "traits": ["statin_myopathy_risk", "drug_transport"],
+    "description": "SLCO1B1*5 variant (Val174Ala) causing reduced hepatic statin uptake — strongest known genetic risk factor for statin-induced myopathy",
+    "chromosome": "12",
+    "position": 21178615,
+    "reference_allele": "T",
+    "risk_allele": "C",
+    "effects_by_genotype": {
+      "TT": {
+        "summary": "Normal SLCO1B1 — standard statin tolerability",
+        "detail": "Wild-type SLCO1B1 transporter. Normal hepatic uptake of statins (especially simvastatin, atorvastatin, rosuvastatin). Standard risk of myopathy. No dose adjustment required based on this SNP alone.",
+        "risk_level": "informational"
+      },
+      "CT": {
+        "summary": "Moderately reduced statin uptake — ~5x myopathy risk",
+        "detail": "Heterozygous *5 carrier. Reduced OATP1B1 transporter function. Higher plasma statin concentrations, approximately 5-fold increased risk of myopathy with high-dose simvastatin. CPIC recommends considering lower dose simvastatin or alternative statin.",
+        "risk_level": "increased_risk"
+      },
+      "CC": {
+        "summary": "Severely impaired statin transport — ~17x myopathy risk",
+        "detail": "Homozygous *5. Severely impaired OATP1B1 function. ~17-fold increased risk of myopathy with simvastatin 80mg. Major risk of rhabdomyolysis. CPIC Level A: avoid simvastatin 40-80mg; use alternative statins with less SLCO1B1 dependence (pravastatin, fluvastatin, rosuvastatin at reduced dose).",
+        "risk_level": "high_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs4149056",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 18650507 — SEARCH trial",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/18650507/",
+        "study_type": "gwas"
+      },
+      {
+        "name": "CPIC SLCO1B1 Statin Guideline",
+        "url": "https://cpicpgx.org/guidelines/cpic-guideline-for-statins/",
+        "study_type": "review"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.1291,
+      "populations": {
+        "european": 0.15,
+        "east_asian": 0.1,
+        "african": 0.06
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs4988235",
+    "genes": ["MCM6"],
+    "traits": ["lactase_persistence", "lactose_intolerance"],
+    "description": "MCM6 -13910C>T variant controlling LCT (lactase) gene expression — the primary European-ancestry lactase persistence SNP",
+    "chromosome": "2",
+    "position": 135851076,
+    "reference_allele": "G",
+    "risk_allele": "A",
+    "effects_by_genotype": {
+      "AA": {
+        "summary": "Lactase persistent — can digest lactose throughout life",
+        "detail": "Homozygous T allele (reported as A on minus strand). Maintains lactase expression into adulthood. Can consume dairy products without GI symptoms. The dominant genotype in Northern European-ancestry populations.",
+        "risk_level": "protective"
+      },
+      "AG": {
+        "summary": "Heterozygous — likely lactase persistent",
+        "detail": "Heterozygous carrier. One persistence allele is sufficient for continued lactase production (dominant trait). Most individuals with this genotype tolerate dairy well, though some may experience mild symptoms with very high lactose intake.",
+        "risk_level": "informational"
+      },
+      "GG": {
+        "summary": "Lactase non-persistent — likely lactose intolerant after childhood",
+        "detail": "Homozygous ancestral allele (C/C on plus strand). Lactase expression typically declines after weaning, as in most mammals. Likely to develop lactose intolerance symptoms (bloating, diarrhoea) from dairy consumption. Most common globally (~65% of world population). Low-lactose dairy or lactase supplements recommended.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs4988235",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 12369018 — Enattah et al. 2002",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/12369018/",
+        "study_type": "case_control"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.3263,
+      "populations": {
+        "european": 0.62,
+        "east_asian": 0.01,
+        "african": 0.05
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs1544410",
+    "genes": ["VDR"],
+    "traits": ["vitamin_d_response", "bone_density", "immune_function", "cancer_risk"],
+    "description": "Vitamin D receptor BsmI variant (intron 8) — widely studied polymorphism influencing vitamin D signalling, bone density, and immune regulation",
+    "chromosome": "12",
+    "position": 47844869,
+    "reference_allele": "C",
+    "risk_allele": "T",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "bb genotype — lower VDR activity, reduced bone density response",
+        "detail": "Homozygous C allele (bb genotype). Associated with lower bone mineral density in some populations, particularly with low vitamin D intake. Some studies show higher risk of osteoporosis and colorectal cancer. Standard vitamin D supplementation recommended.",
+        "risk_level": "informational"
+      },
+      "CT": {
+        "summary": "Bb genotype — intermediate VDR activity",
+        "detail": "Heterozygous. Intermediate VDR expression and function. Moderate bone density response to vitamin D. Most common genotype globally.",
+        "risk_level": "informational"
+      },
+      "TT": {
+        "summary": "BB genotype — higher VDR activity",
+        "detail": "Homozygous T allele (BB genotype). Some studies associate this with better bone mineral density maintenance and more efficient vitamin D signalling. May have a modest protective effect against certain cancers. Adequate sun exposure and vitamin D intake still important.",
+        "risk_level": "protective"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1544410",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 8510875 — Morrison et al. 1994",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/8510875/",
+        "study_type": "cohort_study"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.3808
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs1800562",
+    "genes": ["HFE"],
+    "traits": ["hemochromatosis_risk", "iron_overload", "liver_disease"],
+    "description": "HFE C282Y variant — the primary cause of hereditary hemochromatosis (HH), the most common autosomal recessive genetic disorder in Northern Europeans",
+    "chromosome": "6",
+    "position": 26092913,
+    "reference_allele": "G",
+    "risk_allele": "A",
+    "effects_by_genotype": {
+      "GG": {
+        "summary": "Wild-type HFE — normal iron regulation",
+        "detail": "No HFE C282Y mutation. Normal hepcidin-mediated iron absorption regulation. Standard population risk for iron overload.",
+        "risk_level": "informational"
+      },
+      "AG": {
+        "summary": "HFE C282Y carrier — mildly elevated iron indices",
+        "detail": "Heterozygous C282Y carrier. Typically asymptomatic, but may have slightly elevated serum ferritin and transferrin saturation. Very low risk of clinical hemochromatosis unless combined with a second HFE variant (H63D). Regular blood donation may be beneficial.",
+        "risk_level": "informational"
+      },
+      "AA": {
+        "summary": "HFE C282Y homozygous — high risk of hereditary hemochromatosis",
+        "detail": "Homozygous C282Y. Responsible for ~80-85% of clinical hereditary hemochromatosis cases in Northern European populations. Progressive iron accumulation leading to liver cirrhosis, diabetes, heart failure, and arthritis if untreated. Regular phlebotomy (blood removal) is highly effective treatment. Early diagnosis dramatically improves prognosis.",
+        "risk_level": "high_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1800562",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 9140401 — HFE gene discovery",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/9140401/",
+        "study_type": "case_control"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.0633,
+      "populations": {
+        "european": 0.12,
+        "east_asian": 0.0,
+        "african": 0.01
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs1799945",
+    "genes": ["HFE"],
+    "traits": ["hemochromatosis_risk", "iron_overload", "liver_disease"],
+    "description": "HFE H63D variant — the second major HFE polymorphism; mild iron loading, clinically significant primarily in compound heterozygotes with C282Y",
+    "chromosome": "6",
+    "position": 26093141,
+    "reference_allele": "C",
+    "risk_allele": "G",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "Wild-type HFE H63D — normal iron metabolism",
+        "detail": "No H63D mutation. Standard iron absorption and storage. No increased hemochromatosis risk from this locus.",
+        "risk_level": "informational"
+      },
+      "CG": {
+        "summary": "H63D carrier — slightly elevated iron, low clinical risk",
+        "detail": "Heterozygous H63D. Often associated with mildly elevated serum ferritin. Clinically significant hemochromatosis is rare unless also carrying C282Y (rs1800562). Considered a low-penetrance risk factor.",
+        "risk_level": "informational"
+      },
+      "GG": {
+        "summary": "H63D homozygous — mildly increased iron loading",
+        "detail": "Homozygous H63D. Associated with mild-to-moderate iron loading in ~4% of cases. Rarely causes full hemochromatosis phenotype on its own. Risk substantially increased if also heterozygous or homozygous for C282Y. Iron indices should be monitored periodically.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1799945",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 9140401 — HFE gene discovery",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/9140401/",
+        "study_type": "case_control"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.1353,
+      "populations": {
+        "european": 0.14,
+        "east_asian": 0.02,
+        "african": 0.03
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs1801197",
+    "genes": ["CALCR"],
+    "traits": ["bone_density", "osteoporosis_risk"],
+    "description": "Calcitonin receptor Pro463Leu variant associated with bone mineral density and osteoporosis risk",
+    "chromosome": "7",
+    "position": 93027418,
+    "reference_allele": "G",
+    "risk_allele": "A",
+    "effects_by_genotype": {
+      "GG": {
+        "summary": "Pro/Pro — standard bone density",
+        "detail": "Wild-type calcitonin receptor. Normal osteoclast inhibition by calcitonin. Standard bone mineral density and osteoporosis risk.",
+        "risk_level": "informational"
+      },
+      "AG": {
+        "summary": "Pro/Leu — intermediate BMD risk",
+        "detail": "Heterozygous Leu463 carrier. Some studies associate the Leu allele with modestly reduced bone mineral density and slightly increased osteoporosis risk, particularly in postmenopausal women.",
+        "risk_level": "informational"
+      },
+      "AA": {
+        "summary": "Leu/Leu — potentially reduced BMD, higher osteoporosis risk",
+        "detail": "Homozygous Leu463. Associated with lower bone mineral density in multiple studies of postmenopausal women. Higher risk of osteoporotic fractures. Adequate calcium, vitamin D intake and weight-bearing exercise are important preventive measures.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1801197",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 8547327 — Nakamura et al. 1995",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/8547327/",
+        "study_type": "case_control"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.3421
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs1801020",
+    "genes": ["F2"],
+    "traits": ["thrombosis_risk", "cardiovascular_disease", "blood_clotting"],
+    "description": "Prothrombin G20210A variant — the second most common inherited thrombophilia; increases prothrombin levels and venous thromboembolism risk",
+    "chromosome": "11",
+    "position": 46761055,
+    "reference_allele": "G",
+    "risk_allele": "A",
+    "effects_by_genotype": {
+      "GG": {
+        "summary": "Wild-type — normal prothrombin levels",
+        "detail": "Wild-type prothrombin gene. Normal plasma prothrombin (Factor II) levels. Standard population risk for venous thromboembolism (DVT/PE).",
+        "risk_level": "informational"
+      },
+      "AG": {
+        "summary": "Prothrombin G20210A carrier — 2-5x VTE risk",
+        "detail": "Heterozygous G20210A. Elevated plasma prothrombin levels (~30% above normal). 2-5x increased risk of venous thromboembolism (deep vein thrombosis, pulmonary embolism). Risk multiplied by other factors (oral contraceptives, immobility, surgery). Found in ~2-3% of Europeans.",
+        "risk_level": "increased_risk"
+      },
+      "AA": {
+        "summary": "Homozygous prothrombin mutation — high VTE risk",
+        "detail": "Homozygous G20210A. Very rare. Much higher plasma prothrombin levels. Very high risk of recurrent VTE and thrombotic complications. Long-term anticoagulation often necessary. Genetic counselling recommended.",
+        "risk_level": "high_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1801020",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 8931956 — Poort et al. 1996",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/8931956/",
+        "study_type": "case_control"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.0171,
+      "populations": {
+        "european": 0.025,
+        "african": 0.003,
+        "east_asian": 0.0
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs6025",
+    "genes": ["F5"],
+    "traits": ["thrombosis_risk", "cardiovascular_disease", "blood_clotting"],
+    "description": "Factor V Leiden (R506Q) — the most common inherited thrombophilia in Europeans, conferring resistance to activated protein C",
+    "chromosome": "1",
+    "position": 169519049,
+    "reference_allele": "G",
+    "risk_allele": "A",
+    "effects_by_genotype": {
+      "GG": {
+        "summary": "Wild-type Factor V — normal clotting regulation",
+        "detail": "Wild-type Factor V. Normal cleavage by activated protein C (APC). Standard risk for venous thromboembolism (DVT/PE).",
+        "risk_level": "informational"
+      },
+      "AG": {
+        "summary": "Factor V Leiden carrier — ~3-7x VTE risk",
+        "detail": "Heterozygous Factor V Leiden (FVL). Mutant Factor Va resists cleavage by activated protein C. 3-7 fold increased risk of DVT/PE lifetime. Risk further amplified by OCP use (35x), pregnancy (7x), immobility, and surgery. Present in ~5% of Northern Europeans. Most carriers never develop a clot.",
+        "risk_level": "increased_risk"
+      },
+      "AA": {
+        "summary": "Homozygous FVL — 25-50x elevated VTE risk",
+        "detail": "Homozygous Factor V Leiden. ~25-50 fold elevated risk of VTE. Very high risk of recurrent thrombosis. Long-term anticoagulation recommended after a first event. Genetic counselling and cascade family testing strongly advised.",
+        "risk_level": "high_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs6025",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 7987067 — Bertina et al. 1994 (FVL discovery)",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/7987067/",
+        "study_type": "case_control"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.0293,
+      "populations": {
+        "european": 0.05,
+        "african": 0.003,
+        "east_asian": 0.0
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs2228671",
+    "genes": ["LDLR"],
+    "traits": ["ldl_cholesterol", "cardiovascular_disease", "familial_hypercholesterolemia"],
+    "description": "LDLR variant associated with LDL receptor function and LDL cholesterol levels — a contributor to familial hypercholesterolemia spectrum",
+    "chromosome": "19",
+    "position": 11089454,
+    "reference_allele": "C",
+    "risk_allele": "T",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "Normal LDLR — efficient LDL clearance",
+        "detail": "Wild-type LDLR at this locus. Standard LDL receptor activity. Normal LDL cholesterol clearance from plasma.",
+        "risk_level": "informational"
+      },
+      "CT": {
+        "summary": "Mildly reduced LDLR activity",
+        "detail": "Heterozygous T allele. Associated with modestly elevated LDL cholesterol levels in some populations. Intermediate cardiovascular risk contribution.",
+        "risk_level": "informational"
+      },
+      "TT": {
+        "summary": "Reduced LDLR activity — elevated LDL, higher CVD risk",
+        "detail": "Homozygous T allele. Associated with reduced LDL receptor function and higher LDL cholesterol concentrations. Increased cardiovascular disease risk, particularly when combined with dietary risk factors. Statin therapy may be more important for this genotype.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs2228671",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 16234559 — LDL receptor meta-analysis",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/16234559/",
+        "study_type": "meta_analysis"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.1632
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs2279228",
+    "genes": ["CRP"],
+    "traits": ["inflammation", "cardiovascular_disease", "c_reactive_protein_levels"],
+    "description": "C-reactive protein gene variant associated with baseline CRP levels and cardiovascular inflammation risk",
+    "chromosome": "1",
+    "position": 159679050,
+    "reference_allele": "C",
+    "risk_allele": "T",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "Lower baseline CRP — reduced chronic inflammation",
+        "detail": "Associated with lower baseline C-reactive protein levels. Lower chronic systemic inflammation. Reduced cardiovascular disease risk mediated via this inflammatory pathway.",
+        "risk_level": "protective"
+      },
+      "CT": {
+        "summary": "Intermediate CRP levels",
+        "detail": "Heterozygous. Intermediate CRP production. Moderate inflammatory state and cardiovascular risk from this locus.",
+        "risk_level": "informational"
+      },
+      "TT": {
+        "summary": "Elevated baseline CRP — increased cardiovascular risk",
+        "detail": "Associated with higher baseline CRP levels. Elevated chronic low-grade inflammation. Higher cardiovascular disease risk, particularly coronary artery disease and stroke. Anti-inflammatory lifestyle measures (exercise, Mediterranean diet, no smoking) especially beneficial.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs2279228",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 16923757 — CRP GWAS",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/16923757/",
+        "study_type": "gwas"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.3148
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs17782313",
+    "genes": ["MC4R"],
+    "traits": ["obesity_risk", "appetite_regulation", "type_2_diabetes"],
+    "description": "Melanocortin-4 receptor variant — one of the most replicated common genetic risk loci for obesity and increased BMI",
+    "chromosome": "18",
+    "position": 60372784,
+    "reference_allele": "T",
+    "risk_allele": "C",
+    "effects_by_genotype": {
+      "TT": {
+        "summary": "Standard obesity risk via MC4R",
+        "detail": "Wild-type MC4R proximal region. Normal melanocortin-4 receptor-mediated appetite regulation. Standard population risk for obesity from this locus.",
+        "risk_level": "informational"
+      },
+      "CT": {
+        "summary": "~1.3x increased obesity risk",
+        "detail": "Heterozygous C allele. Modestly impaired satiety signalling via MC4R pathway. Associated with ~0.2-0.3 kg/m² higher BMI and ~30% increased obesity risk. Responds well to dietary and physical activity interventions.",
+        "risk_level": "informational"
+      },
+      "CC": {
+        "summary": "~1.6x increased obesity risk — impaired satiety",
+        "detail": "Homozygous C allele. Each copy of C associated with ~0.22 kg/m² higher BMI and ~1.6x elevated obesity risk. Reduced satiety signalling. Higher risk of food overconsumption and associated metabolic complications. One of the most consistently replicated obesity GWAS loci (p < 10⁻¹²).",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs17782313",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 18454148 — Loos et al. 2008",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/18454148/",
+        "study_type": "gwas"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.2327
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs1801282",
+    "genes": ["PPARG"],
+    "traits": ["type_2_diabetes", "insulin_sensitivity", "obesity_risk"],
+    "description": "PPARγ Pro12Ala variant — protective against type 2 diabetes through improved insulin sensitivity",
+    "chromosome": "3",
+    "position": 12393125,
+    "reference_allele": "G",
+    "risk_allele": "C",
+    "effects_by_genotype": {
+      "GG": {
+        "summary": "Pro/Pro — standard T2D risk",
+        "detail": "Homozygous Pro12. Wild-type PPARγ2. Stronger transcriptional activation in adipocytes. Higher risk of type 2 diabetes compared to Ala carriers. Most common genotype globally (~75-80% in Europeans).",
+        "risk_level": "informational"
+      },
+      "CG": {
+        "summary": "Pro/Ala — modestly reduced T2D risk",
+        "detail": "Heterozygous Ala12 carrier. Reduced PPARγ2 transcriptional activity leading to improved insulin sensitivity. Associated with ~25% lower type 2 diabetes risk compared to Pro/Pro. One of the most-replicated T2D protective variants.",
+        "risk_level": "protective"
+      },
+      "CC": {
+        "summary": "Ala/Ala — greatest insulin sensitivity, lowest T2D risk",
+        "detail": "Homozygous Ala12. Lowest PPARγ2 activity — most insulin-sensitive PPARγ variant. Lowest type 2 diabetes risk from this locus. Rare (~2-3% in Europeans). Also associated with lower BMI in some cohorts. Meta-analysis of 30,000+ individuals confirms protective effect.",
+        "risk_level": "protective"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1801282",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 12483203 — PPARγ Pro12Ala meta-analysis",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/12483203/",
+        "study_type": "meta_analysis"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.1201,
+      "populations": {
+        "european": 0.12,
+        "east_asian": 0.03,
+        "african": 0.06
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs6311",
+    "genes": ["HTR2A"],
+    "traits": ["depression_risk", "anxiety", "antidepressant_response", "cognitive_function"],
+    "description": "Serotonin receptor 2A (5-HT2A) promoter variant affecting receptor expression and antidepressant treatment response",
+    "chromosome": "13",
+    "position": 47468699,
+    "reference_allele": "A",
+    "risk_allele": "G",
+    "effects_by_genotype": {
+      "AA": {
+        "summary": "Lower HTR2A expression — possible antidepressant advantage",
+        "detail": "Homozygous A allele. Associated with lower 5-HT2A receptor expression in some brain regions. Some studies suggest better response to SSRI antidepressants (particularly citalopram in the STAR*D trial). Lower risk of certain psychiatric disorders in some cohorts.",
+        "risk_level": "protective"
+      },
+      "AG": {
+        "summary": "Intermediate HTR2A expression",
+        "detail": "Heterozygous. Intermediate serotonin 2A receptor expression. Moderate psychiatric risk and intermediate antidepressant response profile.",
+        "risk_level": "informational"
+      },
+      "GG": {
+        "summary": "Higher HTR2A expression — higher depression risk",
+        "detail": "Homozygous G allele (T/T on some strand conventions). Associated with higher 5-HT2A receptor density. Elevated risk of major depression, anxiety disorders, and suicidality in some studies. May respond less well to SSRIs. Clinically relevant for antidepressant selection.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs6311",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 17671237 — STAR*D antidepressant response",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/17671237/",
+        "study_type": "cohort_study"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.3903
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs25531",
+    "genes": ["SLC6A4"],
+    "traits": ["depression_risk", "anxiety", "stress_response", "antidepressant_response"],
+    "description": "Serotonin transporter linked polymorphic region (5-HTTLPR) rs25531 A>G variant modulating the functional effect of the classic SLC6A4 promoter VNTR",
+    "chromosome": "17",
+    "position": 28521618,
+    "reference_allele": "A",
+    "risk_allele": "G",
+    "effects_by_genotype": {
+      "AA": {
+        "summary": "5-HTTLPR long haplotype (LA) — higher serotonin transporter expression",
+        "detail": "The A allele in combination with the L (long) VNTR allele defines the LA haplotype — the highest-expressing form. Associated with greater serotonin reuptake capacity, resilience to stress-induced depression, and better SSRI response in multiple studies.",
+        "risk_level": "protective"
+      },
+      "AG": {
+        "summary": "Intermediate serotonin transporter expression",
+        "detail": "Heterozygous. The G allele converts L to LG, reducing expression almost to S-allele levels. Intermediate serotonin transporter levels. Moderate stress vulnerability and intermediate antidepressant response.",
+        "risk_level": "informational"
+      },
+      "GG": {
+        "summary": "Functional S-allele equivalent — lower transporter expression",
+        "detail": "Homozygous G allele. Combined with the L VNTR this creates the LG haplotype, functionally equivalent to two S alleles. Lower serotonin transporter expression, higher amygdala reactivity, greater risk of depression and anxiety under stress, and reduced SSRI efficacy. Robust finding replicated in hundreds of studies.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs25531",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 12893408 — Hu et al. 2006",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/12893408/",
+        "study_type": "case_control"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.3142
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs3764391",
+    "genes": ["CLOCK"],
+    "traits": ["circadian_rhythm", "sleep_duration", "obesity_risk"],
+    "description": "CLOCK gene variant influencing circadian preference, sleep duration, and metabolic consequences of circadian disruption",
+    "chromosome": "4",
+    "position": 56295337,
+    "reference_allele": "C",
+    "risk_allele": "T",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "Standard circadian regulation",
+        "detail": "Wild-type CLOCK. Normal circadian rhythm strength and sleep-wake cycle timing. Standard metabolic risk from this locus.",
+        "risk_level": "informational"
+      },
+      "CT": {
+        "summary": "Mildly altered circadian rhythm",
+        "detail": "Heterozygous T carrier. Modestly altered CLOCK gene expression. Some studies associate with slightly shifted sleep timing and mildly elevated BMI in shift workers.",
+        "risk_level": "informational"
+      },
+      "TT": {
+        "summary": "Disrupted circadian timing — elevated obesity risk",
+        "detail": "Homozygous T allele. Associated with evening chronotype, shorter sleep duration, and higher BMI. Disrupted CLOCK function can impair metabolic regulation, increase appetite especially in the evening, and elevate risk of metabolic syndrome and obesity. Good sleep hygiene especially important.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs3764391",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 18587393 — CLOCK and obesity",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/18587393/",
+        "study_type": "cohort_study"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.4013
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs2234693",
+    "genes": ["ESR1"],
+    "traits": ["bone_density", "osteoporosis_risk", "cardiovascular_disease"],
+    "description": "Estrogen receptor alpha (ESR1) PvuII variant — widely studied polymorphism influencing bone mineral density and cardiovascular disease risk in women",
+    "chromosome": "6",
+    "position": 152011919,
+    "reference_allele": "C",
+    "risk_allele": "T",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "PP genotype — higher BMD, some cardiovascular effect",
+        "detail": "Homozygous PP (C/C) genotype. Associated with higher bone mineral density and better response to estrogen-based therapies in some studies. Standard cardiovascular risk from this locus.",
+        "risk_level": "informational"
+      },
+      "CT": {
+        "summary": "Pp genotype — intermediate BMD",
+        "detail": "Heterozygous Pp. Intermediate bone mineral density. Most common genotype. No strong directional risk from this locus alone.",
+        "risk_level": "informational"
+      },
+      "TT": {
+        "summary": "pp genotype — lower BMD, higher osteoporosis risk",
+        "detail": "Homozygous pp (T/T) genotype. Associated with lower bone mineral density in multiple meta-analyses, particularly in post-menopausal women. Higher fracture risk. Some studies suggest increased cardiovascular risk in older women. Adequate calcium, vitamin D, and weight-bearing exercise recommended.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs2234693",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 11136965 — ESR1 BMD meta-analysis",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/11136965/",
+        "study_type": "meta_analysis"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.3501
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs2542052",
+    "genes": ["PCSK9"],
+    "traits": ["ldl_cholesterol", "cardiovascular_disease"],
+    "description": "PCSK9 loss-of-function associated variant — reduced PCSK9 activity leads to increased LDL receptor recycling and lower LDL cholesterol",
+    "chromosome": "1",
+    "position": 55039839,
+    "reference_allele": "A",
+    "risk_allele": "C",
+    "effects_by_genotype": {
+      "AA": {
+        "summary": "Standard PCSK9 activity — normal LDL levels",
+        "detail": "Wild-type PCSK9 reference allele. Normal PCSK9-mediated LDLR degradation. Standard LDL cholesterol levels and cardiovascular risk from this locus.",
+        "risk_level": "informational"
+      },
+      "AC": {
+        "summary": "Intermediate PCSK9 activity — moderately lower LDL",
+        "detail": "Heterozygous C allele. Partial reduction in PCSK9 function. Modestly lower LDL cholesterol. Intermediate cardiovascular protection.",
+        "risk_level": "informational"
+      },
+      "CC": {
+        "summary": "Reduced PCSK9 activity — lower LDL, protective CVD effect",
+        "detail": "Homozygous C allele. Reduced PCSK9 activity means fewer LDL receptors are degraded — more LDLRs remain on hepatocyte surfaces, clearing more LDL from circulation. Associated with 15-20% lower LDL cholesterol and substantial reduction in coronary heart disease risk. PCSK9 inhibitors (evolocumab, alirocumab) are designed to mimic this effect pharmacologically.",
+        "risk_level": "protective"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs2542052",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 16554528 — Cohen et al. PCSK9 LOF",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/16554528/",
+        "study_type": "cohort_study"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.2214
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs1800629",
+    "genes": ["TNF"],
+    "traits": ["inflammation", "autoimmune_risk", "immune_response", "rheumatoid_arthritis_risk"],
+    "description": "TNF-α -308G>A promoter variant — the most studied TNF polymorphism, associated with inflammatory diseases and immune response strength",
+    "chromosome": "6",
+    "position": 31575254,
+    "reference_allele": "G",
+    "risk_allele": "A",
+    "effects_by_genotype": {
+      "GG": {
+        "summary": "Standard TNF-α production",
+        "detail": "Wild-type TNF promoter. Normal TNF-α expression. Standard inflammatory response and immune regulation. No increased autoimmune or inflammatory disease risk from this variant.",
+        "risk_level": "informational"
+      },
+      "AG": {
+        "summary": "Moderately elevated TNF-α — higher autoimmune risk",
+        "detail": "Heterozygous A carrier. Increased TNF-α promoter activity. Higher baseline and inducible TNF-α production. Associated with increased risk of rheumatoid arthritis, systemic lupus erythematosus, Crohn's disease, and sepsis severity.",
+        "risk_level": "increased_risk"
+      },
+      "AA": {
+        "summary": "Highest TNF-α production — strongest autoimmune/inflammatory risk",
+        "detail": "Homozygous A allele. Highest TNF-α gene transcription. Strongly elevated TNF-α levels. Associated with higher risk of rheumatoid arthritis, inflammatory bowel disease, septic shock, malaria severity, and response to anti-TNF biologics. Anti-TNF therapy (etanercept, adalimumab) is especially relevant for AA carriers with autoimmune disease.",
+        "risk_level": "high_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1800629",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 9699173 — TNF-308 meta-analysis",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/9699173/",
+        "study_type": "meta_analysis"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.1302,
+      "populations": {
+        "european": 0.17,
+        "east_asian": 0.06,
+        "african": 0.26
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs1800470",
+    "genes": ["TGFB1"],
+    "traits": ["inflammation", "autoimmune_risk", "cancer_risk", "fibrosis_risk"],
+    "description": "TGF-β1 Leu10Pro codon 10 variant affecting TGF-β1 secretion and signalling in immune regulation and tumour suppression",
+    "chromosome": "19",
+    "position": 41353144,
+    "reference_allele": "C",
+    "risk_allele": "T",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "Pro/Pro — higher TGF-β1 secretion",
+        "detail": "Homozygous Pro10 (T on some strand conventions). Higher TGF-β1 secretion efficiency. Stronger immunosuppressive signal. Some studies associate high TGF-β1 with increased cancer risk (poorer anti-tumour immunity) and fibrosis, while others note protection from autoimmune disease.",
+        "risk_level": "informational"
+      },
+      "CT": {
+        "summary": "Intermediate TGF-β1 secretion",
+        "detail": "Heterozygous Leu10Pro. Intermediate TGF-β1 secretion. Balanced immune regulatory phenotype.",
+        "risk_level": "informational"
+      },
+      "TT": {
+        "summary": "Leu/Leu — lower TGF-β1 secretion, altered immune balance",
+        "detail": "Homozygous Leu10. Lower TGF-β1 production. Reduced immunosuppressive signalling. Some studies associate lower TGF-β1 with increased autoimmune susceptibility (e.g. multiple sclerosis), while others suggest better anti-tumour immunity. Effects are context-dependent.",
+        "risk_level": "informational"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1800470",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 11003366 — TGFB1 codon 10 review",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/11003366/",
+        "study_type": "review"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.4103
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs1799896",
+    "genes": ["NOS3"],
+    "traits": ["cardiovascular_disease", "hypertension", "endothelial_function"],
+    "description": "eNOS Glu298Asp variant (also known as NOS3 G894T) — affects endothelial nitric oxide synthase activity and vascular function",
+    "chromosome": "7",
+    "position": 150993514,
+    "reference_allele": "G",
+    "risk_allele": "T",
+    "effects_by_genotype": {
+      "GG": {
+        "summary": "Normal eNOS activity — standard cardiovascular risk",
+        "detail": "Wild-type eNOS Glu298. Full endothelial nitric oxide production. Normal vascular tone, endothelial function, and standard cardiovascular risk from this locus.",
+        "risk_level": "informational"
+      },
+      "GT": {
+        "summary": "Moderately reduced eNOS — slightly elevated CVD risk",
+        "detail": "Heterozygous Asp298 carrier. Slightly reduced NO production and eNOS activity. Modest elevation in hypertension and coronary artery disease risk. Standard lifestyle measures apply.",
+        "risk_level": "informational"
+      },
+      "TT": {
+        "summary": "Reduced eNOS — higher hypertension and CVD risk",
+        "detail": "Homozygous Asp298. Substantially reduced eNOS activity and nitric oxide bioavailability. Associated with elevated hypertension risk, endothelial dysfunction, and increased risk of coronary artery disease and myocardial infarction. Exercise-induced NO production is especially beneficial for this genotype.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1799896",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 9610379 — Hingorani et al. eNOS Glu298Asp",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/9610379/",
+        "study_type": "case_control"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.3258,
+      "populations": {
+        "european": 0.34,
+        "east_asian": 0.35,
+        "african": 0.2
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs2187668",
+    "genes": ["HLA-DQA1"],
+    "traits": ["celiac_disease_risk", "autoimmune_risk", "type_1_diabetes_risk"],
+    "description": "HLA-DQA1 variant tagging the DQ2.5 haplotype — the primary genetic prerequisite for celiac disease",
+    "chromosome": "6",
+    "position": 32713862,
+    "reference_allele": "C",
+    "risk_allele": "T",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "Absent DQ2.5 haplotype — very low celiac risk",
+        "detail": "Does not carry the HLA-DQ2.5 haplotype (or low probability thereof). Extremely low genetic risk of celiac disease (~1-2% residual risk from DQ8 or other variants). Negative predictive value >99% for celiac disease.",
+        "risk_level": "informational"
+      },
+      "CT": {
+        "summary": "DQ2.5 heterozygote — moderate celiac risk",
+        "detail": "Heterozygous T allele. Carries one copy of the DQ2.5-associated allele. Elevated celiac disease risk compared to population (~10-15% lifetime risk in susceptible populations, but most carriers never develop celiac). Gluten-related symptoms warrant serological testing.",
+        "risk_level": "increased_risk"
+      },
+      "TT": {
+        "summary": "DQ2.5 homozygote — highest genetic celiac risk",
+        "detail": "Homozygous T allele. DQ2.5/DQ2.5 genotype. Highest genetic risk — up to 30% lifetime celiac disease risk and higher risk of type 1 diabetes and other autoimmune disorders. Serological screening (tTG-IgA) recommended. Strict gluten avoidance upon diagnosis is the only effective treatment.",
+        "risk_level": "high_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs2187668",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 18311140 — HLA celiac GWAS",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/18311140/",
+        "study_type": "gwas"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.1381,
+      "populations": {
+        "european": 0.22,
+        "east_asian": 0.01,
+        "african": 0.04
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs7574865",
+    "genes": ["STAT4"],
+    "traits": ["autoimmune_risk", "rheumatoid_arthritis_risk", "systemic_lupus_risk"],
+    "description": "STAT4 intron 3 variant — one of the most replicated genetic risk loci shared across multiple autoimmune diseases",
+    "chromosome": "2",
+    "position": 191059028,
+    "reference_allele": "G",
+    "risk_allele": "T",
+    "effects_by_genotype": {
+      "GG": {
+        "summary": "Standard autoimmune risk via STAT4",
+        "detail": "Wild-type STAT4. Standard Th1 immune signalling. No elevated risk of rheumatoid arthritis or SLE from this locus.",
+        "risk_level": "informational"
+      },
+      "GT": {
+        "summary": "Moderately increased autoimmune risk",
+        "detail": "Heterozygous T carrier. Elevated STAT4 expression. ~1.5x increased risk of rheumatoid arthritis and ~1.6x for SLE. Also associated with type 1 diabetes, Sjögren's syndrome, and inflammatory bowel disease.",
+        "risk_level": "increased_risk"
+      },
+      "TT": {
+        "summary": "Highest STAT4-mediated autoimmune risk",
+        "detail": "Homozygous T allele. Strongest Th1 skewing via STAT4. ~2-3x elevated risk of rheumatoid arthritis and SLE. One of the most replicated cross-autoimmune risk loci — found in GWAS for RA, SLE, T1D, IBD, and other autoimmune diseases.",
+        "risk_level": "high_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs7574865",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 17982569 — Remmers et al. STAT4 RA/SLE",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/17982569/",
+        "study_type": "gwas"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.2265,
+      "populations": {
+        "european": 0.22,
+        "east_asian": 0.33,
+        "african": 0.15
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs4363657",
+    "genes": ["SLCO1B1"],
+    "traits": ["statin_myopathy_risk", "drug_transport"],
+    "description": "SLCO1B1 intronic variant in strong linkage disequilibrium with rs4149056, independently associated with simvastatin-induced myopathy in the SEARCH trial",
+    "chromosome": "12",
+    "position": 21331549,
+    "reference_allele": "T",
+    "risk_allele": "C",
+    "effects_by_genotype": {
+      "TT": {
+        "summary": "Normal statin transport — low myopathy risk",
+        "detail": "Wild-type. Normal hepatic uptake of statins via OATP1B1 transporter. Standard myopathy risk on statin therapy.",
+        "risk_level": "informational"
+      },
+      "CT": {
+        "summary": "Reduced statin transport — moderate myopathy risk",
+        "detail": "Heterozygous carrier. Approximately 4-fold increased risk of simvastatin-induced myopathy. Consider lower statin dose or alternative statin with less OATP1B1 dependence (e.g. pravastatin, rosuvastatin).",
+        "risk_level": "increased_risk"
+      },
+      "CC": {
+        "summary": "Significantly impaired statin transport — high myopathy risk",
+        "detail": "Homozygous risk variant. Approximately 16-fold increased risk of simvastatin-induced myopathy. Strong recommendation to avoid high-dose simvastatin. Pharmacogenomic guidelines (CPIC) recommend alternative statins or reduced dosing.",
+        "risk_level": "high_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SEARCH Collaborative Group — NEJM 2008",
+        "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa0801936",
+        "study_type": "gwas"
+      },
+      {
+        "name": "CPIC Guideline for Statins and SLCO1B1",
+        "url": "https://cpicpgx.org/guidelines/guideline-for-simvastatin-and-slco1b1/",
+        "study_type": "review"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.15,
+      "populations": {
+        "european": 0.16,
+        "east_asian": 0.12,
+        "african": 0.02
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs1229984",
+    "genes": ["ADH1B"],
+    "traits": ["alcohol_metabolism", "alcohol_dependence_risk", "cardiovascular_disease"],
+    "description": "ADH1B Arg48His variant causing rapid alcohol metabolism, strongly protective against alcohol dependence, common in East Asian populations (alcohol flush reaction)",
+    "chromosome": "4",
+    "position": 100239319,
+    "reference_allele": "T",
+    "risk_allele": "T",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "Rapid alcohol metabolism — strong protection against alcoholism",
+        "detail": "Homozygous fast-metabolizer. Extremely rapid conversion of ethanol to acetaldehyde, causing facial flushing, nausea, and discomfort after alcohol consumption. Very strong protection against alcohol dependence (OR ~0.15). Most common in East Asian populations.",
+        "risk_level": "protective"
+      },
+      "CT": {
+        "summary": "Moderately rapid alcohol metabolism — reduced alcoholism risk",
+        "detail": "Heterozygous carrier of the fast allele. Intermediate alcohol metabolism speed. Significant protection against alcohol dependence (OR ~0.4). May experience mild flushing with alcohol.",
+        "risk_level": "protective"
+      },
+      "TT": {
+        "summary": "Standard alcohol metabolism",
+        "detail": "Wild-type (ancestral). Normal rate of ethanol to acetaldehyde conversion. No inherent protection from alcohol flush reaction. Standard risk for alcohol dependence from this variant.",
+        "risk_level": "informational"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1229984",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 19776744 — ADH1B meta-analysis",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/19776744/",
+        "study_type": "meta_analysis"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.28,
+      "populations": {
+        "european": 0.04,
+        "east_asian": 0.7,
+        "african": 0.01
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs671",
+    "genes": ["ALDH2"],
+    "traits": ["alcohol_metabolism", "alcohol_flush_reaction", "esophageal_cancer_risk"],
+    "description": "ALDH2*2 (Glu504Lys) variant causing aldehyde dehydrogenase deficiency — the primary cause of Asian alcohol flush syndrome and elevated esophageal cancer risk when drinking",
+    "chromosome": "12",
+    "position": 111803962,
+    "reference_allele": "G",
+    "risk_allele": "A",
+    "effects_by_genotype": {
+      "GG": {
+        "summary": "Normal aldehyde dehydrogenase — standard alcohol processing",
+        "detail": "Wild-type ALDH2. Normal clearance of acetaldehyde after alcohol consumption. No flush reaction from this variant. Standard esophageal cancer risk.",
+        "risk_level": "informational"
+      },
+      "AG": {
+        "summary": "Reduced ALDH2 activity — alcohol flush, elevated cancer risk if drinking",
+        "detail": "Heterozygous ALDH2*2 carrier. Approximately 10-fold reduced enzyme activity. Accumulation of acetaldehyde causes facial flushing, tachycardia, and nausea after alcohol. 6–10x increased esophageal cancer risk if drinking regularly. Protective against alcoholism due to aversive reaction.",
+        "risk_level": "increased_risk"
+      },
+      "AA": {
+        "summary": "Near-absent ALDH2 activity — severe flush, high cancer risk if drinking",
+        "detail": "Homozygous ALDH2*2. Near-complete loss of aldehyde dehydrogenase activity. Severe adverse reaction to even small amounts of alcohol. Very high esophageal and head/neck cancer risk if alcohol is consumed. Strongly protective against alcohol dependence. Common in East Asian populations (~5–8%).",
+        "risk_level": "high_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs671",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 20833657 — ALDH2 and esophageal cancer",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/20833657/",
+        "study_type": "meta_analysis"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.08,
+      "populations": {
+        "european": 0.001,
+        "east_asian": 0.22,
+        "african": 0.001
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs12913832",
+    "genes": ["HERC2"],
+    "traits": ["eye_color", "skin_pigmentation"],
+    "description": "HERC2 regulatory variant upstream of OCA2 — the strongest single genetic determinant of blue vs. brown eye color in Europeans",
+    "chromosome": "15",
+    "position": 28365618,
+    "reference_allele": "A",
+    "effects_by_genotype": {
+      "AA": {
+        "summary": "Brown eyes most likely",
+        "detail": "Homozygous ancestral allele. High OCA2 expression leading to high melanin production in the iris. Brown eye color in virtually all cases. This is the predominant genotype in African, East Asian, and South Asian populations.",
+        "risk_level": "informational"
+      },
+      "AG": {
+        "summary": "Variable eye color — likely brown or hazel/green",
+        "detail": "Heterozygous. Intermediate OCA2 expression. Eye color varies — most commonly brown or hazel, occasionally green. Blue eyes are uncommon with this genotype but not impossible depending on other pigmentation loci.",
+        "risk_level": "informational"
+      },
+      "GG": {
+        "summary": "Blue eyes most likely",
+        "detail": "Homozygous derived allele. Reduced OCA2 transcription leading to decreased iris melanin. Blue eye color in ~72% of European GG carriers. Single most predictive SNP for blue eye color (explains ~75% of eye color variation in Europeans). Originated from a single common ancestor ~6,000–10,000 years ago.",
+        "risk_level": "informational"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs12913832",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 18172690 — HERC2 blue eye color",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/18172690/",
+        "study_type": "gwas"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.22,
+      "populations": {
+        "european": 0.45,
+        "east_asian": 0.01,
+        "african": 0.01
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs1800588",
+    "genes": ["LIPC"],
+    "traits": ["hdl_cholesterol", "cardiovascular_disease"],
+    "description": "Hepatic lipase (LIPC) promoter variant affecting HDL cholesterol levels — one of the most replicated HDL-associated loci in GWAS",
+    "chromosome": "15",
+    "position": 58723675,
+    "reference_allele": "C",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "Higher hepatic lipase activity — lower HDL cholesterol",
+        "detail": "Wild-type. Normal hepatic lipase expression and activity. Associated with lower HDL-C levels relative to T-allele carriers. Standard cardiovascular risk from this locus.",
+        "risk_level": "informational"
+      },
+      "CT": {
+        "summary": "Intermediate hepatic lipase — moderately elevated HDL",
+        "detail": "Heterozygous carrier. Reduced hepatic lipase promoter activity leading to moderately higher HDL-C levels (~2–3 mg/dL increase). Modest cardiovascular benefit.",
+        "risk_level": "informational"
+      },
+      "TT": {
+        "summary": "Reduced hepatic lipase — higher HDL cholesterol",
+        "detail": "Homozygous T allele. Significantly reduced hepatic lipase expression. Associated with higher HDL-C levels (~4–6 mg/dL increase). Mildly protective cardiovascular profile. One of the most robustly replicated HDL-raising variants across diverse populations.",
+        "risk_level": "protective"
+      }
+    },
+    "sources": [
+      {
+        "name": "Global Lipids Genetics Consortium — Nature 2013",
+        "url": "https://www.nature.com/articles/ng.2797",
+        "study_type": "meta_analysis"
+      },
+      {
+        "name": "dbSNP",
+        "url": "https://www.ncbi.nlm.nih.gov/snp/rs1800588",
+        "study_type": "database"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.22,
+      "populations": {
+        "european": 0.21,
+        "east_asian": 0.42,
+        "african": 0.06
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs1805007",
+    "genes": ["MC1R"],
+    "traits": ["red_hair", "skin_pigmentation", "melanoma_risk", "pain_sensitivity"],
+    "description": "MC1R R151C — one of the strongest red hair/fair skin variants, also associated with increased melanoma risk and altered pain sensitivity/anesthesia requirements",
+    "chromosome": "16",
+    "position": 89986117,
+    "reference_allele": "C",
+    "risk_allele": "T",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "Normal MC1R function — standard pigmentation",
+        "detail": "Wild-type MC1R. Normal eumelanin production. Standard skin and hair pigmentation determined by other loci. Baseline melanoma risk from this variant.",
+        "risk_level": "informational"
+      },
+      "CT": {
+        "summary": "Carrier — lighter skin, mildly increased melanoma risk",
+        "detail": "Heterozygous R151C carrier. Partial shift from eumelanin toward pheomelanin production. Tendency toward lighter skin, freckling, and sun sensitivity. Approximately 2-fold increased melanoma risk. May require ~20% more anesthesia.",
+        "risk_level": "increased_risk"
+      },
+      "TT": {
+        "summary": "Red hair likely — significantly increased melanoma risk",
+        "detail": "Homozygous R151C. Strongly reduced eumelanin production. Red hair and very fair skin phenotype highly likely (especially with other MC1R variants). Approximately 3–4 fold increased melanoma risk. Increased pain sensitivity and higher anesthetic requirements reported in multiple studies. UV protection strongly recommended.",
+        "risk_level": "high_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1805007",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 18488028 — MC1R and melanoma meta-analysis",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/18488028/",
+        "study_type": "meta_analysis"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.06,
+      "populations": {
+        "european": 0.1,
+        "east_asian": 0.001,
+        "african": 0.001
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs1799930",
+    "genes": ["NAT2"],
+    "traits": ["drug_metabolism", "isoniazid_response", "bladder_cancer_risk"],
+    "description": "NAT2 G590A (R197Q) — one of the most common slow acetylator alleles, affecting isoniazid metabolism, sulfonamide drug response, and aromatic amine carcinogen detoxification",
+    "chromosome": "8",
+    "position": 18257854,
+    "reference_allele": "G",
+    "risk_allele": "A",
+    "effects_by_genotype": {
+      "GG": {
+        "summary": "Rapid acetylator at this locus",
+        "detail": "Wild-type NAT2 at position 590. Normal N-acetyltransferase 2 activity from this site. Rapid acetylation of isoniazid and other aromatic amine substrates. Standard drug dosing appropriate. Note: full acetylator phenotype depends on combinations across multiple NAT2 SNPs.",
+        "risk_level": "informational"
+      },
+      "AG": {
+        "summary": "Intermediate acetylator",
+        "detail": "Heterozygous carrier of the slow allele. Reduced NAT2 activity. Intermediate isoniazid metabolism — may benefit from dose adjustment during TB treatment. Slightly increased risk of drug-induced liver injury with standard isoniazid dosing.",
+        "risk_level": "informational"
+      },
+      "AA": {
+        "summary": "Slow acetylator — higher drug toxicity risk",
+        "detail": "Homozygous slow allele. Significantly reduced NAT2 enzyme activity. Slow metabolism of isoniazid, hydralazine, procainamide, and sulfonamides. Higher risk of isoniazid-induced hepatotoxicity and peripheral neuropathy. CPIC guidelines recommend dose reduction. Also associated with increased bladder cancer risk from occupational aromatic amine exposure.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1799930",
+        "study_type": "database"
+      },
+      {
+        "name": "PharmGKB — NAT2 drug response",
+        "url": "https://www.pharmgkb.org/gene/PA18",
+        "study_type": "database"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.29,
+      "populations": {
+        "european": 0.28,
+        "east_asian": 0.23,
+        "african": 0.36
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs1695",
+    "genes": ["GSTP1"],
+    "traits": ["drug_metabolism", "chemotherapy_response", "oxidative_stress"],
+    "description": "GSTP1 Ile105Val — common variant affecting glutathione S-transferase activity, platinum-based chemotherapy detoxification, and oxidative stress response",
+    "chromosome": "11",
+    "position": 67585218,
+    "reference_allele": "A",
+    "effects_by_genotype": {
+      "AA": {
+        "summary": "Normal GSTP1 enzyme activity",
+        "detail": "Wild-type Ile/Ile. Normal glutathione conjugation activity. Standard detoxification of platinum-based chemotherapy agents (cisplatin, carboplatin, oxaliplatin). Baseline response to oxidative stress.",
+        "risk_level": "informational"
+      },
+      "AG": {
+        "summary": "Reduced GSTP1 activity — variable chemo response",
+        "detail": "Heterozygous Ile/Val. Moderately reduced GSTP1 catalytic activity. Some studies show improved response to platinum chemotherapy (slower drug clearance) but increased treatment-related toxicity. Variable findings across cancer types.",
+        "risk_level": "informational"
+      },
+      "GG": {
+        "summary": "Low GSTP1 activity — altered chemo metabolism",
+        "detail": "Homozygous Val/Val. Substantially reduced glutathione S-transferase P1 activity. Decreased detoxification of polycyclic aromatic hydrocarbons and platinum drugs. Associated with improved platinum-chemotherapy efficacy in some cancers (lung, ovarian) but higher toxicity risk. Reduced capacity to neutralize oxidative stress.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "PharmGKB — GSTP1",
+        "url": "https://www.pharmgkb.org/gene/PA28816",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 15956009 — GSTP1 and platinum chemo meta-analysis",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/15956009/",
+        "study_type": "meta_analysis"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.33,
+      "populations": {
+        "european": 0.33,
+        "east_asian": 0.19,
+        "african": 0.42
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs4402960",
+    "genes": ["IGF2BP2"],
+    "traits": ["type_2_diabetes", "insulin_secretion"],
+    "description": "IGF2BP2 intronic variant consistently associated with type 2 diabetes risk across multiple GWAS in diverse populations — affects insulin-like growth factor 2 mRNA-binding protein 2",
+    "chromosome": "3",
+    "position": 185511687,
+    "reference_allele": "G",
+    "risk_allele": "T",
+    "effects_by_genotype": {
+      "GG": {
+        "summary": "Lower T2D risk from this locus",
+        "detail": "Wild-type. Normal IGF2BP2 expression and insulin-like growth factor signalling. Baseline type 2 diabetes risk from this variant.",
+        "risk_level": "informational"
+      },
+      "GT": {
+        "summary": "Mildly increased T2D risk",
+        "detail": "Heterozygous carrier. Modest increase in type 2 diabetes risk (OR ~1.12–1.14 per allele). Effect is consistent across European, East Asian, and South Asian populations. Mechanism likely involves impaired pancreatic beta-cell function.",
+        "risk_level": "informational"
+      },
+      "TT": {
+        "summary": "Moderately increased T2D risk",
+        "detail": "Homozygous risk allele. Approximately 1.25–1.30 fold increased risk of type 2 diabetes. One of the most robustly replicated T2D loci in GWAS. Lifestyle interventions (diet, exercise) can significantly attenuate genetic risk.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "PMID 17463249 — Diabetes Genetics Initiative",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/17463249/",
+        "study_type": "gwas"
+      },
+      {
+        "name": "dbSNP",
+        "url": "https://www.ncbi.nlm.nih.gov/snp/rs4402960",
+        "study_type": "database"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.3,
+      "populations": {
+        "european": 0.3,
+        "east_asian": 0.34,
+        "african": 0.21
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs10757278",
+    "genes": ["CDKN2B-AS1"],
+    "traits": ["coronary_artery_disease", "myocardial_infarction", "cardiovascular_disease"],
+    "description": "9p21.3 locus variant near CDKN2B-AS1 (ANRIL) — one of the most significant and replicated coronary artery disease risk variants, independent of traditional lipid risk factors",
+    "chromosome": "9",
+    "position": 22124477,
+    "reference_allele": "A",
+    "risk_allele": "G",
+    "effects_by_genotype": {
+      "AA": {
+        "summary": "Lower CAD risk from this locus",
+        "detail": "Homozygous protective allele. Lower coronary artery disease risk from the 9p21 locus. This effect is independent of cholesterol, blood pressure, and other traditional risk factors.",
+        "risk_level": "protective"
+      },
+      "AG": {
+        "summary": "Intermediate CAD risk",
+        "detail": "Heterozygous carrier. Moderately increased coronary artery disease risk (OR ~1.25). The 9p21 locus is one of the strongest and most replicated GWAS signals for CAD. Effect is mediated through vascular smooth muscle cell proliferation and inflammation, not lipid pathways.",
+        "risk_level": "increased_risk"
+      },
+      "GG": {
+        "summary": "Higher CAD risk — strongest 9p21 effect",
+        "detail": "Homozygous risk allele. Approximately 1.5–1.6 fold increased risk of coronary artery disease and myocardial infarction. Effect is consistent across ethnicities and independent of traditional cardiovascular risk factors. Cannot be mitigated by statins alone — lifestyle intervention (exercise, smoking cessation) is particularly important.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "PMID 17634449 — Wellcome Trust Case Control Consortium",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/17634449/",
+        "study_type": "gwas"
+      },
+      {
+        "name": "PMID 17478679 — McPherson et al. 9p21 CAD locus",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/17478679/",
+        "study_type": "gwas"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.47,
+      "populations": {
+        "european": 0.49,
+        "east_asian": 0.44,
+        "african": 0.38
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs12255372",
+    "genes": ["TCF7L2"],
+    "traits": ["type_2_diabetes", "insulin_secretion"],
+    "description": "TCF7L2 intronic variant — second major TCF7L2 diabetes SNP, independently associated with impaired beta-cell function and type 2 diabetes risk across all studied populations",
+    "chromosome": "10",
+    "position": 114808902,
+    "reference_allele": "G",
+    "risk_allele": "T",
+    "effects_by_genotype": {
+      "GG": {
+        "summary": "Lower T2D risk from this variant",
+        "detail": "Wild-type. Normal TCF7L2-mediated Wnt signalling in pancreatic beta cells. Baseline type 2 diabetes risk from this locus.",
+        "risk_level": "informational"
+      },
+      "GT": {
+        "summary": "Moderately increased T2D risk",
+        "detail": "Heterozygous carrier. Approximately 1.35–1.45 fold increased type 2 diabetes risk. Impaired glucose-stimulated insulin secretion. TCF7L2 is the single strongest common genetic risk factor for T2D. Lifestyle modification significantly reduces penetrance.",
+        "risk_level": "increased_risk"
+      },
+      "TT": {
+        "summary": "Significantly increased T2D risk",
+        "detail": "Homozygous risk allele. Approximately 1.8–2.0 fold increased type 2 diabetes risk. Substantially impaired pancreatic beta-cell function. Despite being the strongest common T2D locus, risk is substantially modifiable through diet, exercise, and weight management.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "PMID 17463248 — TCF7L2 and T2D GWAS",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/17463248/",
+        "study_type": "gwas"
+      },
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs12255372",
+        "study_type": "database"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.26,
+      "populations": {
+        "european": 0.27,
+        "east_asian": 0.03,
+        "african": 0.29
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs7495174",
+    "genes": ["OCA2"],
+    "traits": ["eye_color", "skin_pigmentation"],
+    "description": "OCA2 intronic variant — the second strongest eye color determinant after HERC2 rs12913832, contributing to blue/green/hazel eye color variation in Europeans",
+    "chromosome": "15",
+    "position": 28230318,
+    "reference_allele": "G",
+    "effects_by_genotype": {
+      "AA": {
+        "summary": "Reduced OCA2 expression — lighter eye color likely",
+        "detail": "Homozygous derived allele. Reduced OCA2 (P protein) expression in melanocytes. Contributes to lighter iris pigmentation (blue, green, or hazel). Effect is additive with HERC2 rs12913832 — individuals with derived alleles at both loci have the highest probability of blue eyes.",
+        "risk_level": "informational"
+      },
+      "AG": {
+        "summary": "Intermediate OCA2 effect — variable eye color",
+        "detail": "Heterozygous. Intermediate OCA2 expression. Eye color depends heavily on HERC2 genotype and other pigmentation loci. Green, hazel, and light brown outcomes are common.",
+        "risk_level": "informational"
+      },
+      "GG": {
+        "summary": "Full OCA2 expression — darker eye color likely",
+        "detail": "Wild-type. Full OCA2 expression supporting robust melanin synthesis in the iris. Brown eye color most likely, especially in combination with ancestral HERC2 genotype.",
+        "risk_level": "informational"
+      }
+    },
+    "sources": [
+      {
+        "name": "PMID 17952075 — OCA2/HERC2 eye color",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/17952075/",
+        "study_type": "gwas"
+      },
+      {
+        "name": "dbSNP",
+        "url": "https://www.ncbi.nlm.nih.gov/snp/rs7495174",
+        "study_type": "database"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.21,
+      "populations": {
+        "european": 0.39,
+        "east_asian": 0.04,
+        "african": 0.05
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs1800896",
+    "genes": ["IL10"],
+    "traits": ["inflammation", "autoimmune_risk", "immune_response"],
+    "description": "IL-10 promoter variant (-1082 A/G) affecting expression of the anti-inflammatory cytokine interleukin-10 — associated with autoimmune disease susceptibility and transplant outcomes",
+    "chromosome": "1",
+    "position": 206773552,
+    "reference_allele": "T",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "Higher IL-10 production — anti-inflammatory profile",
+        "detail": "Homozygous G allele (C on opposite strand). Higher constitutive and stimulated IL-10 production. Stronger anti-inflammatory response. Lower risk of certain autoimmune conditions (IBD, rheumatoid arthritis). May be associated with increased susceptibility to certain infections due to dampened immune activation.",
+        "risk_level": "protective"
+      },
+      "CT": {
+        "summary": "Intermediate IL-10 production",
+        "detail": "Heterozygous. Intermediate IL-10 cytokine levels. Balanced pro/anti-inflammatory profile. Most common genotype in many populations.",
+        "risk_level": "informational"
+      },
+      "TT": {
+        "summary": "Lower IL-10 production — pro-inflammatory profile",
+        "detail": "Homozygous A allele (T on opposite strand). Lower IL-10 production. Tendency toward stronger inflammatory responses. Increased risk of inflammatory bowel disease, rheumatoid arthritis, and graft rejection. May have more robust anti-infection immune responses.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1800896",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 12789444 — IL-10 promoter polymorphisms review",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/12789444/",
+        "study_type": "review"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.38,
+      "populations": {
+        "european": 0.46,
+        "east_asian": 0.15,
+        "african": 0.38
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs5174",
+    "genes": ["LRP8"],
+    "traits": ["myocardial_infarction", "thrombosis_risk", "cardiovascular_disease"],
+    "description": "ApoER2 (LRP8) R952Q variant associated with familial and early-onset myocardial infarction and platelet hyperreactivity",
+    "chromosome": "1",
+    "position": 53707317,
+    "reference_allele": "C",
+    "risk_allele": "T",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "Standard ApoER2 function — baseline MI risk",
+        "detail": "Wild-type LRP8/ApoER2. Normal platelet activation and function. Baseline cardiovascular and thrombotic risk from this locus.",
+        "risk_level": "informational"
+      },
+      "CT": {
+        "summary": "Moderately increased MI risk",
+        "detail": "Heterozygous carrier of Q952 variant. Altered ApoER2 receptor function affecting platelet reactivity. Approximately 1.5-fold increased risk of myocardial infarction, especially premature MI (<45 years). Enhanced platelet aggregation response.",
+        "risk_level": "increased_risk"
+      },
+      "TT": {
+        "summary": "Higher MI and thrombosis risk",
+        "detail": "Homozygous Q952 variant. Significantly altered platelet signalling via ApoER2. Approximately 2-fold increased risk of early-onset myocardial infarction. Platelet hyperreactivity may contribute to arterial thrombosis. Antiplatelet therapy considerations are relevant.",
+        "risk_level": "high_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "PMID 17903294 — LRP8 and MI",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/17903294/",
+        "study_type": "case_control"
+      },
+      {
+        "name": "dbSNP",
+        "url": "https://www.ncbi.nlm.nih.gov/snp/rs5174",
+        "study_type": "database"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.14,
+      "populations": {
+        "european": 0.14,
+        "east_asian": 0.08,
+        "african": 0.16
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs10811661",
+    "genes": ["CDKN2A", "CDKN2B"],
+    "traits": ["type_2_diabetes", "insulin_secretion"],
+    "description": "9p21 variant near CDKN2A/2B associated with type 2 diabetes risk through impaired pancreatic beta-cell proliferation — distinct from the nearby CAD-associated variants",
+    "chromosome": "9",
+    "position": 22134094,
+    "reference_allele": "C",
+    "risk_allele": "T",
+    "effects_by_genotype": {
+      "CC": {
+        "summary": "Lower T2D risk from this locus",
+        "detail": "Homozygous protective allele. Normal CDKN2A/2B regulation of beta-cell cycle. Lower type 2 diabetes risk from this variant.",
+        "risk_level": "protective"
+      },
+      "CT": {
+        "summary": "Mildly increased T2D risk",
+        "detail": "Heterozygous carrier. Modest increase in type 2 diabetes risk (OR ~1.15–1.20). Mechanism involves impaired pancreatic beta-cell regeneration via p15/p16 cell cycle inhibitor dysregulation. Effect is independent of the nearby CAD-associated 9p21 variants.",
+        "risk_level": "informational"
+      },
+      "TT": {
+        "summary": "Moderately increased T2D risk",
+        "detail": "Homozygous risk allele. Approximately 1.35–1.40 fold increased type 2 diabetes risk. One of the first T2D GWAS loci replicated across European, East Asian, and African populations. Risk is modifiable through lifestyle interventions.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "PMID 17463246 — WTCCC T2D GWAS",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/17463246/",
+        "study_type": "gwas"
+      },
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs10811661",
+        "study_type": "database"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.18,
+      "populations": {
+        "european": 0.17,
+        "east_asian": 0.42,
+        "african": 0.08
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs2802292",
+    "genes": ["FOXO3"],
+    "traits": ["longevity", "cardiovascular_disease", "insulin_sensitivity"],
+    "description": "FOXO3 intronic variant — one of the most replicated human longevity-associated SNPs, linked to stress resistance, insulin/IGF-1 signalling, and cardiovascular health across multiple populations",
+    "chromosome": "6",
+    "position": 108989523,
+    "reference_allele": "T",
+    "effects_by_genotype": {
+      "GG": {
+        "summary": "Longevity-associated genotype",
+        "detail": "Homozygous longevity allele. Associated with increased FOXO3 expression and enhanced cellular stress resistance, autophagy, and DNA repair. Significantly enriched in centenarians across Hawaiian, Japanese, German, Chinese, and Italian cohorts. Approximately 1.5–2.7 fold increased odds of living to 100. Improved insulin sensitivity and cardiovascular health markers.",
+        "risk_level": "protective"
+      },
+      "GT": {
+        "summary": "Intermediate longevity association",
+        "detail": "Heterozygous carrier. Intermediate FOXO3 expression. Moderately enriched in long-lived individuals. Some benefits to stress resistance and metabolic health.",
+        "risk_level": "informational"
+      },
+      "TT": {
+        "summary": "Common genotype — standard FOXO3 function",
+        "detail": "Wild-type (most common allele). Standard FOXO3 transcription factor activity and cellular stress response. No longevity association from this variant.",
+        "risk_level": "informational"
+      }
+    },
+    "sources": [
+      {
+        "name": "PMID 18765803 — FOXO3A and human longevity",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/18765803/",
+        "study_type": "cohort_study"
+      },
+      {
+        "name": "PMID 24559494 — FOXO3 longevity replication",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/24559494/",
+        "study_type": "meta_analysis"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.39,
+      "populations": {
+        "european": 0.38,
+        "east_asian": 0.48,
+        "african": 0.28
+      }
+    },
+    "last_updated": "2025-01-23"
+  },
+  {
+    "rsid": "rs1801394",
+    "genes": ["MTRR"],
+    "traits": ["folate_metabolism", "homocysteine_levels", "neural_tube_defects"],
+    "description": "MTRR A66G (Ile22Met) — methionine synthase reductase variant affecting vitamin B12-dependent methionine regeneration and homocysteine metabolism, relevant to neural tube defect risk",
+    "chromosome": "5",
+    "position": 7870860,
+    "reference_allele": "A",
+    "effects_by_genotype": {
+      "AA": {
+        "summary": "Normal MTRR function",
+        "detail": "Wild-type Ile/Ile. Normal methionine synthase reductase activity. Efficient reactivation of vitamin B12-dependent methionine synthase. Standard homocysteine metabolism.",
+        "risk_level": "informational"
+      },
+      "AG": {
+        "summary": "Mildly reduced MTRR activity",
+        "detail": "Heterozygous Ile/Met. Mildly reduced MTRR enzyme efficiency. Minimal effect on homocysteine levels in isolation. Risk increases when combined with other folate cycle variants (MTHFR C677T/A1298C) or low B12/folate status.",
+        "risk_level": "informational"
+      },
+      "GG": {
+        "summary": "Reduced MTRR activity — elevated homocysteine risk",
+        "detail": "Homozygous Met/Met. Reduced methionine synthase reductase activity. Impaired reactivation of cobalamin-dependent methionine synthase. Can contribute to elevated homocysteine, especially with concurrent MTHFR variants or B12 deficiency. Associated with increased neural tube defect risk (OR ~1.5–2.0 in combination with low folate). Adequate B12 and folate intake is particularly important.",
+        "risk_level": "increased_risk"
+      }
+    },
+    "sources": [
+      {
+        "name": "SNPedia",
+        "url": "https://www.snpedia.com/index.php/Rs1801394",
+        "study_type": "database"
+      },
+      {
+        "name": "PMID 15060097 — MTRR and neural tube defects",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/15060097/",
+        "study_type": "meta_analysis"
+      }
+    ],
+    "population_frequency": {
+      "global_maf": 0.45,
+      "populations": {
+        "european": 0.51,
+        "east_asian": 0.25,
+        "african": 0.31
+      }
+    },
+    "last_updated": "2025-01-23"
   }
 ]
