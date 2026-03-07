@@ -26,6 +26,28 @@ export function registerSearchByTraitTool(server: McpServer, snpService: SnpServ
         );
 
         if (snps.length === 0) {
+          if (params.response_format === "json") {
+            return {
+              content: [
+                {
+                  type: "text",
+                  text: JSON.stringify(
+                    {
+                      snps: [],
+                      pagination: {
+                        total: 0,
+                        count: 0,
+                        offset: params.offset ?? 0,
+                        has_more: false,
+                      },
+                    },
+                    null,
+                    2
+                  ),
+                },
+              ],
+            };
+          }
           return {
             content: [
               {
