@@ -1,6 +1,7 @@
 import type { ISnpRepository } from "../../src/repositories/snp.repository.js";
 import type { MatchMode } from "../../src/types/common.js";
-import type { DatasetMetadata, SnpRecord, TraitSummary } from "../../src/types/snp.js";
+import type { DatasetStats, SnpRecord, TraitSummary } from "../../src/types/snp.js";
+import { TRAIT_CATEGORIES } from "../../src/types/trait-categories.js";
 
 export const SNP_A: SnpRecord = {
   rsid: "rs00001",
@@ -37,6 +38,13 @@ export const SNP_B: SnpRecord = {
 
 export const ALL_SNPS = [SNP_A, SNP_B];
 
+function slugToDisplayName(slug: string): string {
+  return slug
+    .split("_")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
 export function makeMockRepo(snps: SnpRecord[] = ALL_SNPS): ISnpRepository {
   const byRsid = new Map(snps.map((s) => [s.rsid.toLowerCase(), s]));
 
@@ -45,6 +53,9 @@ export function makeMockRepo(snps: SnpRecord[] = ALL_SNPS): ISnpRepository {
     getAllSnps: async () => [...snps],
     findByRsid: async (rsid) => byRsid.get(rsid.toLowerCase()) ?? null,
     findByTraits: async (traits, matchMode: MatchMode) => {
+      if (traits.length === 0) {
+        return [];
+      }
       const normalized = traits.map((t) => t.toLowerCase());
       return snps.filter((snp) => {
         const snpTraits = snp.traits.map((t) => t.toLowerCase());
@@ -56,18 +67,23 @@ export function makeMockRepo(snps: SnpRecord[] = ALL_SNPS): ISnpRepository {
     },
     listTraits: async (search?: string): Promise<TraitSummary[]> => {
       const slugs = new Set(snps.flatMap((s) => s.traits));
-      const all = [...slugs].map((slug) => ({
-        slug,
-        display_name: slug,
-        snp_count: snps.filter((s) => s.traits.includes(slug)).length,
-      }));
+      const all = [...slugs]
+        .map((slug) => ({
+          slug,
+          display_name: slugToDisplayName(slug),
+          snp_count: snps.filter((s) => s.traits.includes(slug)).length,
+          category: TRAIT_CATEGORIES[slug],
+        }))
+        .sort((a, b) => a.slug.localeCompare(b.slug));
       if (search) {
-        return all.filter((t) => t.slug.includes(search.toLowerCase()));
+        const searchLower = search.toLowerCase();
+        return all.filter(
+          (t) => t.slug.includes(searchLower) || t.display_name.toLowerCase().includes(searchLower)
+        );
       }
       return all;
     },
-    getMetadata: async (): Promise<DatasetMetadata> => ({
-      version: "0.1.0",
+    getStats: async (): Promise<DatasetStats> => ({
       total_snps: snps.length,
       total_traits: new Set(snps.flatMap((s) => s.traits)).size,
       last_updated: "2025-06-01",
