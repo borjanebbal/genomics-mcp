@@ -7,10 +7,12 @@ An MCP (Model Context Protocol) server that provides programmatic access to SNP 
 - 🧬 **Search SNPs by trait** - Find genetic variants associated with specific traits (e.g., "alzheimer_risk", "athletic_performance")
 - 🔍 **Detailed SNP information** - Get comprehensive data including genomic coordinates, genes, effects, and research sources
 - 🧪 **Genotype interpretation** - Understand what a specific genotype (e.g., "AG", "TT") means for a given SNP
-- 📋 **Trait discovery** - List all available traits with SNP counts
+- 📋 **Trait discovery** - List all available traits with SNP counts, grouped by category, with optional pagination
+- 📊 **Dataset metadata** - Query server version, SNP count, trait count, and last-updated date via `get_metadata`
 - 📚 **Evidence-based** - All data includes source citations with URLs and study types
 - ⚡ **Fast lookups** - In-memory indexing for sub-millisecond queries
 - 🔄 **Database-ready** - Repository pattern enables easy migration from JSON to SQL/NoSQL
+- 🌐 **HTTP transport** - Run as a standalone HTTP server (`--transport http`) in addition to the default stdio mode
 
 ## 📦 Installation
 
@@ -18,8 +20,14 @@ An MCP (Model Context Protocol) server that provides programmatic access to SNP 
 # Install dependencies
 bun install
 
-# Run the server
+# Run the server (stdio transport — default)
 bun start
+
+# Run as HTTP server (port 3000 by default)
+bun start -- --transport http
+
+# HTTP on a custom port
+bun start -- --transport http --port 8080
 ```
 
 ## 🚀 Quick Start
@@ -54,14 +62,15 @@ Add this server to your MCP client's configuration. For example, in a `config.js
 
 ## 🛠️ Available Tools
 
-The server provides 4 MCP tools for querying genomics data:
+The server provides 5 MCP tools for querying genomics data:
 
 | Tool | Description |
 |------|-------------|
-| `search_by_trait` | Search for SNPs associated with one or more traits (supports "any"/"all" matching) |
+| `search_by_trait` | Search for SNPs associated with one or more traits (supports "any"/"all" matching, pagination) |
 | `get_snp_details` | Get comprehensive information about a specific SNP by rsID |
 | `interpret_genotype` | Interpret what a specific genotype (e.g., "AG", "CT") means for a given SNP |
-| `list_traits` | List all available traits with SNP counts (supports filtering) |
+| `list_traits` | List all available traits with SNP counts, grouped by category (supports filtering and pagination) |
+| `get_metadata` | Return dataset statistics (SNP count, trait count, last-updated) and server version |
 
 All tools support both **markdown** and **json** response formats.
 
@@ -137,7 +146,7 @@ To add new SNPs to the dataset:
    - `rsid`, `genes`, `traits`, `description`, `chromosome`, `position`
    - `reference_allele`, `effects_by_genotype`, `sources`, `last_updated`
 3. Restart the server — Zod validates on startup and will report any schema violations
-4. If the SNP introduces a new trait slug, add it to the `TRAIT_CATEGORIES` map in `src/types/trait-categories.ts` so it appears under the correct category heading in `list_traits` output (unlisted slugs fall back to **Other**)
+4. If the SNP introduces a new trait slug, add it to **both** the `TRAIT_CATEGORIES` map (for category grouping) **and** the `TRAIT_DISPLAY_NAMES` map (for the display label) in `src/types/trait-categories.ts`. Unlisted slugs fall back to **Other** and auto-generated Title Case respectively.
 5. Optionally run `bun run build` to type-check
 
 The data is validated against Zod schemas on load, so any schema violations will be caught immediately.
@@ -145,8 +154,9 @@ The data is validated against Zod schemas on load, so any schema violations will
 ## 📚 Resources
 
 - [Tool Reference](docs/TOOLS.md) — Complete tool documentation with examples
-- [Testing Guide](docs/TESTING.md) — Automated test suite and manual MCP Inspector test cases
+- [Testing Guide](docs/TESTING.md) — Automated test suite, manual MCP Inspector test cases, and HTTP transport testing
 - [Architecture Guide](docs/ARCHITECTURE.md) — Design patterns and technical details
+- [Project Status](docs/PROJECT_STATUS.md) — Health metrics, resolved items, and pending features
 - [Model Context Protocol Documentation](https://modelcontextprotocol.io)
 - [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)
 

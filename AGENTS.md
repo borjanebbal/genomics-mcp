@@ -9,7 +9,7 @@ This is an MCP (Model Context Protocol) server written in TypeScript that expose
 - **Runtime:** Bun
 - **Language:** TypeScript (strict mode)
 - **MCP SDK:** `@modelcontextprotocol/sdk` v1.x — use `server.registerTool(name, { inputSchema: Schema.shape }, handler)` API
-- **Validation:** Zod 3.x
+- **Validation:** Zod 4.x
 - **Linter/Formatter:** Biome (`biome.json` at project root)
 - **Build:** Bun runs TypeScript directly — `tsc` is available for type-checking only (`tsconfig.json` at project root)
 
@@ -35,6 +35,7 @@ genomics-mcp/
 │
 ├── docs/
 │   ├── ARCHITECTURE.md                   # Design decisions, data flow, known limitations
+│   ├── PROJECT_STATUS.md                 # Health metrics, resolved items, pending features
 │   ├── TESTING.md                        # Automated + manual testing guide
 │   └── TOOLS.md                          # MCP tool reference (inputs, outputs, examples)
 │
@@ -65,6 +66,7 @@ genomics-mcp/
 │   │
 │   ├── tools/                            # MCP tool registrations (one tool per file)
 │   │   ├── register-all.ts               # Barrel — imports and registers all tools
+│   │   ├── get-metadata.tool.ts
 │   │   ├── get-snp-details.tool.ts
 │   │   ├── interpret-genotype.tool.ts
 │   │   ├── list-traits.tool.ts
@@ -85,12 +87,19 @@ genomics-mcp/
     │   └── snp.schemas.test.ts           # Valid/invalid domain data, canonicalisation transform
     ├── repositories/
     │   └── snp.json-repository.test.ts   # Full repository lifecycle, all query methods, error paths
-    └── services/
-        ├── mock-repo.ts                  # Shared in-memory ISnpRepository mock + fixture SNPs
-        ├── snp.service.test.ts
-        ├── get-snp-details.use-case.test.ts
-        ├── interpret-genotype.use-case.test.ts
-        └── search-by-trait.use-case.test.ts
+    ├── services/
+    │   ├── mock-repo.ts                  # Shared in-memory ISnpRepository mock + fixture SNPs
+    │   ├── snp.service.test.ts
+    │   ├── get-snp-details.use-case.test.ts
+    │   ├── interpret-genotype.use-case.test.ts
+    │   └── search-by-trait.use-case.test.ts
+    └── tools/
+        ├── fixtures.ts                   # Shared InMemoryTransport + real repo/service/server/client harness
+        ├── get-metadata.tool.test.ts
+        ├── get-snp-details.tool.test.ts
+        ├── interpret-genotype.tool.test.ts
+        ├── list-traits.tool.test.ts
+        └── search-by-trait.tool.test.ts
 ```
 
 ## Common Tasks
@@ -131,7 +140,7 @@ Tests live in `tests/` and mirror `src/`. Use Bun's native test runner (`bun:tes
 - **Utils / schemas** — import and call the function directly; assert outputs with `expect()`
 - **Repository** — write a temp JSON fixture, call `initialize()`, then test each query method
 - **Use-case / service** — import `makeMockRepo` from `tests/services/mock-repo.ts`; inject it into the use-case constructor
-- **Never** test through the MCP tool layer in unit tests; tools are covered by manual MCP Inspector tests
+- **Tool-layer integration** — use the shared harness in `tests/tools/fixtures.ts` (real `JsonSnpRepository` + `SnpService` + `McpServer` wired through `InMemoryTransport` + MCP `Client`); assert on `content[0].text` and `isError`
 - Run `bun test` to verify; the pre-commit hook runs the full suite automatically
 
 ## Build & Run
@@ -139,6 +148,8 @@ Tests live in `tests/` and mirror `src/`. Use Bun's native test runner (`bun:tes
 ```bash
 bun install
 bun start            # Run server (stdio transport)
+bun start -- --transport http          # Run server (HTTP transport, port 3000)
+bun start -- --transport http --port 8080  # HTTP transport on a custom port
 bun run dev          # Dev mode with --watch
 bun run inspector    # MCP Inspector (web UI for testing)
 bun run build        # TypeScript type-check (noEmit)
@@ -167,10 +178,15 @@ Tests live in `tests/` and mirror the `src/` structure:
 | `tests/services/get-snp-details.use-case.test.ts` | `GetSnpDetailsUseCase` — found, not-found, case-insensitive lookup |
 | `tests/services/interpret-genotype.use-case.test.ts` | `InterpretGenotypeUseCase` — normalisation, error paths, result shape |
 | `tests/services/search-by-trait.use-case.test.ts` | `SearchByTraitUseCase` — any/all modes, pagination, summary fields |
+| `tests/tools/get-metadata.tool.test.ts` | `get_metadata` tool — markdown & JSON formats, version field |
+| `tests/tools/get-snp-details.tool.test.ts` | `get_snp_details` tool — found, not-found, response shapes |
+| `tests/tools/interpret-genotype.tool.test.ts` | `interpret_genotype` tool — valid genotype, not-found, bad genotype |
+| `tests/tools/list-traits.tool.test.ts` | `list_traits` tool — pagination, search filter, response shapes |
+| `tests/tools/search-by-trait.tool.test.ts` | `search_by_trait` tool — any/all modes, zero results, pagination |
 
 Tests use Bun's native test runner (`bun:test`) — no Jest or Vitest. The pre-commit hook runs `bun test` automatically before every commit.
 
-See `docs/TESTING.md` for manual test cases using MCP Inspector.
+See `docs/TESTING.md` for manual test cases using MCP Inspector and HTTP transport.
 
 ## Gotchas
 
@@ -178,4 +194,4 @@ See `docs/TESTING.md` for manual test cases using MCP Inspector.
 - `import.meta.dir` is used for path resolution — this is a Bun API (no `fileURLToPath`/`dirname` needed).
 - The `findByTraits` "all" mode intersection copies the first set with `new Set(...)` to avoid mutating the internal trait index.
 - `ISnpRepository` exposes `getAllSnps()` which is currently unused by any service or tool — treat it as an available extension point.
-- `TraitSummary` has an optional `category` field populated from the `TRAIT_CATEGORIES` map in `src/types/trait-categories.ts`. `formatting.ts` renders categories as `## headers` and falls back to `## Other` for slugs not in the map. When adding new trait slugs to the dataset, also add them to `TRAIT_CATEGORIES` so they appear in the correct group.
+- `TraitSummary` has an optional `category` field populated from the `TRAIT_CATEGORIES` map in `src/types/trait-categories.ts`. `formatting.ts` renders categories as `## headers` and falls back to `## Other` for slugs not in the map. When adding new trait slugs to the dataset, also add them to `TRAIT_CATEGORIES` **and** to `TRAIT_DISPLAY_NAMES` (also in `src/types/trait-categories.ts`) so they appear in the correct group with a consistent display name.

@@ -8,6 +8,7 @@ Complete documentation for all available MCP tools in the Genomics MCP Server.
 2. [get_snp_details](#get_snp_details) - Get detailed SNP information
 3. [interpret_genotype](#interpret_genotype) - Interpret a genotype result
 4. [list_traits](#list_traits) - List all available traits
+5. [get_metadata](#get_metadata) - Get dataset metadata and statistics
 
 ---
 
@@ -227,6 +228,8 @@ List all available traits with SNP counts.
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `search` | `string` | optional | Filter traits by name (case-insensitive) |
+| `limit` | `number` | optional | Max traits to return (1–100); omit to return all |
+| `offset` | `number` | `0` | Pagination offset |
 | `response_format` | `"markdown" \| "json"` | `"markdown"` | Output format |
 
 ### Example
@@ -275,12 +278,94 @@ Total: **1** traits
 - **alzheimer_risk** (Alzheimer Risk) - 2 SNPs
 ```
 
+**Paginated example (JSON):**
+
+```json
+// Input
+{
+  "limit": 5,
+  "offset": 0,
+  "response_format": "json"
+}
+
+// Response
+{
+  "traits": [
+    { "slug": "alzheimer_risk", "display_name": "Alzheimer Risk", "snp_count": 2, "category": "Neurological" },
+    { "slug": "cardiovascular_disease", "display_name": "Cardiovascular Disease", "snp_count": 2, "category": "Cardiovascular" }
+  ],
+  "pagination": {
+    "total": 12,
+    "limit": 5,
+    "offset": 0,
+    "has_more": true,
+    "next_offset": 5
+  }
+}
+```
+
 ### Use Cases
 
 - Discover what traits are available in the dataset
 - Find trait slugs for use with `search_by_trait`
 - Filter traits by keyword to find relevant categories
 - Count how many SNPs are associated with each trait
+
+---
+
+## `get_metadata`
+
+Get dataset metadata and server statistics (version, SNP count, trait count, last-updated date).
+
+### Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `response_format` | `"markdown" \| "json"` | `"markdown"` | Output format |
+
+### Example (Markdown)
+
+```json
+// Input
+{
+  "response_format": "markdown"
+}
+```
+
+```markdown
+// Response (markdown)
+# Genomics MCP — Dataset Metadata
+
+**Version:** 0.1.0
+
+## Dataset Statistics
+- **Total SNPs:** 50
+- **Total Traits:** 12
+- **Last Updated:** 2025-01-20
+```
+
+### Example (JSON)
+
+```json
+// Input
+{
+  "response_format": "json"
+}
+
+// Response
+{
+  "version": "0.1.0",
+  "total_snps": 50,
+  "total_traits": 12,
+  "last_updated": "2025-01-20"
+}
+```
+
+### Use Cases
+
+- Check which version of the server / dataset is running
+- Determine how many SNPs and traits are available before issuing queries
+- Verify data freshness via `last_updated`
 
 ---
 
@@ -308,10 +393,10 @@ All tools support two response formats:
 
 ### Pagination
 
-Use `limit` and `offset` with `search_by_trait`:
+Both `search_by_trait` and `list_traits` support `limit` and `offset`:
 
 ```json
-// First page
+// First page (search_by_trait)
 {
   "traits": ["cognitive_function"],
   "limit": 10,
@@ -321,6 +406,20 @@ Use `limit` and `offset` with `search_by_trait`:
 // Second page
 {
   "traits": ["cognitive_function"],
+  "limit": 10,
+  "offset": 10
+}
+```
+
+```json
+// First page (list_traits)
+{
+  "limit": 10,
+  "offset": 0
+}
+
+// Second page
+{
   "limit": 10,
   "offset": 10
 }
@@ -346,10 +445,11 @@ Find SNPs affecting multiple traits:
 
 ### Discovery Workflow
 
-1. **List traits** to see what's available
-2. **Search by trait** to find relevant SNPs
-3. **Get SNP details** for specific variants of interest
-4. **Interpret genotype** if you have personal genomics data
+1. **Get metadata** to check dataset version and size
+2. **List traits** to see what's available
+3. **Search by trait** to find relevant SNPs
+4. **Get SNP details** for specific variants of interest
+5. **Interpret genotype** if you have personal genomics data
 
 ---
 

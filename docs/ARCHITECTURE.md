@@ -9,7 +9,7 @@ This document describes the technical architecture, design patterns, and impleme
 - **Runtime:** Bun (TypeScript execution without compilation)
 - **Language:** TypeScript (strict mode)
 - **Protocol:** Model Context Protocol (MCP) v1.x
-- **Validation:** Zod 3.x for runtime schema validation
+- **Validation:** Zod 4.x for runtime schema validation
 - **Linter/Formatter:** Biome
 
 ## Architectural Layers
@@ -18,12 +18,12 @@ This document describes the technical architecture, design patterns, and impleme
 ┌──────────────────────────────────────┐
 │           MCP Client (LLM)           │
 └────────────────┬─────────────────────┘
-                 │ stdio transport
+                 │ stdio | HTTP (Streamable HTTP)
 ┌────────────────┴─────────────────────┐
 │           MCP Server (Bun)            │
 ├──────────────────────────────────────┤
 │  Tools: search, details, interpret,  │
-│         list_traits                   │
+│         list_traits, get_metadata     │
 ├──────────────────────────────────────┤
 │    Use Cases (business logic)         │
 ├──────────────────────────────────────┤
@@ -39,7 +39,7 @@ This document describes the technical architecture, design patterns, and impleme
 
 ### Layer Responsibilities
 
-1. **Transport Layer** - stdio communication (MCP protocol requirement)
+1. **Transport Layer** - stdio or HTTP (Streamable HTTP) transport, selectable via `--transport` CLI flag
 2. **MCP Server Layer** - Tool registration and request routing
 3. **Tools Layer** - MCP tool definitions with Zod input validation
 4. **Service Layer** - Business logic organized as use cases
@@ -60,6 +60,7 @@ interface ISnpRepository {
   findByRsid(rsid: string): Promise<SnpRecord | null>;
   listTraits(search?: string): Promise<TraitSummary[]>;
   getStats(): Promise<DatasetStats>;
+  /** Extension point — not called by any current service or tool. */
   getAllSnps(): Promise<SnpRecord[]>;
 }
 
@@ -190,6 +191,28 @@ type ResponseFormat = "markdown" | "json";
 // JSON: for programmatic processing or UI integration
 ```
 
+### 6. Centralised Trait Display Names
+
+**Purpose:** Guarantee consistent, human-readable display names for all trait slugs regardless of how the slug is cased in the seed data.
+
+`TRAIT_DISPLAY_NAMES` in `src/types/trait-categories.ts` is a slug → display-name map (~80 entries). `slugToDisplayName()` consults this map first and falls back to auto-generated Title Case only for unknown slugs.
+
+```typescript
+// Priority order:
+// 1. TRAIT_DISPLAY_NAMES map  →  authoritative, hand-curated
+// 2. Title-Case fallback       →  for slugs added before the map is updated
+function slugToDisplayName(slug: string): string {
+  return TRAIT_DISPLAY_NAMES[slug] ?? toTitleCase(slug.replace(/_/g, " "));
+}
+```
+
+**Benefits:**
+- Consistent display names across all tools and formatters
+- No risk of mismatched capitalisation between different SNP records
+- Easy to maintain — add new slugs to `TRAIT_CATEGORIES` and `TRAIT_DISPLAY_NAMES` together
+
+---
+
 ## Key Architectural Decisions
 
 ### Why Bun over Node.js?
@@ -220,7 +243,7 @@ type SnpRecord = z.infer<typeof SnpRecordSchema>;
 
 ### Why stderr for Logging?
 
-**Critical MCP requirement:** stdout is reserved for JSON-RPC protocol messages.
+**Critical MCP requirement:** stdout is reserved for JSON-RPC protocol messages. This applies equally when using stdio transport. When using HTTP transport, logs are still written to stderr so that stdout remains clean for any shell piping use cases.
 
 ```typescript
 // ❌ WRONG - breaks MCP protocol
@@ -230,7 +253,7 @@ console.log("Starting server...");
 process.stderr.write("Starting server...\n");
 ```
 
-Any output to stdout will corrupt the MCP communication channel.
+Any output to stdout will corrupt the MCP communication channel (stdio mode) or pollute shell output (HTTP mode).
 
 ### Why In-Memory Indexes?
 
@@ -330,38 +353,27 @@ catch (error) {
 
 ## Known Limitations
 
-### 1. Case Sensitivity in Trait Display
-
-- Trait slugs are normalized to lowercase for matching
-- Display names preserve original case from data
-- Users might see inconsistent capitalization in results
-- **Future:** Add case-folding for display names
-
-### 2. Strand Orientation
+### 1. Strand Orientation
 
 - Assumes all genotypes are on the same strand
 - Real genomics data may need complement/reverse-complement
 - **Future:** Add `strand` field and orientation utilities
 
-### 3. Duplicate rsID Handling
+### 2. Duplicate rsID Handling
 
 - Duplicate rsIDs in the JSON dataset cause a hard `Error` to be thrown inside `buildIndexes()` during `initialize()`
 - The error propagates out of `initialize()`, is caught and re-thrown with context, and causes `process.exit(1)` at server startup
 - The dataset is rejected entirely — no SNP from a file with duplicate rsIDs will be served
 - **Resolution:** Remove or de-duplicate the offending entries in `snps.json` and restart
 
-### 4. `getStats()` Empty-Dataset Sentinel
-
-When `getStats()` is called on a repository with zero SNPs loaded (e.g. during testing), the `last_updated` field is returned as `"1970-01-01"`. This is a deterministic reducer seed — it should be treated as *"unknown / no data"* rather than a real date. `total_snps` and `total_traits` will both be `0` in that case.
-
-### 5. Limited Search Capabilities
+### 3. Limited Search Capabilities
 
 - Only exact trait slug matching (case-insensitive)
 - No fuzzy search ("alzheimers" won't find "alzheimer_risk")
 - No partial matching ("cardio" won't find "cardiovascular_disease")
 - **Future:** Add fuzzy search library (Fuse.js or similar)
 
-### 5. No Caching
+### 4. No Caching
 
 - Every query rebuilds result sets
 - For frequently accessed SNPs, could add LRU cache

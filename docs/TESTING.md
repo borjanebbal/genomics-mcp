@@ -28,8 +28,13 @@ All tests must pass before every commit (enforced by the pre-commit hook).
 | `tests/services/get-snp-details.use-case.test.ts` | `GetSnpDetailsUseCase` — found, not-found, case-insensitive lookup |
 | `tests/services/interpret-genotype.use-case.test.ts` | `InterpretGenotypeUseCase` — normalisation, error paths, result shape |
 | `tests/services/search-by-trait.use-case.test.ts` | `SearchByTraitUseCase` — any/all modes, pagination, summary fields |
+| `tests/tools/get-metadata.tool.test.ts` | `get_metadata` tool — markdown & JSON formats, version field |
+| `tests/tools/get-snp-details.tool.test.ts` | `get_snp_details` tool — found, not-found, response shapes |
+| `tests/tools/interpret-genotype.tool.test.ts` | `interpret_genotype` tool — valid genotype, not-found, bad genotype |
+| `tests/tools/list-traits.tool.test.ts` | `list_traits` tool — pagination, search filter, response shapes |
+| `tests/tools/search-by-trait.tool.test.ts` | `search_by_trait` tool — any/all modes, zero results, pagination |
 
-Tests use Bun's native test runner (`bun:test`) — no Jest or Vitest. Tool-layer integration is covered by the manual MCP Inspector tests below.
+Tool-layer integration tests use `InMemoryTransport` + real `JsonSnpRepository` + real `McpServer` + MCP `Client` (35 tests across 5 files). Tests use Bun's native test runner (`bun:test`) — no Jest or Vitest.
 
 ---
 
@@ -48,7 +53,7 @@ You should see output like:
 [INFO] [Server] Initializing Genomics MCP Server v0.1.0
 [INFO] [Server] Loading SNP data from: /path/to/src/repositories/data/snps.json
 [INFO] [JsonSnpRepository] Loaded N SNPs from /path/to/data/snps.json
-[INFO] [Tools] 🛠️ Registered 4 genomics tools
+[INFO] [Tools] 🛠️ Registered 5 genomics tools
 [INFO] [Server] 🧬 Dataset loaded: N SNPs, N traits
 [INFO] [Server] 🗓️ Last updated: 2025-01-20
 [INFO] [Server] Connected via stdio transport
@@ -383,6 +388,30 @@ Maximum 10 traits per query
 
 ---
 
+#### Test 16: Get Metadata
+
+**Tool:** `get_metadata`
+
+**Parameters (markdown):**
+```json
+{
+  "response_format": "markdown"
+}
+```
+
+**Expected Result:** Markdown summary containing version, total SNPs, total traits, and last-updated date.
+
+**Parameters (JSON):**
+```json
+{
+  "response_format": "json"
+}
+```
+
+**Expected Result:** JSON object with `version`, `total_snps`, `total_traits`, and `last_updated` fields.
+
+---
+
 ## Method 2: Manual Testing via stdio (Advanced)
 
 For deeper integration testing, you can manually send JSON-RPC messages:
@@ -393,7 +422,7 @@ For deeper integration testing, you can manually send JSON-RPC messages:
 echo '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' | bun src/index.ts
 ```
 
-**Expected:** List of 4 tools with descriptions
+**Expected:** List of 5 tools with descriptions
 
 ### 2. Call Tool Request
 
@@ -405,22 +434,81 @@ echo '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"list_trait
 
 ---
 
+## Method 3: HTTP Transport Testing
+
+The server can be started in HTTP mode using the `--transport http` flag. This exposes a stateless Streamable HTTP endpoint.
+
+### Start the HTTP Server
+
+```bash
+bun src/index.ts --transport http
+# Optionally specify a port (default 3000):
+bun src/index.ts --transport http --port 8080
+```
+
+You should see output like:
+```
+[INFO] [Server] Initializing Genomics MCP Server v0.1.0
+[INFO] [Tools] 🛠️ Registered 5 genomics tools
+[INFO] [Server] 🧬 Dataset loaded: N SNPs, N traits
+[INFO] [Server] Connected via HTTP transport (Streamable HTTP)
+[INFO] [Server] 🚀 Genomics MCP Server is ready on http://localhost:3000/mcp
+[INFO] [Server]    Health check: http://localhost:3000/health
+```
+
+### Health Check
+
+```bash
+curl http://localhost:3000/health
+```
+
+**Expected:**
+```json
+{"status":"ok","version":"0.1.0"}
+```
+
+### Call a Tool via HTTP
+
+```bash
+curl -X POST http://localhost:3000/mcp \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"get_metadata","arguments":{"response_format":"json"}}}'
+```
+
+**Expected:** JSON-RPC response containing `version`, `total_snps`, `total_traits`, and `last_updated`.
+
+### List Tools via HTTP
+
+```bash
+curl -X POST http://localhost:3000/mcp \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","id":2,"method":"tools/list"}'
+```
+
+**Expected:** List of 5 tools with their descriptions and input schemas.
+
+---
+
 ## Verification Checklist
 
 - [ ] Server starts without errors
-- [ ] All 4 tools are registered
+- [ ] All 5 tools are registered
 - [ ] SNPs loaded successfully
 - [ ] Traits indexed
 - [ ] `list_traits` returns all traits
+- [ ] `list_traits` pagination works (limit/offset)
 - [ ] `search_by_trait` with "any" mode works
 - [ ] `search_by_trait` with "all" mode works
 - [ ] `get_snp_details` returns full SNP data
 - [ ] `interpret_genotype` normalizes allele order
+- [ ] `get_metadata` returns version and dataset stats
 - [ ] Not found errors are helpful
 - [ ] Invalid input is caught by Zod validation
 - [ ] Pagination works correctly
 - [ ] Both markdown and JSON formats work
 - [ ] Character limit truncation triggers on large results (>25k chars)
+- [ ] HTTP transport starts on `--transport http` and responds on `POST /mcp`
+- [ ] `GET /health` returns `{"status":"ok","version":"..."}`
 
 ---
 
