@@ -1,11 +1,11 @@
 import type { MatchMode } from "../types/common.js";
-import type { DatasetMetadata, SnpRecord, TraitSummary } from "../types/snp.js";
+import type { DatasetStats, SnpRecord, TraitSummary } from "../types/snp.js";
 
 export interface ISnpRepository {
   initialize(): Promise<void>;
   findByTraits(traits: string[], matchMode: MatchMode): Promise<SnpRecord[]>;
   findByRsid(rsid: string): Promise<SnpRecord | null>;
   listTraits(search?: string): Promise<TraitSummary[]>;
-  getMetadata(): Promise<DatasetMetadata>;
+  getStats(): Promise<DatasetStats>;
   getAllSnps(): Promise<SnpRecord[]>;
 }

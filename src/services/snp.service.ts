@@ -1,3 +1,4 @@
+import { VERSION } from "../constants.js";
 import type { ISnpRepository } from "../repositories/snp.repository.js";
 import type { MatchMode, PaginationMetadata } from "../types/common.js";
 import type {
@@ -12,12 +13,12 @@ import { InterpretGenotypeUseCase } from "./interpret-genotype.use-case.js";
 import { SearchByTraitUseCase } from "./search-by-trait.use-case.js";
 
 export class SnpService {
-  private readonly searchByTrait: SearchByTraitUseCase;
+  private readonly searchByTraitUseCase: SearchByTraitUseCase;
   private readonly getSnpDetailsUseCase: GetSnpDetailsUseCase;
   private readonly interpretGenotypeUseCase: InterpretGenotypeUseCase;
 
   constructor(private readonly repository: ISnpRepository) {
-    this.searchByTrait = new SearchByTraitUseCase(repository);
+    this.searchByTraitUseCase = new SearchByTraitUseCase(repository);
     this.getSnpDetailsUseCase = new GetSnpDetailsUseCase(repository);
     this.interpretGenotypeUseCase = new InterpretGenotypeUseCase(repository);
   }
@@ -28,7 +29,7 @@ export class SnpService {
     limit: number,
     offset: number
   ): Promise<{ snps: SnpSummary[]; pagination: PaginationMetadata }> {
-    return this.searchByTrait.execute(traits, matchMode, limit, offset);
+    return this.searchByTraitUseCase.execute(traits, matchMode, limit, offset);
   }
 
   async getSnpDetails(rsid: string): Promise<SnpRecord | { error: string }> {
@@ -47,6 +48,7 @@ export class SnpService {
   }
 
   async getMetadata(): Promise<DatasetMetadata> {
-    return this.repository.getMetadata();
+    const stats = await this.repository.getStats();
+    return { ...stats, version: VERSION };
   }
 }

@@ -30,11 +30,16 @@ export interface TraitSummary {
   category?: TraitCategory;
 }
 
-export interface DatasetMetadata {
-  version: string;
+/** Repository-level statistics — no application concerns like version. */
+export interface DatasetStats {
   total_snps: number;
   total_traits: number;
   last_updated: string;
+}
+
+/** Service-level metadata — enriches DatasetStats with the application version. */
+export interface DatasetMetadata extends DatasetStats {
+  version: string;
 }
 
 export interface GenotypeInterpretation {
@@ -44,5 +49,4 @@ export interface GenotypeInterpretation {
   effect: GenotypeEffect;
   genes: string[];
   traits: string[];
-  available_genotypes?: string[];
 }

@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { SnpArraySchema } from "../schemas/snp.schemas.js";
 import type { MatchMode } from "../types/common.js";
-import type { DatasetMetadata, SnpRecord, TraitSummary } from "../types/snp.js";
+import type { DatasetStats, SnpRecord, TraitSummary } from "../types/snp.js";
 import { TRAIT_CATEGORIES } from "../types/trait-categories.js";
 import { createLogger } from "../utils/logger.js";
 import type { ISnpRepository } from "./snp.repository.js";
@@ -140,18 +140,19 @@ export class JsonSnpRepository implements ISnpRepository {
     return traits;
   }
 
-  async getMetadata(): Promise<DatasetMetadata> {
+  async getStats(): Promise<DatasetStats> {
     this.ensureInitialized();
 
-    const traits = await this.listTraits();
+    // Sentinel "1970-01-01" is the reducer seed — it is returned as-is when the
+    // dataset is empty (no SNPs loaded). Callers should treat this value as
+    // "unknown" rather than a meaningful date.
     const lastUpdated = this.snps.reduce((latest, snp) => {
       return snp.last_updated > latest ? snp.last_updated : latest;
     }, "1970-01-01");
 
     return {
-      version: "0.1.0",
       total_snps: this.snps.length,
-      total_traits: traits.length,
+      total_traits: this.traitIndex.size,
       last_updated: lastUpdated,
     };
   }

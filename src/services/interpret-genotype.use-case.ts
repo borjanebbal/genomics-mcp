@@ -13,8 +13,8 @@ export class InterpretGenotypeUseCase {
     const snp = await this.repository.findByRsid(rsid);
 
     if (!snp) {
-      const metadata = await this.repository.getMetadata();
-      return { error: createSnpNotFoundMessage(rsid, metadata.total_snps) };
+      const stats = await this.repository.getStats();
+      return { error: createSnpNotFoundMessage(rsid, stats.total_snps) };
     }
 
     const normalizedGenotype = normalizeGenotype(genotype);
